@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!-- Copyright © 2026 Thania Gutiérrez. Todos los derechos reservados. -->
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Castilla y León · Datos de Población</title>
+
+    <!-- Leaflet: mapa interactivo -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <!-- Chart.js: gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Fuente tipográfica -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- Cabecera principal -->
+    <header>
+        <div class="header-logo">CL</div>
+        <div>
+            <div class="header-title">Castilla y León · Datos de Población</div>
+            <div class="header-subtitle">Padrón Municipal · 2025</div>
+        </div>
+        <div class="header-spacer"></div>
+        <span class="header-badge">Año 2025</span>
+    </header>
+
+    <!-- Barra de filtros -->
+    <div class="filter-bar">
+        <span class="filter-label">Filtros</span>
+
+        <div class="filter-group">
+            <label>Provincia</label>
+            <select class="filter-select" id="sel-provincia">
+                <option value="todas">Todas</option>
+                <option value="avila">Ávila</option>
+                <option value="burgos">Burgos</option>
+                <option value="leon">León</option>
+                <option value="palencia">Palencia</option>
+                <option value="salamanca">Salamanca</option>
+                <option value="segovia">Segovia</option>
+                <option value="soria">Soria</option>
+                <option value="valladolid">Valladolid</option>
+                <option value="zamora">Zamora</option>
+            </select>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <div class="filter-group">
+            <label>Variable</label>
+            <select class="filter-select" id="sel-variable">
+                <option value="poblacion">Población</option>
+            </select>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <div class="filter-group">
+            <label>Sexo</label>
+            <div class="radio-group" id="radio-sexo">
+                <div class="radio-btn active" data-val="total">Total</div>
+                <div class="radio-btn" data-val="hombres">Hombres</div>
+                <div class="radio-btn" data-val="mujeres">Mujeres</div>
+            </div>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <div class="filter-group">
+            <label>Intervalos</label>
+            <select class="filter-select" id="sel-intervalos">
+                <option value="4">4</option>
+                <option value="5" selected>5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Contenido principal: mapa + panel derecho -->
+    <div class="main">
+
+        <!-- Mapa interactivo (columna izquierda) -->
+        <div class="map-wrap">
+            <div class="map-title" id="map-title">
+                Cifras Oficiales de Población · Municipios · Total · 2025
+            </div>
+            <div id="map"></div>
+            <div class="map-legend" id="map-legend">
+                <div class="legend-title">Población</div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background:#c6e2ff"></div>
+                    <span class="legend-label">Cargando...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjetas KPI (columna derecha, arriba) -->
+        <div class="kpi-row">
+            <div class="kpi-title">Castilla y León · Totales</div>
+            <div class="kpi-cards">
+                <div class="kpi-card">
+                    <div class="kpi-num" id="kpi-total">—</div>
+                    <div class="kpi-lbl">Total</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-num" id="kpi-hombres">—</div>
+                    <div class="kpi-lbl">Hombres</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-num" id="kpi-mujeres">—</div>
+                    <div class="kpi-lbl">Mujeres</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel derecho (columna derecha, abajo) -->
+        <div class="right-panel">
+
+            <div class="panel-section">
+                <div class="panel-section-title">Municipio seleccionado</div>
+                <div id="muni-detail">
+                    <div class="no-selection">
+                        <div class="icon">🗺️</div>
+                        Haz clic en un municipio del mapa para ver sus datos
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-section-title">Población por provincia</div>
+                <div class="chart-container">
+                    <canvas id="chart-top"></canvas>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="panel-section-title">Hombres vs Mujeres · Municipio seleccionado</div>
+                <div id="grafico-comparacion-wrap">
+                    <div class="no-selection">
+                        <div class="icon">👆</div>
+                        Haz clic en un municipio para ver la comparación
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- datos_municipios.js debe cargarse antes que funciones.js -->
+    <script src="datos_municipios.js"></script>
+    <script src="funciones.js"></script>
+</body>
+</html>
