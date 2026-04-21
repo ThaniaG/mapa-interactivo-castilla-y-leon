@@ -8,6 +8,7 @@
 (function () {
     var dominios = [
         'castilla-y-leon-dashboard.netlify.app',
+        'thaniag.github.io',
         'localhost',
         '127.0.0.1'
     ];
