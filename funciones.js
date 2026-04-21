@@ -41,7 +41,7 @@ const COLORES_PROVINCIA = {
     salamanca:  '#00897b',
     segovia:    '#1e88e5',
     soria:      '#8e24aa',
-    valladolid: '#1b6ca8',
+    valladolid: '#7b2d42',
     zamora:     '#6d4c41',
 };
 
@@ -153,15 +153,14 @@ const graficoPoblacion = new Chart(ctxGrafico, {
 });
 
 
-// Capa de bordes de provincia
+// Capa de bordes de provincia (visible solo en modo "Todas")
 const capaProvincias = L.geoJson(DATOS_PROVINCIAS, {
-    style: {
+    style: feature => ({
         fillColor:   'transparent',
         fillOpacity: 0,
-        color:       '#4a6741',
-        weight:      2,
-        dashArray:   null,
-    },
+        color:  feature.properties.prov_key === 'valladolid' ? '#7b2d42' : '#2d3f50',
+        weight: feature.properties.prov_key === 'valladolid' ? 1.8 : 0.8,
+    }),
     interactive: false,
 }).addTo(map);
 
@@ -214,14 +213,14 @@ function pintarMapa() {
     const n         = estado.intervalos;
     const modoTodas = estado.provincia === 'todas';
 
-    const municipiosFiltrados = getMunicipiosSinDuplicados();
-    const valores = municipiosFiltrados.map(p => p[campo]);
+    const todosMunicipios = getMunicipiosSinDuplicados(false);
+    const valores = todosMunicipios.map(p => p[campo]);
     const breaks  = calcularBreaks(valores, n);
 
-    const tonosPorProvincia = {};
-    Object.entries(COLORES_PROVINCIA).forEach(([clave, color]) => {
-        tonosPorProvincia[clave] = generarTonos(color, n);
-    });
+    const municipiosFiltrados = getMunicipiosSinDuplicados();
+
+    const tonosValladolid = generarTonos('#7b2d42', n);
+    const tonosGris       = generarTonos('#8a9baa', n);
 
     if (capaGeo) map.removeLayer(capaGeo);
 
@@ -229,19 +228,28 @@ function pintarMapa() {
 
         style: feature => {
             const p = feature.properties;
-            const visible = modoTodas || p.prov_key === estado.provincia;
 
-            if (!visible) {
-                return { fillColor: '#c8d6df', fillOpacity: 0.55, color: '#aabbc8', weight: 0.4 };
+            if (modoTodas) {
+                const tonos = p.prov_key === 'valladolid' ? tonosValladolid : tonosGris;
+                return {
+                    fillColor:   getColorCoropleta(p[campo], breaks, tonos),
+                    fillOpacity: 0.80,
+                    color:       '#ffffff',
+                    weight:      0.4,
+                };
             }
 
-            const tonos = tonosPorProvincia[p.prov_key] || generarTonos('#999999', n);
+            if (p.prov_key !== estado.provincia) {
+                return { fillColor: '#e8eef4', fillOpacity: 0.10, color: '#ffffff', weight: 0.5 };
+            }
 
+            const colorProv = COLORES_PROVINCIA[p.prov_key] || '#999999';
+            const tonos = generarTonos(colorProv, n);
             return {
                 fillColor:   getColorCoropleta(p[campo], breaks, tonos),
                 fillOpacity: 0.80,
-                color:   '#ffffff',
-                weight:  0.5,
+                color:       colorProv,
+                weight:      0.6,
             };
         },
 
@@ -261,6 +269,14 @@ function pintarMapa() {
         }
 
     }).addTo(map);
+
+    // Mostrar bordes de provincia solo en modo "Todas" y traerlos al frente
+    if (modoTodas) {
+        if (!map.hasLayer(capaProvincias)) capaProvincias.addTo(map);
+        capaProvincias.bringToFront();
+    } else {
+        if (map.hasLayer(capaProvincias)) map.removeLayer(capaProvincias);
+    }
 
     actualizarEtiquetasProvincias();
     actualizarLeyenda(breaks);
