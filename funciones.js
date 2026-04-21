@@ -41,7 +41,7 @@ const COLORES_PROVINCIA = {
     salamanca:  '#00897b',
     segovia:    '#1e88e5',
     soria:      '#8e24aa',
-    valladolid: '#d81b60',
+    valladolid: '#1b6ca8',
     zamora:     '#6d4c41',
 };
 
@@ -153,6 +153,18 @@ const graficoPoblacion = new Chart(ctxGrafico, {
 });
 
 
+// Capa de bordes de provincia
+const capaProvincias = L.geoJson(DATOS_PROVINCIAS, {
+    style: {
+        fillColor:   'transparent',
+        fillOpacity: 0,
+        color:       '#4a6741',
+        weight:      2,
+        dashArray:   null,
+    },
+    interactive: false,
+}).addTo(map);
+
 // Estado global de los filtros activos
 const estado = {
     sexo:       'total',
@@ -220,7 +232,7 @@ function pintarMapa() {
             const visible = modoTodas || p.prov_key === estado.provincia;
 
             if (!visible) {
-                return { fillColor: '#e8eef4', fillOpacity: 0.10, color: '#ffffff', weight: 0.5 };
+                return { fillColor: '#c8d6df', fillOpacity: 0.55, color: '#aabbc8', weight: 0.4 };
             }
 
             const tonos = tonosPorProvincia[p.prov_key] || generarTonos('#999999', n);
