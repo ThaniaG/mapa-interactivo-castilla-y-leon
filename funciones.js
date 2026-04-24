@@ -467,6 +467,7 @@ function actualizarGraficoComparacion(p) {
 
 // Muestra la información del municipio seleccionado en el panel derecho
 function mostrarMunicipio(p) {
+    cambiarPestana('municipio');
     const color  = COLORES_PROVINCIA[p.prov_key] || '#1b6ca8';
     const edades = (typeof DATOS_EDADES !== 'undefined') && DATOS_EDADES[p.codigo];
     const edadHtml = edades ? `
@@ -566,6 +567,25 @@ function actualizarTituloMapa() {
     document.getElementById('map-title').textContent =
         `${varNombre} · ${nombreProv}${sufSexo} · 2025`;
 }
+
+
+// Cambia la pestaña activa del panel derecho
+function cambiarPestana(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
+    document.getElementById(`tab-${tabId}`).classList.add('active');
+    if (tabId === 'municipio') {
+        if (graficoComparacion) graficoComparacion.resize();
+        if (graficoEvolucion)   graficoEvolucion.resize();
+    } else {
+        graficoPoblacion.resize();
+    }
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => cambiarPestana(btn.dataset.tab));
+});
 
 
 // Eventos de los filtros

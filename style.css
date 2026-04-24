@@ -1,35 +1,78 @@
 /*
- * Copyright © 2026 Thania Gutiérrez
- * Todos los derechos reservados.
- */
+══════════════════════════════════════════════════════════
+  style.css — Estilos visuales del dashboard
+  Castilla y León · Datos de Población
 
-/* Variables globales de color y tamaño */
+  Este archivo fue escrito completamente a mano en CSS puro,
+  sin usar ningún framework externo (ni Bootstrap ni Tailwind).
+  Toda la maquetación se basa en dos técnicas modernas de CSS:
+    - Flexbox : para alinear elementos en una sola fila o columna
+    - CSS Grid: para crear el layout de 2 columnas del contenido principal
+
+  Contenido:
+  1. Variables de color y tamaño
+  2. Reset general y body
+  3. Header (barra superior)
+  4. Barra de filtros
+  5. Layout principal (grid)
+  6. Tarjetas KPI
+  7. Área del mapa
+  8. Panel derecho (municipio, gráfico, tabla)
+  9. Leyenda del mapa
+  10. Tooltip del mapa
+  11. Barra de scroll personalizada
+══════════════════════════════════════════════════════════
+*/
+
+
+/* ══════════════════════════════════════════
+   1. VARIABLES DE COLOR Y TAMAÑO
+   Se definen aquí para poder cambiar el color
+   o tamaño de toda la web desde un solo lugar.
+   ══════════════════════════════════════════ */
 :root {
-    --primary:   #1b6ca8;
-    --accent:    #2196f3;
-    --dark:      #0d1b2a;
-    --surface:   #ffffff;
-    --bg:        #f0f4f8;
-    --border:    #d0dce8;
-    --text:      #1a2a3a;
-    --muted:     #6b7f93;
-    --header-h:  64px;
-    --filter-h:  56px;
+    --primary:   #1b6ca8;   /* Azul principal (botones activos, números) */
+    --accent:    #2196f3;   /* Azul claro (detalles, barras del gráfico) */
+    --dark:      #0d1b2a;   /* Color oscuro del header */
+    --surface:   #ffffff;   /* Fondo blanco de paneles */
+    --bg:        #f0f4f8;   /* Fondo gris claro general */
+    --border:    #d0dce8;   /* Color de los bordes y líneas divisorias */
+    --text:      #1a2a3a;   /* Color del texto principal */
+    --muted:     #6b7f93;   /* Color del texto secundario (etiquetas, títulos pequeños) */
+    --header-h:  64px;      /* Altura del header superior */
+    --filter-h:  56px;      /* Altura de la barra de filtros */
 }
 
+
+/* ══════════════════════════════════════════
+   2. RESET GENERAL Y BODY
+   Elimina márgenes por defecto del navegador
+   y define la estructura base de la página.
+   ══════════════════════════════════════════ */
+
+/* Elimina márgenes y rellenos en todos los elementos */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/*
+  Body: apila verticalmente header → filtros → contenido.
+  "overflow: hidden" evita barra de scroll en la página entera.
+*/
 body {
     font-family: 'Inter', sans-serif;
     background: var(--bg);
     color: var(--text);
-    height: 100vh;
+    height: 100vh;          /* Ocupa toda la altura de la pantalla */
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
-/* Header */
+
+/* ══════════════════════════════════════════
+   3. HEADER (barra superior oscura)
+   Contiene el logo "CL", el título y el
+   badge que muestra el año.
+   ══════════════════════════════════════════ */
 header {
     height: var(--header-h);
     background: var(--dark);
@@ -37,10 +80,11 @@ header {
     align-items: center;
     padding: 0 24px;
     gap: 16px;
-    flex-shrink: 0;
+    flex-shrink: 0;         /* No se encoge aunque la pantalla sea pequeña */
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
+/* Cuadrado azul con las letras "CL" (logo) */
 .header-logo {
     width: 36px;
     height: 36px;
@@ -55,6 +99,7 @@ header {
     flex-shrink: 0;
 }
 
+/* Título principal del header */
 .header-title {
     color: white;
     font-size: 17px;
@@ -62,6 +107,7 @@ header {
     letter-spacing: 0.2px;
 }
 
+/* Subtítulo debajo del título */
 .header-subtitle {
     color: #8ca0b8;
     font-size: 13px;
@@ -69,8 +115,10 @@ header {
     margin-top: 1px;
 }
 
+/* Espacio vacío que empuja el badge hacia la derecha */
 .header-spacer { flex: 1; }
 
+/* Etiqueta "Año 2025" en la esquina derecha del header */
 .header-badge {
     background: rgba(33,150,243,0.2);
     color: #90caf9;
@@ -81,7 +129,12 @@ header {
     font-weight: 500;
 }
 
-/* Barra de filtros */
+
+/* ══════════════════════════════════════════
+   4. BARRA DE FILTROS
+   Franja blanca debajo del header con los
+   controles: Provincia, Variable, Sexo e Intervalos.
+   ══════════════════════════════════════════ */
 .filter-bar {
     height: var(--filter-h);
     background: var(--surface);
@@ -93,6 +146,7 @@ header {
     flex-shrink: 0;
 }
 
+/* Texto "FILTROS" en mayúsculas a la izquierda */
 .filter-label {
     font-size: 12px;
     font-weight: 600;
@@ -102,6 +156,7 @@ header {
     white-space: nowrap;
 }
 
+/* Contenedor de cada filtro: etiqueta + control */
 .filter-group {
     display: flex;
     align-items: center;
@@ -114,6 +169,7 @@ header {
     font-weight: 500;
 }
 
+/* Estilo de los selectores desplegables (Provincia, Variable, Intervalos) */
 select.filter-select {
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -121,18 +177,25 @@ select.filter-select {
     font-size: 13px;
     font-family: 'Inter', sans-serif;
     color: var(--text);
+    /* Flecha personalizada como imagen SVG inline */
     background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%236b7f93' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 8px center;
-    -webkit-appearance: none;
+    -webkit-appearance: none; /* Elimina el estilo por defecto del navegador */
     cursor: pointer;
     transition: border-color 0.2s;
 }
 
+/* Resaltar el selector cuando está enfocado */
 select.filter-select:focus {
     outline: none;
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(33,150,243,0.15);
 }
 
+/*
+  Botones de Sexo (Total / Hombres / Mujeres)
+  Funcionan como radio buttons visuales: al hacer clic
+  el seleccionado se pone azul y los otros quedan en blanco.
+*/
 .radio-group {
     display: flex;
     gap: 4px;
@@ -148,24 +211,39 @@ select.filter-select:focus {
     background: white;
     color: var(--muted);
     transition: all 0.2s;
-    user-select: none;
+    user-select: none;      /* Evita que el texto se seleccione al hacer clic */
 }
 
+/* Estado activo (botón seleccionado): se pone azul */
 .radio-btn.active {
     background: var(--primary);
     border-color: var(--primary);
     color: white;
 }
 
+/* Línea vertical separadora entre grupos de filtros */
 .filter-divider {
     width: 1px;
     height: 28px;
     background: var(--border);
 }
 
-/* Layout principal: mapa (izq) + panel (der) */
+
+/* ══════════════════════════════════════════
+   5. LAYOUT PRINCIPAL
+   CSS Grid con 2 columnas y 2 filas:
+   - Columna izquierda (1fr) : mapa — ocupa todo el ancho disponible
+   - Columna derecha (340px) : panel fijo de 340px de ancho
+
+   "1fr" significa "1 fracción del espacio disponible", es decir,
+   el mapa crece o se encoge según el tamaño de la pantalla,
+   mientras que el panel derecho siempre mide exactamente 340px.
+
+   El mapa se extiende por las 2 filas usando en su elemento:
+     grid-row: 1 / 3  (desde la fila 1 hasta antes de la 3)
+   ══════════════════════════════════════════ */
 .main {
-    flex: 1;
+    flex: 1;                /* Ocupa todo el espacio restante de la pantalla */
     display: grid;
     grid-template-columns: 1fr 340px;
     grid-template-rows: auto 1fr;
@@ -173,7 +251,13 @@ select.filter-select:focus {
     overflow: hidden;
 }
 
-/* Tarjetas KPI */
+
+/* ══════════════════════════════════════════
+   6. TARJETAS KPI (indicadores clave)
+   Muestran los totales de población de
+   Castilla y León: Total, Hombres, Mujeres.
+   Están en la columna derecha, fila 1.
+   ══════════════════════════════════════════ */
 .kpi-row {
     grid-column: 2;
     grid-row: 1;
@@ -186,6 +270,7 @@ select.filter-select:focus {
     gap: 6px;
 }
 
+/* Título pequeño encima de las tarjetas */
 .kpi-title {
     font-size: 10px;
     font-weight: 600;
@@ -194,12 +279,14 @@ select.filter-select:focus {
     letter-spacing: 0.5px;
 }
 
+/* Las 3 tarjetas en una sola fila */
 .kpi-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 6px;
 }
 
+/* Cada tarjeta individual */
 .kpi-card {
     background: var(--bg);
     border: 1px solid var(--border);
@@ -208,6 +295,7 @@ select.filter-select:focus {
     text-align: center;
 }
 
+/* Número dentro de la tarjeta */
 .kpi-card .kpi-num {
     font-size: 12px;
     font-weight: 700;
@@ -218,6 +306,7 @@ select.filter-select:focus {
     text-overflow: ellipsis;
 }
 
+/* Etiqueta debajo del número */
 .kpi-card .kpi-lbl {
     font-size: 10px;
     color: var(--muted);
@@ -226,25 +315,32 @@ select.filter-select:focus {
     white-space: nowrap;
 }
 
-/* Área del mapa */
+
+/* ══════════════════════════════════════════
+   7. ÁREA DEL MAPA
+   Ocupa toda la columna izquierda (ambas filas).
+   El mapa de Leaflet se renderiza dentro del div #map.
+   ══════════════════════════════════════════ */
 .map-wrap {
     grid-column: 1;
-    grid-row: 1 / 3;
+    grid-row: 1 / 3;        /* Abarca desde la fila 1 hasta la 3 (ambas filas) */
     position: relative;
     background: #dce8f0;
 }
 
+/* El mapa ocupa todo el contenedor */
 #map {
     width: 100%;
     height: 100%;
 }
 
+/* Título flotante encima del mapa */
 .map-title {
     position: absolute;
     top: 12px;
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 500;
+    transform: translateX(-50%); /* Centrado horizontal */
+    z-index: 500;                /* Encima del mapa */
     background: rgba(255,255,255,0.95);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -256,12 +352,29 @@ select.filter-select:focus {
     white-space: nowrap;
 }
 
-/* Filtro sobre los tiles de OpenStreetMap para reducir saturación */
+/*
+  Filtro CSS aplicado sobre las imágenes del mapa de OpenStreetMap.
+  Los tiles (imágenes) de OSM tienen colores muy vivos (verde, naranja,
+  amarillo) que compiten visualmente con los colores de los municipios.
+  Este filtro los apaga sin cambiar la fuente de datos ni la cartografía:
+    - saturate(0.4)   : baja los colores al 40% de su intensidad original
+    - brightness(1.05): aclara ligeramente el resultado
+    - contrast(0.95)  : suaviza el contraste para un aspecto más limpio
+  Leaflet aplica la clase "osm-tiles" a las imágenes del mapa base,
+  que se asigna al crear el layer de OpenStreetMap en funciones.js.
+*/
 .osm-tiles {
     filter: saturate(0.4) brightness(1.05) contrast(0.95);
 }
 
-/* Panel derecho */
+
+/* ══════════════════════════════════════════
+   8. PANEL DERECHO (columna 2, fila 2)
+   Contiene:
+   1. Información del municipio seleccionado
+   2. Gráfico de barras (Top 10)
+   3. Tabla de ranking
+   ══════════════════════════════════════════ */
 .right-panel {
     grid-column: 2;
     grid-row: 2;
@@ -272,12 +385,14 @@ select.filter-select:focus {
     overflow: hidden;
 }
 
+/* Cada sección del panel tiene su propio padding y borde inferior */
 .panel-section {
     padding: 14px 16px;
     border-bottom: 1px solid var(--border);
     flex-shrink: 0;
 }
 
+/* Título de cada sección con una barra azul a la izquierda */
 .panel-section-title {
     font-size: 11px;
     font-weight: 700;
@@ -290,6 +405,7 @@ select.filter-select:focus {
     gap: 6px;
 }
 
+/* Barra vertical azul decorativa antes del título */
 .panel-section-title::before {
     content: '';
     width: 3px;
@@ -298,11 +414,17 @@ select.filter-select:focus {
     border-radius: 2px;
 }
 
+/* Contenedor del gráfico de Chart.js con altura fija */
 .chart-container {
     position: relative;
     height: 160px;
 }
 
+/*
+  Tarjeta de municipio seleccionado.
+  Aparece cuando el usuario hace clic en un municipio del mapa.
+  Muestra nombre, provincia y los datos de población.
+*/
 .muni-info {
     background: linear-gradient(135deg, var(--primary) 0%, #1565c0 100%);
     border-radius: 8px;
@@ -322,6 +444,7 @@ select.filter-select:focus {
     margin-bottom: 6px;
 }
 
+/* 3 mini-tarjetas dentro del municipio: Total, Hombres, Mujeres */
 .muni-stats {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -346,6 +469,7 @@ select.filter-select:focus {
     margin-top: 1px;
 }
 
+/* Mensaje que se muestra cuando no hay municipio seleccionado */
 .no-selection {
     text-align: center;
     color: var(--muted);
@@ -358,9 +482,14 @@ select.filter-select:focus {
     margin-bottom: 6px;
 }
 
+/*
+  Tabla de ranking de municipios.
+  Lista los municipios ordenados por población.
+  Tiene scroll propio para no desbordar el panel.
+*/
 .table-wrap {
-    flex: 1;
-    overflow-y: auto;
+    flex: 1;                /* Ocupa el espacio restante del panel */
+    overflow-y: auto;       /* Scroll vertical si hay muchas filas */
     padding: 0 16px 16px;
 }
 
@@ -370,6 +499,7 @@ select.filter-select:focus {
     font-size: 12px;
 }
 
+/* Encabezados fijos al hacer scroll en la tabla */
 .ranking-table thead th {
     position: sticky;
     top: 0;
@@ -385,6 +515,7 @@ select.filter-select:focus {
     border-top: 1px solid var(--border);
 }
 
+/* Filas de datos con efecto hover (fondo azul claro al pasar el ratón) */
 .ranking-table tbody tr {
     border-bottom: 1px solid #f0f4f8;
     cursor: pointer;
@@ -400,19 +531,74 @@ select.filter-select:focus {
     color: var(--text);
 }
 
+/* Número de posición en el ranking */
 .rank-num {
     color: var(--muted);
     font-weight: 600;
     width: 24px;
 }
 
+/* Valor de población en azul y negrita */
 .rank-val {
     font-weight: 600;
     color: var(--primary);
     text-align: right;
 }
 
-/* Leyenda del mapa */
+
+/* ══════════════════════════════════════════
+   9. PESTAÑAS DEL PANEL DERECHO
+   ══════════════════════════════════════════ */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid var(--border);
+    flex-shrink: 0;
+    background: var(--surface);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    background: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    font-weight: 700;
+}
+
+.tab-btn:hover:not(.active) {
+    color: var(--text);
+    background: var(--bg);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+}
+
+
+/* ══════════════════════════════════════════
+   10. LEYENDA DEL MAPA
+   Cuadro flotante en la esquina inferior derecha
+   del mapa que explica los rangos de colores.
+   ══════════════════════════════════════════ */
 .map-legend {
     position: absolute;
     bottom: 24px;
@@ -434,6 +620,7 @@ select.filter-select:focus {
     font-size: 11px;
 }
 
+/* Cada fila de la leyenda: cuadrado de color + etiqueta del rango */
 .legend-item {
     display: flex;
     align-items: center;
@@ -450,7 +637,12 @@ select.filter-select:focus {
 
 .legend-label { color: var(--text); }
 
-/* Tooltip del mapa */
+
+/* ══════════════════════════════════════════
+   11. TOOLTIP DEL MAPA
+   Cuadro que aparece al pasar el ratón
+   sobre un municipio en el mapa.
+   ══════════════════════════════════════════ */
 .mapa-tooltip {
     background: rgba(255,255,255,0.97);
     border: 1px solid var(--border);
@@ -468,7 +660,10 @@ select.filter-select:focus {
     font-weight: 600;
 }
 
-/* Scrollbar personalizada */
+/* ══════════════════════════════════════════
+   12. BARRA DE SCROLL PERSONALIZADA
+   Solo visible en Chrome y Edge.
+   ══════════════════════════════════════════ */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }

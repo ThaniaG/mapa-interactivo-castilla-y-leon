@@ -123,41 +123,52 @@
         <!-- Panel derecho (columna derecha, abajo) -->
         <div class="right-panel">
 
-            <div class="panel-section">
-                <div class="panel-section-title">Municipio seleccionado</div>
-                <div id="muni-detail">
-                    <div class="no-selection">
-                        <div class="icon">🗺️</div>
-                        Haz clic en un municipio del mapa para ver sus datos
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="cyl">Castilla y León</button>
+                <button class="tab-btn" data-tab="municipio">Municipio</button>
+            </div>
+
+            <div class="tab-content active" id="tab-cyl">
+                <div class="panel-section">
+                    <div class="panel-section-title">Población por provincia</div>
+                    <div class="chart-container">
+                        <canvas id="chart-top"></canvas>
                     </div>
                 </div>
             </div>
 
-            <div class="panel-section">
-                <div class="panel-section-title">Población por provincia</div>
-                <div class="chart-container">
-                    <canvas id="chart-top"></canvas>
-                </div>
-            </div>
+            <div class="tab-content" id="tab-municipio">
 
-            <div class="panel-section">
-                <div class="panel-section-title">Hombres vs Mujeres · Municipio seleccionado</div>
-                <div id="grafico-comparacion-wrap">
-                    <div class="no-selection">
-                        <div class="icon">👆</div>
-                        Haz clic en un municipio para ver la comparación
+                <div class="panel-section">
+                    <div class="panel-section-title">Municipio seleccionado</div>
+                    <div id="muni-detail">
+                        <div class="no-selection">
+                            <div class="icon">🗺️</div>
+                            Haz clic en un municipio del mapa para ver sus datos
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="panel-section">
-                <div class="panel-section-title">Evolución de población · 1996 – 2025</div>
-                <div id="grafico-evolucion-wrap">
-                    <div class="no-selection">
-                        <div class="icon">📈</div>
-                        Haz clic en un municipio para ver su evolución
+                <div class="panel-section">
+                    <div class="panel-section-title">Hombres vs Mujeres</div>
+                    <div id="grafico-comparacion-wrap">
+                        <div class="no-selection">
+                            <div class="icon">👆</div>
+                            Haz clic en un municipio para ver la comparación
+                        </div>
                     </div>
                 </div>
+
+                <div class="panel-section">
+                    <div class="panel-section-title">Evolución de población · 1996 – 2025</div>
+                    <div id="grafico-evolucion-wrap">
+                        <div class="no-selection">
+                            <div class="icon">📈</div>
+                            Haz clic en un municipio para ver su evolución
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
