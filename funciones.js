@@ -507,6 +507,52 @@ function mostrarMunicipio(p) {
         </div>`;
 
     actualizarGraficoComparacion(p);
+    actualizarGraficoEvolucion(p);
+}
+
+
+// Gráfico de evolución de población 1996-2025 del municipio seleccionado
+let graficoEvolucion = null;
+
+function actualizarGraficoEvolucion(p) {
+    const wrap = document.getElementById('grafico-evolucion-wrap');
+
+    if (typeof DATOS_EVOLUCION === 'undefined' || !DATOS_EVOLUCION[p.codigo]) {
+        wrap.innerHTML = '<div class="no-selection" style="font-size:12px;color:#888">Sin datos de evolución para este municipio</div>';
+        return;
+    }
+
+    const ev    = DATOS_EVOLUCION[p.codigo];
+    const color = COLORES_PROVINCIA[p.prov_key] || '#1b6ca8';
+
+    if (graficoEvolucion) { graficoEvolucion.destroy(); graficoEvolucion = null; }
+
+    wrap.innerHTML = `<div style="position:relative;height:160px"><canvas id="chart-evolucion"></canvas></div>`;
+
+    const ctx = document.getElementById('chart-evolucion').getContext('2d');
+    graficoEvolucion = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ev.años,
+            datasets: [
+                { label: 'Total',   data: ev.total,   borderColor: color,      backgroundColor: color+'22', borderWidth: 2, pointRadius: 2, fill: true,  tension: 0.3 },
+                { label: 'Hombres', data: ev.hombres, borderColor: '#1e88e5',  borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0.3, borderDash: [4,3] },
+                { label: 'Mujeres', data: ev.mujeres, borderColor: '#d81b60',  borderWidth: 1.5, pointRadius: 0, fill: false, tension: 0.3, borderDash: [4,3] },
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: true, position: 'top', labels: { font: { size: 10 }, boxWidth: 20, padding: 8 } },
+                tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString('es-ES')} hab.` } }
+            },
+            scales: {
+                x: { ticks: { font: { size: 9 }, maxTicksLimit: 10 }, grid: { color: '#f0f4f8' } },
+                y: { ticks: { font: { size: 9 }, callback: v => v >= 1000 ? (v/1000).toFixed(0)+'k' : v }, grid: { color: '#f0f4f8' } }
+            }
+        }
+    });
 }
 
 
