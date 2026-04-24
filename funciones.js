@@ -265,6 +265,9 @@ function pintarMapa() {
         onEachFeature: (feature, layer) => {
             const p = feature.properties;
 
+            // Sin interactividad para municipios de otras provincias
+            if (!modoTodas && p.prov_key !== estado.provincia) return;
+
             const val = getValorVariable(p);
             const valStr = estado.variable === 'poblacion'
                 ? val.toLocaleString('es-ES') + ' hab.'
