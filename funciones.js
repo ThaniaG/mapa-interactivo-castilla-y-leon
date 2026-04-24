@@ -211,7 +211,9 @@ function getColorCoropleta(valor, breaks, paleta) {
 function getValorVariable(props) {
     if (estado.variable === 'poblacion') return props[estado.sexo] || 0;
     const edades = (typeof DATOS_EDADES !== 'undefined') && DATOS_EDADES[props.codigo];
-    return edades ? (edades[estado.variable] || 0) : 0;
+    if (!edades) return 0;
+    const sufijo = estado.sexo === 'hombres' ? '_h' : estado.sexo === 'mujeres' ? '_m' : '';
+    return edades[estado.variable + sufijo] || 0;
 }
 
 
@@ -349,10 +351,11 @@ function actualizarLeyenda(breaks) {
 
     const tonos = generarTonos(colorEjemplo, n);
 
+    const sufSexo = estado.sexo !== 'total' ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
     const TITULOS_VAR = {
         poblacion: `Habitantes · ${ETIQUETAS_SEXO[estado.sexo]}`,
-        porc_65:   '% Mayores de 65',
-        ind_envej: 'Índice de envejecimiento',
+        porc_65:   `% Mayores de 65${sufSexo}`,
+        ind_envej: `Índice de envejecimiento${sufSexo}`,
     };
     const formatBreak = v => estado.variable === 'poblacion'
         ? (v ?? 0).toLocaleString('es-ES')
@@ -513,7 +516,7 @@ function actualizarTituloMapa() {
     const nombreProv = selProv.options[selProv.selectedIndex].text;
     const TITULOS_VAR = { poblacion: 'Población', porc_65: '% Mayores de 65', ind_envej: 'Índice de envejecimiento' };
     const varNombre  = TITULOS_VAR[estado.variable] || estado.variable;
-    const sufSexo    = estado.variable === 'poblacion' ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
+    const sufSexo    = estado.sexo !== 'total' ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
     document.getElementById('map-title').textContent =
         `${varNombre} · ${nombreProv}${sufSexo} · 2025`;
 }
@@ -548,10 +551,6 @@ document.getElementById('sel-intervalos').addEventListener('change', e => {
 
 document.getElementById('sel-variable').addEventListener('change', e => {
     estado.variable = e.target.value;
-    const esPoblacion = estado.variable === 'poblacion';
-    const radioSexo = document.getElementById('radio-sexo');
-    radioSexo.style.opacity      = esPoblacion ? '1' : '0.4';
-    radioSexo.style.pointerEvents = esPoblacion ? '' : 'none';
     pintarMapa();
 });
 
