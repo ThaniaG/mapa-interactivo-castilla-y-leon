@@ -249,7 +249,7 @@ function pintarMapa() {
             }
 
             if (p.prov_key !== estado.provincia) {
-                return { fillColor: '#e8eef4', fillOpacity: 0.10, color: '#ffffff', weight: 0.5 };
+                return { fillColor: 'transparent', fillOpacity: 0, color: 'transparent', weight: 0 };
             }
 
             const colorProv = COLORES_PROVINCIA[p.prov_key] || '#999999';
@@ -382,6 +382,10 @@ function actualizarKPIs(municipios) {
     document.getElementById('kpi-total').textContent   = suma('total').toLocaleString('es-ES');
     document.getElementById('kpi-hombres').textContent = suma('hombres').toLocaleString('es-ES');
     document.getElementById('kpi-mujeres').textContent = suma('mujeres').toLocaleString('es-ES');
+    const titulo = estado.provincia === 'todas'
+        ? 'Castilla y León · Totales'
+        : `${NOMBRES_PROVINCIA[estado.provincia]} · Totales`;
+    document.getElementById('kpi-titulo').textContent = titulo;
 }
 
 
