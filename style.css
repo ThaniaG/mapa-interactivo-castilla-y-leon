@@ -1,35 +1,7 @@
-/*
-══════════════════════════════════════════════════════════
-  style.css — Estilos visuales del dashboard
-  Castilla y León · Datos de Población
-
-  Este archivo fue escrito completamente a mano en CSS puro,
-  sin usar ningún framework externo (ni Bootstrap ni Tailwind).
-  Toda la maquetación se basa en dos técnicas modernas de CSS:
-    - Flexbox : para alinear elementos en una sola fila o columna
-    - CSS Grid: para crear el layout de 2 columnas del contenido principal
-
-  Contenido:
-  1. Variables de color y tamaño
-  2. Reset general y body
-  3. Header (barra superior)
-  4. Barra de filtros
-  5. Layout principal (grid)
-  6. Tarjetas KPI
-  7. Área del mapa
-  8. Panel derecho (municipio, gráfico, tabla)
-  9. Leyenda del mapa
-  10. Tooltip del mapa
-  11. Barra de scroll personalizada
-══════════════════════════════════════════════════════════
-*/
+/* Estilos del dashboard — Castilla y León · Datos de Población */
 
 
-/* ══════════════════════════════════════════
-   1. VARIABLES DE COLOR Y TAMAÑO
-   Se definen aquí para poder cambiar el color
-   o tamaño de toda la web desde un solo lugar.
-   ══════════════════════════════════════════ */
+/* 1. Variables globales de color y tamaño */
 :root {
     --primary:   #1b6ca8;   /* Azul principal (botones activos, números) */
     --accent:    #2196f3;   /* Azul claro (detalles, barras del gráfico) */
@@ -44,19 +16,11 @@
 }
 
 
-/* ══════════════════════════════════════════
-   2. RESET GENERAL Y BODY
-   Elimina márgenes por defecto del navegador
-   y define la estructura base de la página.
-   ══════════════════════════════════════════ */
+/* 2. Reset y body */
 
-/* Elimina márgenes y rellenos en todos los elementos */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/*
-  Body: apila verticalmente header → filtros → contenido.
-  "overflow: hidden" evita barra de scroll en la página entera.
-*/
+/* Apila header, filtros y contenido en columna; sin scroll en la página */
 body {
     font-family: 'Inter', sans-serif;
     background: var(--bg);
@@ -68,11 +32,7 @@ body {
 }
 
 
-/* ══════════════════════════════════════════
-   3. HEADER (barra superior oscura)
-   Contiene el logo "CL", el título y el
-   badge que muestra el año.
-   ══════════════════════════════════════════ */
+/* 3. Header */
 header {
     height: var(--header-h);
     background: var(--dark);
@@ -130,11 +90,7 @@ header {
 }
 
 
-/* ══════════════════════════════════════════
-   4. BARRA DE FILTROS
-   Franja blanca debajo del header con los
-   controles: Provincia, Variable, Sexo e Intervalos.
-   ══════════════════════════════════════════ */
+/* 4. Barra de filtros */
 .filter-bar {
     height: var(--filter-h);
     background: var(--surface);
@@ -191,11 +147,7 @@ select.filter-select:focus {
     box-shadow: 0 0 0 3px rgba(33,150,243,0.15);
 }
 
-/*
-  Botones de Sexo (Total / Hombres / Mujeres)
-  Funcionan como radio buttons visuales: al hacer clic
-  el seleccionado se pone azul y los otros quedan en blanco.
-*/
+/* Botones de Sexo: actúan como radio buttons visuales */
 .radio-group {
     display: flex;
     gap: 4px;
@@ -229,19 +181,7 @@ select.filter-select:focus {
 }
 
 
-/* ══════════════════════════════════════════
-   5. LAYOUT PRINCIPAL
-   CSS Grid con 2 columnas y 2 filas:
-   - Columna izquierda (1fr) : mapa — ocupa todo el ancho disponible
-   - Columna derecha (340px) : panel fijo de 340px de ancho
-
-   "1fr" significa "1 fracción del espacio disponible", es decir,
-   el mapa crece o se encoge según el tamaño de la pantalla,
-   mientras que el panel derecho siempre mide exactamente 340px.
-
-   El mapa se extiende por las 2 filas usando en su elemento:
-     grid-row: 1 / 3  (desde la fila 1 hasta antes de la 3)
-   ══════════════════════════════════════════ */
+/* 5. Layout principal: mapa (columna flexible) + panel derecho (340px fijo) */
 .main {
     flex: 1;                /* Ocupa todo el espacio restante de la pantalla */
     display: grid;
@@ -252,12 +192,7 @@ select.filter-select:focus {
 }
 
 
-/* ══════════════════════════════════════════
-   6. TARJETAS KPI (indicadores clave)
-   Muestran los totales de población de
-   Castilla y León: Total, Hombres, Mujeres.
-   Están en la columna derecha, fila 1.
-   ══════════════════════════════════════════ */
+/* 6. Tarjetas KPI */
 .kpi-row {
     display: flex;
     flex-direction: column;
@@ -310,11 +245,7 @@ select.filter-select:focus {
 }
 
 
-/* ══════════════════════════════════════════
-   7. ÁREA DEL MAPA
-   Ocupa toda la columna izquierda (ambas filas).
-   El mapa de Leaflet se renderiza dentro del div #map.
-   ══════════════════════════════════════════ */
+/* 7. Área del mapa */
 .map-wrap {
     grid-column: 1;
     grid-row: 1;
@@ -346,29 +277,13 @@ select.filter-select:focus {
     white-space: nowrap;
 }
 
-/*
-  Filtro CSS aplicado sobre las imágenes del mapa de OpenStreetMap.
-  Los tiles (imágenes) de OSM tienen colores muy vivos (verde, naranja,
-  amarillo) que compiten visualmente con los colores de los municipios.
-  Este filtro los apaga sin cambiar la fuente de datos ni la cartografía:
-    - saturate(0.4)   : baja los colores al 40% de su intensidad original
-    - brightness(1.05): aclara ligeramente el resultado
-    - contrast(0.95)  : suaviza el contraste para un aspecto más limpio
-  Leaflet aplica la clase "osm-tiles" a las imágenes del mapa base,
-  que se asigna al crear el layer de OpenStreetMap en funciones.js.
-*/
+/* Apaga los colores del mapa base para que no compitan con los municipios */
 .osm-tiles {
     filter: saturate(0.4) brightness(1.05) contrast(0.95);
 }
 
 
-/* ══════════════════════════════════════════
-   8. PANEL DERECHO (columna 2, fila 2)
-   Contiene:
-   1. Información del municipio seleccionado
-   2. Gráfico de barras (Top 10)
-   3. Tabla de ranking
-   ══════════════════════════════════════════ */
+/* 8. Panel derecho */
 .right-panel {
     grid-column: 2;
     grid-row: 1;
@@ -414,11 +329,7 @@ select.filter-select:focus {
     height: 160px;
 }
 
-/*
-  Tarjeta de municipio seleccionado.
-  Aparece cuando el usuario hace clic en un municipio del mapa.
-  Muestra nombre, provincia y los datos de población.
-*/
+/* Tarjeta azul del municipio seleccionado */
 .muni-info {
     background: linear-gradient(135deg, var(--primary) 0%, #1565c0 100%);
     border-radius: 8px;
@@ -476,11 +387,7 @@ select.filter-select:focus {
     margin-bottom: 6px;
 }
 
-/*
-  Tabla de ranking de municipios.
-  Lista los municipios ordenados por población.
-  Tiene scroll propio para no desbordar el panel.
-*/
+/* Tabla de ranking con scroll propio */
 .table-wrap {
     flex: 1;                /* Ocupa el espacio restante del panel */
     overflow-y: auto;       /* Scroll vertical si hay muchas filas */
@@ -540,9 +447,7 @@ select.filter-select:focus {
 }
 
 
-/* ══════════════════════════════════════════
-   9. PESTAÑAS DEL PANEL DERECHO
-   ══════════════════════════════════════════ */
+/* 9. Pestañas del panel derecho */
 .tabs {
     display: flex;
     border-bottom: 2px solid var(--border);
@@ -588,11 +493,7 @@ select.filter-select:focus {
 }
 
 
-/* ══════════════════════════════════════════
-   10. LEYENDA DEL MAPA
-   Cuadro flotante en la esquina inferior derecha
-   del mapa que explica los rangos de colores.
-   ══════════════════════════════════════════ */
+/* 10. Leyenda del mapa */
 .map-legend {
     position: absolute;
     bottom: 24px;
@@ -632,11 +533,7 @@ select.filter-select:focus {
 .legend-label { color: var(--text); }
 
 
-/* ══════════════════════════════════════════
-   11. TOOLTIP DEL MAPA
-   Cuadro que aparece al pasar el ratón
-   sobre un municipio en el mapa.
-   ══════════════════════════════════════════ */
+/* 11. Tooltip del mapa */
 .mapa-tooltip {
     background: rgba(255,255,255,0.97);
     border: 1px solid var(--border);
@@ -654,10 +551,7 @@ select.filter-select:focus {
     font-weight: 600;
 }
 
-/* ══════════════════════════════════════════
-   12. BARRA DE SCROLL PERSONALIZADA
-   Solo visible en Chrome y Edge.
-   ══════════════════════════════════════════ */
+/* 12. Barra de scroll personalizada (Chrome/Edge) */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
