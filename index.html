@@ -101,26 +101,7 @@
             </div>
         </div>
 
-        <!-- Tarjetas KPI (columna derecha, arriba) -->
-        <div class="kpi-row">
-            <div class="kpi-title">Castilla y León · Totales</div>
-            <div class="kpi-cards">
-                <div class="kpi-card">
-                    <div class="kpi-num" id="kpi-total">—</div>
-                    <div class="kpi-lbl">Total</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-num" id="kpi-hombres">—</div>
-                    <div class="kpi-lbl">Hombres</div>
-                </div>
-                <div class="kpi-card">
-                    <div class="kpi-num" id="kpi-mujeres">—</div>
-                    <div class="kpi-lbl">Mujeres</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Panel derecho (columna derecha, abajo) -->
+        <!-- Panel derecho (columna derecha, altura completa) -->
         <div class="right-panel">
 
             <div class="tabs">
@@ -129,12 +110,32 @@
             </div>
 
             <div class="tab-content active" id="tab-cyl">
+
+                <div class="panel-section">
+                    <div class="kpi-title">Castilla y León · Totales</div>
+                    <div class="kpi-cards">
+                        <div class="kpi-card">
+                            <div class="kpi-num" id="kpi-total">—</div>
+                            <div class="kpi-lbl">Total</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-num" id="kpi-hombres">—</div>
+                            <div class="kpi-lbl">Hombres</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-num" id="kpi-mujeres">—</div>
+                            <div class="kpi-lbl">Mujeres</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="panel-section">
                     <div class="panel-section-title">Población por provincia</div>
-                    <div class="chart-container">
+                    <div class="chart-container" style="height:200px">
                         <canvas id="chart-top"></canvas>
                     </div>
                 </div>
+
             </div>
 
             <div class="tab-content" id="tab-municipio">
