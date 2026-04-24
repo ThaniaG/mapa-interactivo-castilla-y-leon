@@ -169,6 +169,7 @@ const estado = {
     sexo:       'total',
     provincia:  'todas',
     intervalos: 5,
+    variable:   'poblacion',
 };
 
 let capaGeo      = null;
@@ -206,15 +207,21 @@ function getColorCoropleta(valor, breaks, paleta) {
     return paleta[0];
 }
 
+// Devuelve el valor de la variable activa para un municipio dado
+function getValorVariable(props) {
+    if (estado.variable === 'poblacion') return props[estado.sexo] || 0;
+    const edades = (typeof DATOS_EDADES !== 'undefined') && DATOS_EDADES[props.codigo];
+    return edades ? (edades[estado.variable] || 0) : 0;
+}
+
 
 // Redibuja el mapa según los filtros activos
 function pintarMapa() {
-    const campo     = estado.sexo;
     const n         = estado.intervalos;
     const modoTodas = estado.provincia === 'todas';
 
     const todosMunicipios = getMunicipiosSinDuplicados(false);
-    const valores = todosMunicipios.map(p => p[campo]);
+    const valores = todosMunicipios.map(p => getValorVariable(p));
     const breaks  = calcularBreaks(valores, n);
 
     const municipiosFiltrados = getMunicipiosSinDuplicados();
@@ -232,7 +239,7 @@ function pintarMapa() {
             if (modoTodas) {
                 const tonos = p.prov_key === 'valladolid' ? tonosValladolid : tonosGris;
                 return {
-                    fillColor:   getColorCoropleta(p[campo], breaks, tonos),
+                    fillColor:   getColorCoropleta(getValorVariable(p), breaks, tonos),
                     fillOpacity: 0.80,
                     color:       '#ffffff',
                     weight:      0.4,
@@ -246,7 +253,7 @@ function pintarMapa() {
             const colorProv = COLORES_PROVINCIA[p.prov_key] || '#999999';
             const tonos = generarTonos(colorProv, n);
             return {
-                fillColor:   getColorCoropleta(p[campo], breaks, tonos),
+                fillColor:   getColorCoropleta(getValorVariable(p), breaks, tonos),
                 fillOpacity: 0.80,
                 color:       colorProv,
                 weight:      0.6,
@@ -256,8 +263,14 @@ function pintarMapa() {
         onEachFeature: (feature, layer) => {
             const p = feature.properties;
 
+            const val = getValorVariable(p);
+            const valStr = estado.variable === 'poblacion'
+                ? val.toLocaleString('es-ES') + ' hab.'
+                : estado.variable === 'porc_65'
+                    ? val.toFixed(1) + '% ≥65 años'
+                    : 'Índice env.: ' + val.toFixed(1);
             layer.bindTooltip(
-                `<strong>${p.nombre}</strong><br>${p.provincia}<br>${p[campo].toLocaleString('es-ES')} hab.`,
+                `<strong>${p.nombre}</strong><br>${p.provincia}<br>${valStr}`,
                 { sticky: true, className: 'mapa-tooltip' }
             );
 
@@ -336,10 +349,19 @@ function actualizarLeyenda(breaks) {
 
     const tonos = generarTonos(colorEjemplo, n);
 
-    let html = `<div class="legend-title">Habitantes · ${ETIQUETAS_SEXO[estado.sexo]}</div>`;
+    const TITULOS_VAR = {
+        poblacion: `Habitantes · ${ETIQUETAS_SEXO[estado.sexo]}`,
+        porc_65:   '% Mayores de 65',
+        ind_envej: 'Índice de envejecimiento',
+    };
+    const formatBreak = v => estado.variable === 'poblacion'
+        ? (v ?? 0).toLocaleString('es-ES')
+        : (v ?? 0).toFixed(1);
+
+    let html = `<div class="legend-title">${TITULOS_VAR[estado.variable] || 'Valor'}</div>`;
     for (let i = 0; i < n; i++) {
-        const desde = (breaks[i]   ?? 0).toLocaleString('es-ES');
-        const hasta = (breaks[i+1] ?? 0).toLocaleString('es-ES');
+        const desde = formatBreak(breaks[i]);
+        const hasta = formatBreak(breaks[i+1]);
         html += `
             <div class="legend-item">
                 <div class="legend-color" style="background:${tonos[i]}"></div>
@@ -442,7 +464,23 @@ function actualizarGraficoComparacion(p) {
 
 // Muestra la información del municipio seleccionado en el panel derecho
 function mostrarMunicipio(p) {
-    const color = COLORES_PROVINCIA[p.prov_key] || '#1b6ca8';
+    const color  = COLORES_PROVINCIA[p.prov_key] || '#1b6ca8';
+    const edades = (typeof DATOS_EDADES !== 'undefined') && DATOS_EDADES[p.codigo];
+    const edadHtml = edades ? `
+        <div class="muni-stats" style="margin-top:6px;border-top:1px solid rgba(255,255,255,0.3);padding-top:6px">
+            <div class="muni-stat">
+                <div class="stat-val">${edades.porc_65}%</div>
+                <div class="stat-lbl">≥65 años</div>
+            </div>
+            <div class="muni-stat">
+                <div class="stat-val">${edades.ind_envej}</div>
+                <div class="stat-lbl">Índice env.</div>
+            </div>
+            <div class="muni-stat">
+                <div class="stat-val">${edades.pob_65.toLocaleString('es-ES')}</div>
+                <div class="stat-lbl">Mayores 65</div>
+            </div>
+        </div>` : '';
 
     document.getElementById('muni-detail').innerHTML = `
         <div class="muni-info" style="background:linear-gradient(135deg,${color},${color}bb)">
@@ -462,6 +500,7 @@ function mostrarMunicipio(p) {
                     <div class="stat-lbl">Mujeres</div>
                 </div>
             </div>
+            ${edadHtml}
         </div>`;
 
     actualizarGraficoComparacion(p);
@@ -472,8 +511,11 @@ function mostrarMunicipio(p) {
 function actualizarTituloMapa() {
     const selProv    = document.getElementById('sel-provincia');
     const nombreProv = selProv.options[selProv.selectedIndex].text;
+    const TITULOS_VAR = { poblacion: 'Población', porc_65: '% Mayores de 65', ind_envej: 'Índice de envejecimiento' };
+    const varNombre  = TITULOS_VAR[estado.variable] || estado.variable;
+    const sufSexo    = estado.variable === 'poblacion' ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
     document.getElementById('map-title').textContent =
-        `Población · ${nombreProv} · ${ETIQUETAS_SEXO[estado.sexo]} · 2025`;
+        `${varNombre} · ${nombreProv}${sufSexo} · 2025`;
 }
 
 
@@ -501,6 +543,15 @@ document.getElementById('sel-provincia').addEventListener('change', e => {
 
 document.getElementById('sel-intervalos').addEventListener('change', e => {
     estado.intervalos = parseInt(e.target.value);
+    pintarMapa();
+});
+
+document.getElementById('sel-variable').addEventListener('change', e => {
+    estado.variable = e.target.value;
+    const esPoblacion = estado.variable === 'poblacion';
+    const radioSexo = document.getElementById('radio-sexo');
+    radioSexo.style.opacity      = esPoblacion ? '1' : '0.4';
+    radioSexo.style.pointerEvents = esPoblacion ? '' : 'none';
     pintarMapa();
 });
 

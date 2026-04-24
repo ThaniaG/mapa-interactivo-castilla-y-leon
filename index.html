@@ -55,6 +55,8 @@
             <label>Variable</label>
             <select class="filter-select" id="sel-variable">
                 <option value="poblacion">Población</option>
+                <option value="porc_65">% Mayores de 65</option>
+                <option value="ind_envej">Índice de envejecimiento</option>
             </select>
         </div>
 
@@ -151,8 +153,9 @@
         </div>
     </div>
 
-    <!-- datos_municipios.js debe cargarse antes que funciones.js -->
+    <!-- datos_municipios.js y datos_edades.js deben cargarse antes que funciones.js -->
     <script src="datos_municipios.js"></script>
+    <script src="datos_edades.js"></script>
     <script src="provincias.js"></script>
     <script src="funciones.js"></script>
 </body>
