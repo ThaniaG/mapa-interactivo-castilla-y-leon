@@ -210,6 +210,10 @@ function getColorCoropleta(valor, breaks, paleta) {
 // Devuelve el valor de la variable activa para un municipio dado
 function getValorVariable(props) {
     if (estado.variable === 'poblacion') return props[estado.sexo] || 0;
+    if (estado.variable === 'renta_media') {
+        const renta = (typeof DATOS_RENTA !== 'undefined') && DATOS_RENTA[props.codigo];
+        return renta ? renta.renta_media : 0;
+    }
     const edades = (typeof DATOS_EDADES !== 'undefined') && DATOS_EDADES[props.codigo];
     if (!edades) return 0;
     const sufijo = estado.sexo === 'hombres' ? '_h' : estado.sexo === 'mujeres' ? '_m' : '';
@@ -273,7 +277,9 @@ function pintarMapa() {
                 ? val.toLocaleString('es-ES') + ' hab.'
                 : estado.variable === 'porc_65'
                     ? val.toFixed(1) + '% ≥65 años'
-                    : 'Índice env.: ' + val.toFixed(1);
+                    : estado.variable === 'ind_envej'
+                        ? 'Índice env.: ' + val.toFixed(1)
+                        : val.toLocaleString('es-ES') + ' €';
             layer.bindTooltip(
                 `<strong>${p.nombre}</strong><br>${p.provincia}<br>${valStr}`,
                 { sticky: true, className: 'mapa-tooltip' }
@@ -356,13 +362,16 @@ function actualizarLeyenda(breaks) {
 
     const sufSexo = estado.sexo !== 'total' ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
     const TITULOS_VAR = {
-        poblacion: `Habitantes · ${ETIQUETAS_SEXO[estado.sexo]}`,
-        porc_65:   `% Mayores de 65${sufSexo}`,
-        ind_envej: `Índice de envejecimiento${sufSexo}`,
+        poblacion:   `Habitantes · ${ETIQUETAS_SEXO[estado.sexo]}`,
+        porc_65:     `% Mayores de 65${sufSexo}`,
+        ind_envej:   `Índice de envejecimiento${sufSexo}`,
+        renta_media: 'Renta media por persona (€)',
     };
-    const formatBreak = v => estado.variable === 'poblacion'
-        ? (v ?? 0).toLocaleString('es-ES')
-        : (v ?? 0).toFixed(1);
+    const formatBreak = v => {
+        if (estado.variable === 'poblacion') return (v ?? 0).toLocaleString('es-ES');
+        if (estado.variable === 'renta_media') return (v ?? 0).toLocaleString('es-ES') + ' €';
+        return (v ?? 0).toFixed(1);
+    };
 
     let html = `<div class="legend-title">${TITULOS_VAR[estado.variable] || 'Valor'}</div>`;
     for (let i = 0; i < n; i++) {
@@ -476,6 +485,18 @@ function actualizarGraficoComparacion(p) {
 function mostrarMunicipio(p) {
     cambiarPestana('municipio');
     const color  = COLORES_PROVINCIA[p.prov_key] || '#1b6ca8';
+    const renta  = (typeof DATOS_RENTA !== 'undefined') && DATOS_RENTA[p.codigo];
+    const rentaHtml = renta ? `
+        <div class="muni-stats" style="margin-top:6px;border-top:1px solid rgba(255,255,255,0.3);padding-top:6px">
+            <div class="muni-stat" style="grid-column:1/3">
+                <div class="stat-val">${renta.renta_media.toLocaleString('es-ES')} €</div>
+                <div class="stat-lbl">Renta media/persona (2023)</div>
+            </div>
+            ${renta.renta_mediana ? `<div class="muni-stat" style="grid-column:3/4">
+                <div class="stat-val">${renta.renta_mediana.toLocaleString('es-ES')} €</div>
+                <div class="stat-lbl">Renta mediana</div>
+            </div>` : ''}
+        </div>` : '';
     const edades = (typeof DATOS_EDADES !== 'undefined') && DATOS_EDADES[p.codigo];
     const edadHtml = edades ? `
         <div class="muni-stats" style="margin-top:6px;border-top:1px solid rgba(255,255,255,0.3);padding-top:6px">
@@ -512,6 +533,7 @@ function mostrarMunicipio(p) {
                 </div>
             </div>
             ${edadHtml}
+            ${rentaHtml}
         </div>`;
 
     actualizarGraficoComparacion(p);
@@ -568,11 +590,12 @@ function actualizarGraficoEvolucion(p) {
 function actualizarTituloMapa() {
     const selProv    = document.getElementById('sel-provincia');
     const nombreProv = selProv.options[selProv.selectedIndex].text;
-    const TITULOS_VAR = { poblacion: 'Población', porc_65: '% Mayores de 65', ind_envej: 'Índice de envejecimiento' };
+    const TITULOS_VAR = { poblacion: 'Población', porc_65: '% Mayores de 65', ind_envej: 'Índice de envejecimiento', renta_media: 'Renta media por persona' };
     const varNombre  = TITULOS_VAR[estado.variable] || estado.variable;
-    const sufSexo    = estado.sexo !== 'total' ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
+    const sufSexo    = (estado.sexo !== 'total' && estado.variable !== 'renta_media') ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
+    const anio       = estado.variable === 'renta_media' ? '2023' : '2025';
     document.getElementById('map-title').textContent =
-        `${varNombre} · ${nombreProv}${sufSexo} · 2025`;
+        `${varNombre} · ${nombreProv}${sufSexo} · ${anio}`;
 }
 
 
