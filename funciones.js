@@ -170,6 +170,7 @@ const estado = {
     provincia:  'todas',
     intervalos: 5,
     variable:   'poblacion',
+    anio_subv:  'total',
 };
 
 let capaGeo      = null;
@@ -216,7 +217,8 @@ function getValorVariable(props) {
     }
     if (estado.variable === 'subvenciones') {
         const subv = (typeof DATOS_SUBVENCIONES !== 'undefined') && DATOS_SUBVENCIONES[props.codigo];
-        return subv ? subv.total : 0;
+        if (!subv) return 0;
+        return estado.anio_subv === 'total' ? subv.total : (subv.por_anio[estado.anio_subv] || 0);
     }
     const edades = (typeof DATOS_EDADES !== 'undefined') && DATOS_EDADES[props.codigo];
     if (!edades) return 0;
@@ -494,17 +496,16 @@ function mostrarMunicipio(p) {
     cambiarPestana('municipio');
     const color  = COLORES_PROVINCIA[p.prov_key] || '#1b6ca8';
     const subv   = (typeof DATOS_SUBVENCIONES !== 'undefined') && DATOS_SUBVENCIONES[p.codigo];
-    const subvHtml = subv ? `
+    const subvVal   = subv ? (estado.anio_subv === 'total' ? subv.total : (subv.por_anio[estado.anio_subv] || 0)) : 0;
+    const subvLabel = estado.anio_subv === 'total' ? 'Subvenciones diputación 2022-2025' : `Subvenciones diputación ${estado.anio_subv}`;
+    const subvHtml = `
         <div class="muni-stats" style="margin-top:6px;border-top:1px solid rgba(255,255,255,0.3);padding-top:6px">
             <div class="muni-stat" style="grid-column:1/3">
-                <div class="stat-val">${subv.total.toLocaleString('es-ES')} €</div>
-                <div class="stat-lbl">Subvenciones diputación 2022-2025</div>
+                <div class="stat-val">${subv ? subvVal.toLocaleString('es-ES') + ' €' : '0 €'}</div>
+                <div class="stat-lbl">${subv ? subvLabel : 'Sin concesiones en el BDNS 2022-2025'}</div>
             </div>
-            <div class="muni-stat">
-                <div class="stat-val">${subv.num_subvenciones}</div>
-                <div class="stat-lbl">Nº concesiones</div>
-            </div>
-        </div>` : '';
+            ${subv ? `<div class="muni-stat"><div class="stat-val">${subv.num_subvenciones}</div><div class="stat-lbl">Nº concesiones</div></div>` : ''}
+        </div>`;
     const renta  = (typeof DATOS_RENTA !== 'undefined') && DATOS_RENTA[p.codigo];
     const rentaHtml = renta ? `
         <div class="muni-stats" style="margin-top:6px;border-top:1px solid rgba(255,255,255,0.3);padding-top:6px">
@@ -615,7 +616,7 @@ function actualizarTituloMapa() {
     const varNombre  = TITULOS_VAR[estado.variable] || estado.variable;
     const sinSexo    = ['renta_media', 'subvenciones'].includes(estado.variable);
     const sufSexo    = (estado.sexo !== 'total' && !sinSexo) ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
-    const anio       = estado.variable === 'renta_media' ? '2023' : estado.variable === 'subvenciones' ? '2022-2025' : '2025';
+    const anio       = estado.variable === 'renta_media' ? '2023' : estado.variable === 'subvenciones' ? (estado.anio_subv === 'total' ? '2022-2025' : estado.anio_subv) : '2025';
     document.getElementById('map-title').textContent =
         `${varNombre} · ${nombreProv}${sufSexo} · ${anio}`;
 }
@@ -669,6 +670,15 @@ document.getElementById('sel-intervalos').addEventListener('change', e => {
 
 document.getElementById('sel-variable').addEventListener('change', e => {
     estado.variable = e.target.value;
+    const esSubv = estado.variable === 'subvenciones';
+    document.getElementById('filtro-anio').style.display = esSubv ? '' : 'none';
+    document.getElementById('div-anio').style.display    = esSubv ? '' : 'none';
+    if (!esSubv) { estado.anio_subv = 'total'; document.getElementById('sel-anio').value = 'total'; }
+    pintarMapa();
+});
+
+document.getElementById('sel-anio').addEventListener('change', e => {
+    estado.anio_subv = e.target.value;
     pintarMapa();
 });
 
