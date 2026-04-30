@@ -214,6 +214,10 @@ function getValorVariable(props) {
         const renta = (typeof DATOS_RENTA !== 'undefined') && DATOS_RENTA[props.codigo];
         return renta ? renta.renta_media : 0;
     }
+    if (estado.variable === 'subvenciones') {
+        const subv = (typeof DATOS_SUBVENCIONES !== 'undefined') && DATOS_SUBVENCIONES[props.codigo];
+        return subv ? subv.total : 0;
+    }
     const edades = (typeof DATOS_EDADES !== 'undefined') && DATOS_EDADES[props.codigo];
     if (!edades) return 0;
     const sufijo = estado.sexo === 'hombres' ? '_h' : estado.sexo === 'mujeres' ? '_m' : '';
@@ -279,7 +283,9 @@ function pintarMapa() {
                     ? val.toFixed(1) + '% ≥65 años'
                     : estado.variable === 'ind_envej'
                         ? 'Índice env.: ' + val.toFixed(1)
-                        : val.toLocaleString('es-ES') + ' €';
+                        : estado.variable === 'subvenciones'
+                            ? val.toLocaleString('es-ES') + ' € (subv.)'
+                            : val.toLocaleString('es-ES') + ' €';
             layer.bindTooltip(
                 `<strong>${p.nombre}</strong><br>${p.provincia}<br>${valStr}`,
                 { sticky: true, className: 'mapa-tooltip' }
@@ -362,14 +368,16 @@ function actualizarLeyenda(breaks) {
 
     const sufSexo = estado.sexo !== 'total' ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
     const TITULOS_VAR = {
-        poblacion:   `Habitantes · ${ETIQUETAS_SEXO[estado.sexo]}`,
-        porc_65:     `% Mayores de 65${sufSexo}`,
-        ind_envej:   `Índice de envejecimiento${sufSexo}`,
-        renta_media: 'Renta media por persona (€)',
+        poblacion:     `Habitantes · ${ETIQUETAS_SEXO[estado.sexo]}`,
+        porc_65:       `% Mayores de 65${sufSexo}`,
+        ind_envej:     `Índice de envejecimiento${sufSexo}`,
+        renta_media:   'Renta media por persona (€)',
+        subvenciones:  'Subvenciones recibidas 2022-2025 (€)',
     };
     const formatBreak = v => {
         if (estado.variable === 'poblacion') return (v ?? 0).toLocaleString('es-ES');
-        if (estado.variable === 'renta_media') return (v ?? 0).toLocaleString('es-ES') + ' €';
+        if (estado.variable === 'renta_media' || estado.variable === 'subvenciones')
+            return (v ?? 0).toLocaleString('es-ES') + ' €';
         return (v ?? 0).toFixed(1);
     };
 
@@ -485,6 +493,18 @@ function actualizarGraficoComparacion(p) {
 function mostrarMunicipio(p) {
     cambiarPestana('municipio');
     const color  = COLORES_PROVINCIA[p.prov_key] || '#1b6ca8';
+    const subv   = (typeof DATOS_SUBVENCIONES !== 'undefined') && DATOS_SUBVENCIONES[p.codigo];
+    const subvHtml = subv ? `
+        <div class="muni-stats" style="margin-top:6px;border-top:1px solid rgba(255,255,255,0.3);padding-top:6px">
+            <div class="muni-stat" style="grid-column:1/3">
+                <div class="stat-val">${subv.total.toLocaleString('es-ES')} €</div>
+                <div class="stat-lbl">Subvenciones diputación 2022-2025</div>
+            </div>
+            <div class="muni-stat">
+                <div class="stat-val">${subv.num_subvenciones}</div>
+                <div class="stat-lbl">Nº concesiones</div>
+            </div>
+        </div>` : '';
     const renta  = (typeof DATOS_RENTA !== 'undefined') && DATOS_RENTA[p.codigo];
     const rentaHtml = renta ? `
         <div class="muni-stats" style="margin-top:6px;border-top:1px solid rgba(255,255,255,0.3);padding-top:6px">
@@ -534,6 +554,7 @@ function mostrarMunicipio(p) {
             </div>
             ${edadHtml}
             ${rentaHtml}
+            ${subvHtml}
         </div>`;
 
     actualizarGraficoComparacion(p);
@@ -590,10 +611,11 @@ function actualizarGraficoEvolucion(p) {
 function actualizarTituloMapa() {
     const selProv    = document.getElementById('sel-provincia');
     const nombreProv = selProv.options[selProv.selectedIndex].text;
-    const TITULOS_VAR = { poblacion: 'Población', porc_65: '% Mayores de 65', ind_envej: 'Índice de envejecimiento', renta_media: 'Renta media por persona' };
+    const TITULOS_VAR = { poblacion: 'Población', porc_65: '% Mayores de 65', ind_envej: 'Índice de envejecimiento', renta_media: 'Renta media por persona', subvenciones: 'Subvenciones diputaciones' };
     const varNombre  = TITULOS_VAR[estado.variable] || estado.variable;
-    const sufSexo    = (estado.sexo !== 'total' && estado.variable !== 'renta_media') ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
-    const anio       = estado.variable === 'renta_media' ? '2023' : '2025';
+    const sinSexo    = ['renta_media', 'subvenciones'].includes(estado.variable);
+    const sufSexo    = (estado.sexo !== 'total' && !sinSexo) ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
+    const anio       = estado.variable === 'renta_media' ? '2023' : estado.variable === 'subvenciones' ? '2022-2025' : '2025';
     document.getElementById('map-title').textContent =
         `${varNombre} · ${nombreProv}${sufSexo} · ${anio}`;
 }
