@@ -96,6 +96,14 @@
                 <option value="6">6</option>
             </select>
         </div>
+
+        <div class="filter-divider"></div>
+
+        <div class="filter-group">
+            <label>Capas</label>
+            <div class="radio-btn" id="btn-turismo">Turismo</div>
+        </div>
+
     </div>
 
     <!-- Contenido principal: mapa + panel derecho -->
@@ -126,7 +134,7 @@
 
             <div class="tab-content active" id="tab-cyl">
 
-                <div class="panel-section">
+                <div class="panel-section" id="seccion-kpis">
                     <div class="kpi-title" id="kpi-titulo">Castilla y León · Totales</div>
                     <div class="kpi-cards">
                         <div class="kpi-card">
@@ -144,7 +152,7 @@
                     </div>
                 </div>
 
-                <div class="panel-section">
+                <div class="panel-section" id="seccion-grafico-prov">
                     <div class="panel-section-title">Población por provincia</div>
                     <div class="chart-container" style="height:200px">
                         <canvas id="chart-top"></canvas>
@@ -196,6 +204,7 @@
     <script src="datos_evolucion.js"></script>
     <script src="datos_renta.js"></script>
     <script src="datos_subvenciones.js"></script>
+    <script src="datos_turismo.js"></script>
     <script src="provincias.js"></script>
     <script src="funciones.js"></script>
 </body>

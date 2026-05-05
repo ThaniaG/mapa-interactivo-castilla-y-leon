@@ -164,6 +164,23 @@ const capaProvincias = L.geoJson(DATOS_PROVINCIAS, {
     interactive: false,
 }).addTo(map);
 
+// Colores por categoría turística
+const COLORES_TURISMO = {
+    'Museo':                     '#ff9800',
+    'Castillos':                 '#6d4c41',
+    'Iglesias y Ermitas':        '#5c6bc0',
+    'Monasterios':               '#7b1fa2',
+    'Palacios':                  '#c62828',
+    'Yacimientos arqueológicos': '#827717',
+    'Catedrales':                '#1565c0',
+    'Murallas y puertas':        '#37474f',
+    'Torres':                    '#455a64',
+    'Puentes':                   '#00695c',
+};
+
+// Capa de puntos turísticos
+let capaTurismo = null;
+
 // Estado global de los filtros activos
 const estado = {
     sexo:       'total',
@@ -171,6 +188,7 @@ const estado = {
     intervalos: 5,
     variable:   'poblacion',
     anio_subv:  'total',
+    turismo:    false,
 };
 
 let capaGeo      = null;
@@ -294,9 +312,9 @@ function pintarMapa() {
             );
 
             layer.on({
-                click:     () => mostrarMunicipio(p),
-                mouseover: e  => e.target.setStyle({ weight: 2, color: '#333', fillOpacity: 0.95 }),
-                mouseout:  e  => capaGeo.resetStyle(e.target),
+                click:     () => { if (!estado.turismo) mostrarMunicipio(p); },
+                mouseover: e  => { if (!estado.turismo) e.target.setStyle({ weight: 2, color: '#333', fillOpacity: 0.95 }); },
+                mouseout:  e  => { if (!estado.turismo) capaGeo.resetStyle(e.target); },
             });
         }
 
@@ -642,9 +660,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 
 
 // Eventos de los filtros
-document.querySelectorAll('.radio-btn').forEach(btn => {
+document.querySelectorAll('#radio-sexo .radio-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        document.querySelectorAll('.radio-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#radio-sexo .radio-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         estado.sexo = btn.dataset.val;
         pintarMapa();
@@ -682,6 +700,120 @@ document.getElementById('sel-anio').addEventListener('change', e => {
     pintarMapa();
 });
 
+
+document.getElementById('btn-turismo').addEventListener('click', function () {
+    estado.turismo = !estado.turismo;
+    this.classList.toggle('active', estado.turismo);
+    pintarTurismo();
+});
+
+// Muestra u oculta los puntos turísticos oficiales (museos y monumentos de la Junta de CyL)
+function pintarTurismo() {
+    if (capaTurismo) { map.removeLayer(capaTurismo); capaTurismo = null; }
+    if (!estado.turismo || typeof datosTurismo === 'undefined') return;
+
+    capaTurismo = L.layerGroup();
+
+    datosTurismo.forEach(p => {
+        const color  = COLORES_TURISMO[p.categoria] || '#9e9e9e';
+        const marker = L.circleMarker([p.lat, p.lon], {
+            radius: 5, fillColor: color, color: '#fff', weight: 1, fillOpacity: 0.85,
+        });
+
+        marker.on('click', () => mostrarPuntoTuristico(p));
+        capaTurismo.addLayer(marker);
+    });
+
+    capaTurismo.addTo(map);
+    actualizarPanelTurismo();
+}
+
+// Muestra la información de un punto turístico en el panel derecho
+function mostrarPuntoTuristico(p) {
+    cambiarPestana('municipio');
+    const color    = COLORES_TURISMO[p.categoria] || '#9e9e9e';
+    const ubicacion = [p.municipio, p.provincia].filter(Boolean).join(' · ');
+
+    document.getElementById('muni-detail').innerHTML = `
+        <div class="muni-info" style="background:linear-gradient(135deg,${color},${color}bb)">
+            <div class="muni-name">${p.nombre}</div>
+            <div class="muni-prov">${p.categoria}${ubicacion ? ' · ' + ubicacion : ''}</div>
+            ${p.periodo ? `<div class="muni-prov" style="font-size:11px;opacity:0.85">${p.periodo}</div>` : ''}
+        </div>
+        ${p.descripcion ? `<div style="padding:10px 12px;font-size:12px;color:#444;line-height:1.6;border-bottom:1px solid #f0f4f8">${p.descripcion}</div>` : ''}
+        ${p.horario ? `<div style="padding:8px 12px;font-size:11px;color:#555;border-bottom:1px solid #f0f4f8">🕐 ${p.horario}</div>` : ''}
+        ${p.web ? `<div style="padding:8px 12px"><a href="${p.web}" target="_blank" style="font-size:12px;color:#1b6ca8;text-decoration:none">Ver ficha oficial ↗</a></div>` : ''}
+    `;
+
+    if (graficoComparacion) { graficoComparacion.destroy(); graficoComparacion = null; }
+    if (graficoEvolucion)   { graficoEvolucion.destroy();   graficoEvolucion = null; }
+
+    document.getElementById('grafico-comparacion-wrap').innerHTML =
+        '<div class="no-selection" style="font-size:12px;color:#aaa">No disponible para puntos turísticos</div>';
+    document.getElementById('grafico-evolucion-wrap').innerHTML =
+        '<div class="no-selection" style="font-size:12px;color:#aaa">No disponible para puntos turísticos</div>';
+}
+
+// Muestra u oculta la leyenda de turismo en la pestaña Castilla y León
+function actualizarPanelTurismo() {
+    const secKpis    = document.getElementById('seccion-kpis');
+    const secGrafico = document.getElementById('seccion-grafico-prov');
+    let   secLeyenda = document.getElementById('seccion-turismo-leyenda');
+
+    if (!estado.turismo) {
+        if (secLeyenda) secLeyenda.style.display = 'none';
+        secKpis.style.display    = '';
+        secGrafico.style.display = '';
+        return;
+    }
+
+    secKpis.style.display    = 'none';
+    secGrafico.style.display = 'none';
+
+    const conteo = {};
+    if (typeof datosTurismo !== 'undefined') {
+        datosTurismo.forEach(p => { conteo[p.categoria] = (conteo[p.categoria] || 0) + 1; });
+    }
+    const ordenadas = Object.entries(conteo).sort((a, b) => b[1] - a[1]);
+    const total     = ordenadas.reduce((s, [, n]) => s + n, 0);
+
+    let html = `<div class="kpi-title" style="margin-bottom:8px">Puntos turísticos · Castilla y León</div>`;
+    ordenadas.forEach(([cat, n]) => {
+        const color = COLORES_TURISMO[cat] || '#9e9e9e';
+        html += `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #f0f4f8">
+            <div style="width:11px;height:11px;border-radius:50%;background:${color};flex-shrink:0;border:1px solid #fff;box-shadow:0 0 0 1px ${color}55"></div>
+            <span style="flex:1;font-size:12px;color:#2d3f50">${cat}</span>
+            <span style="font-size:12px;font-weight:600;color:#2d3f50">${n.toLocaleString('es-ES')}</span>
+        </div>`;
+    });
+    html += `<div style="display:flex;align-items:center;gap:8px;padding:8px 0 4px">
+        <div style="width:11px;height:11px;flex-shrink:0"></div>
+        <span style="flex:1;font-size:12px;font-weight:700;color:#1b6ca8">Total</span>
+        <span style="font-size:13px;font-weight:700;color:#1b6ca8">${total.toLocaleString('es-ES')}</span>
+    </div>
+    <div style="font-size:10px;color:#aaa;margin-top:2px">Fuente: datosabiertos.jcyl.es · Junta de CyL</div>`;
+
+    if (!secLeyenda) {
+        secLeyenda = document.createElement('div');
+        secLeyenda.id = 'seccion-turismo-leyenda';
+        secLeyenda.className = 'panel-section';
+        document.getElementById('tab-cyl').appendChild(secLeyenda);
+    }
+    secLeyenda.innerHTML = html;
+    secLeyenda.style.display = '';
+}
+
+document.getElementById('btn-turismo').addEventListener('click', function () {
+    estado.turismo = !estado.turismo;
+    this.classList.toggle('active', estado.turismo);
+    pintarTurismo();
+    if (!estado.turismo) {
+        cambiarPestana('cyl');
+        document.getElementById('muni-detail').innerHTML = `<div class="no-selection"><div class="icon">🗺️</div>Haz clic en un municipio del mapa para ver sus datos</div>`;
+        document.getElementById('grafico-comparacion-wrap').innerHTML = `<div class="no-selection"><div class="icon">👆</div>Haz clic en un municipio para ver la comparación</div>`;
+        document.getElementById('grafico-evolucion-wrap').innerHTML = `<div class="no-selection"><div class="icon">📈</div>Haz clic en un municipio para ver su evolución</div>`;
+    }
+});
 
 // Arrancar la aplicación
 pintarMapa();
