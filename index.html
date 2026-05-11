@@ -59,6 +59,21 @@
                 <option value="ind_envej">Índice de envejecimiento</option>
                 <option value="renta_media">Renta media</option>
                 <option value="subvenciones">Subvenciones</option>
+                <option value="establecimientos">Establecimientos</option>
+                <option value="cobertura_salud">Cobertura sanitaria</option>
+            </select>
+        </div>
+
+        <!-- Sub-filtro tipo de establecimiento (solo visible con variable=establecimientos) -->
+        <div class="filter-divider" id="div-tipo-estab" style="display:none"></div>
+        <div class="filter-group" id="filtro-tipo-estab" style="display:none">
+            <label>Tipo</label>
+            <select class="filter-select" id="sel-tipo-estab">
+                <option value="total">Todos</option>
+                <option value="bares">Bares</option>
+                <option value="restaurantes">Restaurantes</option>
+                <option value="cafeterias">Cafeterías</option>
+                <option value="alojamiento">Alojamiento</option>
             </select>
         </div>
 
@@ -99,9 +114,12 @@
 
         <div class="filter-divider"></div>
 
+        <!-- Botones de capas de puntos sobre el mapa -->
         <div class="filter-group">
             <label>Capas</label>
             <div class="radio-btn" id="btn-turismo">Turismo</div>
+            <div class="radio-btn" id="btn-estab-puntos">Establecimientos</div>
+            <div class="radio-btn" id="btn-salud">Salud</div>
         </div>
 
     </div>
@@ -124,14 +142,17 @@
             </div>
         </div>
 
-        <!-- Panel derecho (columna derecha, altura completa) -->
+        <!-- Panel derecho -->
         <div class="right-panel">
 
+            <!-- Pestañas -->
             <div class="tabs">
                 <button class="tab-btn active" data-tab="cyl">Castilla y León</button>
                 <button class="tab-btn" data-tab="municipio">Municipio</button>
+                <button class="tab-btn" data-tab="graficos">Gráficos</button>
             </div>
 
+            <!-- Pestaña 1: Vista general de CyL -->
             <div class="tab-content active" id="tab-cyl">
 
                 <div class="panel-section" id="seccion-kpis">
@@ -161,6 +182,7 @@
 
             </div>
 
+            <!-- Pestaña 2: Datos del municipio seleccionado -->
             <div class="tab-content" id="tab-municipio">
 
                 <div class="panel-section">
@@ -173,8 +195,13 @@
                     </div>
                 </div>
 
-                <div class="panel-section">
-                    <div class="panel-section-title">Hombres vs Mujeres</div>
+            </div>
+
+            <!-- Pestaña 3: Gráficos del municipio seleccionado -->
+            <div class="tab-content" id="tab-graficos">
+
+                <div class="panel-section" id="seccion-comparacion">
+                    <div class="panel-section-title" id="titulo-comparacion">Hombres vs Mujeres</div>
                     <div id="grafico-comparacion-wrap">
                         <div class="no-selection">
                             <div class="icon">👆</div>
@@ -198,13 +225,17 @@
         </div>
     </div>
 
-    <!-- scripts: datos antes que funciones.js -->
+    <!-- Scripts: datos antes que funciones.js -->
     <script src="datos_municipios.js"></script>
     <script src="datos_edades.js"></script>
     <script src="datos_evolucion.js"></script>
     <script src="datos_renta.js"></script>
     <script src="datos_subvenciones.js"></script>
     <script src="datos_turismo.js"></script>
+    <script src="datos_establecimientos.js"></script>
+    <script src="datos_puntos_establecimientos.js"></script>
+    <script src="datos_salud.js"></script>
+    <script src="datos_puntos_salud.js"></script>
     <script src="provincias.js"></script>
     <script src="funciones.js"></script>
 </body>
