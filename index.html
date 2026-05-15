@@ -1,25 +1,71 @@
 <!DOCTYPE html>
-<!-- Copyright © 2026 Thania Gutiérrez. Todos los derechos reservados. -->
+<!--
+    ESTRUCTURA GENERAL DE LA PÁGINA
+    ════════════════════════════════════════════════════════
+    Este archivo define la estructura visual del dashboard.
+    Está escrito directamente en HTML — no se ha usado ninguna
+    librería para generarlo, se ha construido a mano.
+
+    La página se organiza en tres bloques verticales:
+      1. <header>       → barra superior con el título
+      2. .filter-bar    → fila de filtros (provincia, sexo, etc.)
+      3. .main          → contenido principal con el mapa y el panel
+
+    Para los estilos visuales se usa el archivo style.css.
+    Para la lógica interactiva se usa el archivo funciones.js.
+    Los datos del mapa vienen del archivo datos_municipios.js,
+    que fue generado previamente con un script de Python.
+    ════════════════════════════════════════════════════════
+-->
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Castilla y León · Datos de Población</title>
 
-    <!-- Leaflet: mapa interactivo -->
+    <!--
+        LIBRERÍAS EXTERNAS (gratuitas y de código abierto)
+        ────────────────────────────────────────────────────
+        Se cargan desde un CDN (Content Delivery Network).
+        Un CDN es un servidor en internet que guarda archivos
+        listos para descargar. En vez de incluir estas librerías
+        dentro del proyecto, el navegador las descarga directamente
+        de ese servidor cada vez que alguien abre la página.
+
+        Ventajas de usar CDN:
+          - No ocupa espacio en el proyecto ni en GitHub
+          - Es más rápido: los CDN tienen servidores por todo el mundo
+            y el navegador descarga desde el más cercano
+          - El @1.9.3 y @4.4.0 fijan la versión exacta, así la página
+            nunca se rompe si la librería lanza una versión nueva
+          - Es completamente gratuito (usamos jsDelivr)
+
+        - Leaflet 1.9.3 : dibuja el mapa interactivo sobre OpenStreetMap.
+                          Necesita su propio CSS además del JS.
+        - Chart.js 4.4.0: dibuja los gráficos de barras del panel derecho.
+        - Google Fonts   : tipografía "Inter", más limpia que las del sistema.
+    -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css" />
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
-    <!-- Chart.js: gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <!-- Fuente tipográfica -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
+    <!-- Estilos propios del dashboard (colores, layout, tipografía...) -->
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- Cabecera principal -->
+    <!--
+    ══════════════════════════════════════════
+      HEADER — Barra superior de la aplicación
+      Contiene: logo, título, subtítulo y badge del año.
+      Se creó como una barra fija en la parte superior usando
+      flexbox (display:flex en CSS) para alinear los elementos
+      en horizontal de izquierda a derecha.
+    ══════════════════════════════════════════
+    -->
     <header>
+        <!-- Logo: un cuadrado azul con las iniciales "CL" creado solo con CSS -->
         <div class="header-logo">CL</div>
         <div>
             <div class="header-title">Castilla y León · Datos de Población</div>
@@ -29,10 +75,31 @@
         <span class="header-badge">Año 2025</span>
     </header>
 
-    <!-- Barra de filtros -->
+    <!--
+    ══════════════════════════════════════════
+      BARRA DE FILTROS
+      Franja blanca debajo del header que contiene los controles
+      para que el usuario personalice lo que ve en el mapa.
+
+      Filtros disponibles:
+        - Provincia  : ver solo una provincia o todas a la vez
+        - Variable   : qué dato se representa (por ahora solo Población)
+        - Sexo       : Total / Hombres / Mujeres
+        - Intervalos : cuántos rangos de color usa el mapa (4, 5 o 6)
+
+      Cada filtro tiene un <label> (etiqueta de texto) y un control:
+        - <select> para Provincia, Variable e Intervalos (desplegable)
+        - <div class="radio-btn"> para Sexo (botones visuales sin usar
+          los inputs radio nativos del navegador, para poder darles estilo)
+
+      Cuando el usuario cambia cualquier filtro, JavaScript detecta
+      el cambio y actualiza el mapa automáticamente.
+    ══════════════════════════════════════════
+    -->
     <div class="filter-bar">
         <span class="filter-label">Filtros</span>
 
+        <!-- Filtro de Provincia -->
         <div class="filter-group">
             <label>Provincia</label>
             <select class="filter-select" id="sel-provincia">
@@ -51,6 +118,7 @@
 
         <div class="filter-divider"></div>
 
+        <!-- Filtro de Variable (qué dato se mapea) -->
         <div class="filter-group">
             <label>Variable</label>
             <select class="filter-select" id="sel-variable">
@@ -61,10 +129,14 @@
                 <option value="subvenciones">Subvenciones</option>
                 <option value="establecimientos">Establecimientos</option>
                 <option value="cobertura_salud">Cobertura sanitaria</option>
+                <option value="nacimientos">Nacimientos</option>
+                <option value="defunciones">Defunciones</option>
+                <option value="balance_vital">Balance vegetativo</option>
+                <option value="despoblacion">Despoblación</option>
             </select>
         </div>
 
-        <!-- Sub-filtro tipo de establecimiento (solo visible con variable=establecimientos) -->
+        <!-- Sub-filtro tipo establecimiento (visible solo con variable=establecimientos) -->
         <div class="filter-divider" id="div-tipo-estab" style="display:none"></div>
         <div class="filter-group" id="filtro-tipo-estab" style="display:none">
             <label>Tipo</label>
@@ -90,19 +162,52 @@
             </select>
         </div>
 
-        <div class="filter-divider"></div>
+        <!-- Filtro de Año base (solo visible cuando variable = despoblacion) -->
+        <div class="filter-divider" id="div-anio-base" style="display:none"></div>
+        <div class="filter-group" id="filtro-anio-base" style="display:none">
+            <label>Desde</label>
+            <select class="filter-select" id="sel-anio-base">
+                <option value="1996">1996</option>
+                <option value="2000" selected>2000</option>
+                <option value="2005">2005</option>
+                <option value="2010">2010</option>
+                <option value="2015">2015</option>
+                <option value="2020">2020</option>
+            </select>
+        </div>
 
-        <div class="filter-group">
-            <label>Sexo</label>
-            <div class="radio-group" id="radio-sexo">
-                <div class="radio-btn active" data-val="total">Total</div>
-                <div class="radio-btn" data-val="hombres">Hombres</div>
-                <div class="radio-btn" data-val="mujeres">Mujeres</div>
-            </div>
+        <!-- Filtro de Año (solo visible cuando variable = nacimientos/defunciones/balance_vital) -->
+        <div class="filter-divider" id="div-anio-vital" style="display:none"></div>
+        <div class="filter-group" id="filtro-anio-vital" style="display:none">
+            <label>Año</label>
+            <select class="filter-select" id="sel-anio-vital">
+                <option value="2024" selected>2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+            </select>
         </div>
 
         <div class="filter-divider"></div>
 
+        <!-- Filtro de Sexo: desplegable -->
+        <div class="filter-group">
+            <label>Sexo</label>
+            <select class="filter-select" id="sel-sexo">
+                <option value="total">Total</option>
+                <option value="hombres">Hombres</option>
+                <option value="mujeres">Mujeres</option>
+            </select>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <!-- Filtro de número de intervalos de color en el mapa -->
         <div class="filter-group">
             <label>Intervalos</label>
             <select class="filter-select" id="sel-intervalos">
@@ -118,16 +223,49 @@
         <div class="filter-group">
             <label>Capas</label>
             <div class="radio-btn" id="btn-turismo">Turismo</div>
-            <div class="radio-btn" id="btn-estab-puntos">Establecimientos</div>
+            <div class="radio-btn" id="btn-estab-puntos">Estab.</div>
             <div class="radio-btn" id="btn-salud">Salud</div>
+            <div class="radio-btn" id="btn-redviaria">Red Viaria</div>
+            <div class="radio-btn" id="btn-naturaleza">Naturaleza</div>
+            <div class="radio-btn" id="btn-reciclaje">Reciclaje</div>
         </div>
 
     </div>
 
-    <!-- Contenido principal: mapa + panel derecho -->
+    <!--
+    ══════════════════════════════════════════
+      CONTENIDO PRINCIPAL
+      Ocupa todo el espacio restante de la pantalla.
+      Se estructura con CSS Grid en 2 columnas y 2 filas:
+
+          ┌─────────────────────┬───────────────┐
+          │                     │  KPIs totales │  ← fila 1
+          │       MAPA          ├───────────────┤
+          │    (columna 1,      │  Panel derecho│  ← fila 2
+          │    2 filas)         │  (gráfico +   │
+          │                     │   tabla)      │
+          └─────────────────────┴───────────────┘
+
+      El mapa ocupa las 2 filas de la columna izquierda.
+      La columna derecha tiene KPIs arriba y el panel abajo.
+    ══════════════════════════════════════════
+    -->
     <div class="main">
 
-        <!-- Mapa interactivo (columna izquierda) -->
+        <!--
+          MAPA INTERACTIVO (columna izquierda, ocupa ambas filas)
+
+          Cómo funciona:
+          - El <div id="map"> es el contenedor donde Leaflet dibuja el mapa.
+            Leaflet toma ese div, carga los tiles (imágenes) de OpenStreetMap
+            y superpone los polígonos de los municipios coloreados.
+          - El título (.map-title) flota encima del mapa usando
+            position:absolute en CSS.
+          - La leyenda (.map-legend) también flota, en la esquina inferior
+            derecha, y se rellena desde JavaScript con los rangos de color.
+          - El contenedor (.map-wrap) usa position:relative para que los
+            elementos flotantes (título y leyenda) se posicionen respecto a él.
+        -->
         <div class="map-wrap">
             <div class="map-title" id="map-title">
                 Cifras Oficiales de Población · Municipios · Total · 2025
@@ -142,7 +280,25 @@
             </div>
         </div>
 
-        <!-- Panel derecho -->
+        <!--
+          PANEL DERECHO (columna derecha, altura completa)
+          Tiene scroll propio para no desbordar la pantalla.
+          Se divide en tres secciones apiladas verticalmente:
+
+          1. Municipio seleccionado:
+             Empieza con un mensaje de "haz clic en el mapa".
+             Cuando el usuario hace clic, JavaScript sustituye
+             ese contenido por una tarjeta con los datos del municipio.
+
+          2. Gráfico de barras (Chart.js):
+             El <canvas> es el elemento HTML donde Chart.js dibuja
+             el gráfico. Canvas funciona como un "lienzo" donde
+             JavaScript puede dibujar formas, texto y colores.
+
+          3. Comparación Hombres vs Mujeres:
+             Igual que la sección 1: empieza vacío y JavaScript
+             inserta el contenido cuando se selecciona un municipio.
+        -->
         <div class="right-panel">
 
             <!-- Pestañas -->
@@ -174,9 +330,16 @@
                 </div>
 
                 <div class="panel-section" id="seccion-grafico-prov">
-                    <div class="panel-section-title">Población por provincia</div>
+                    <div class="panel-section-title" id="titulo-grafico-prov">Población por provincia</div>
                     <div class="chart-container" style="height:200px">
                         <canvas id="chart-top"></canvas>
+                    </div>
+                </div>
+
+                <div class="panel-section" id="seccion-grafico-prov2" style="display:none">
+                    <div class="panel-section-title" id="titulo-grafico-prov2">Cambio total por provincia</div>
+                    <div class="chart-container" style="height:200px">
+                        <canvas id="chart-top2"></canvas>
                     </div>
                 </div>
 
@@ -220,12 +383,51 @@
                     </div>
                 </div>
 
+                <div class="panel-section">
+                    <div class="panel-section-title">Nacimientos y defunciones · 2016 – 2024</div>
+                    <div id="grafico-vital-wrap">
+                        <div class="no-selection">
+                            <div class="icon">🏥</div>
+                            Haz clic en un municipio para ver el movimiento natural
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
     </div>
 
-    <!-- Scripts: datos antes que funciones.js -->
+    <!--
+        ORDEN DE CARGA DE LOS SCRIPTS — IMPORTANTE
+        ════════════════════════════════════════════
+        Los scripts se cargan al final del <body> (no en el <head>)
+        para que el navegador primero construya toda la estructura
+        HTML y luego ejecute el código JavaScript.
+
+        El orden de carga es obligatorio:
+          1. datos_municipios.js  → debe ir PRIMERO porque define la
+                                    variable DATOS_GEO con todos los
+                                    municipios. Sin ella, funciones.js
+                                    no tiene datos que usar.
+                                    Este archivo fue generado por el
+                                    script de Python (generar_municipios_datos.py)
+                                    combinando los datos del INE con los
+                                    polígonos GeoJSON del CNIG.
+
+          2. datos_edades.js      → va SEGUNDO: define DATOS_EDADES con
+                                    indicadores de envejecimiento por municipio
+                                    (% mayores de 65, índice de envejecimiento).
+                                    Generado por generar_datos_edades.py (INE 2025).
+
+          3. datos_evolucion.js   → define DATOS_EVOLUCION con la evolución
+                                    de población 1996-2025 por municipio.
+                                    Generado por generar_datos_evolucion.py (INE).
+
+          4. funciones.js         → va ÚLTIMO porque usa DATOS_GEO, DATOS_EDADES,
+                                    DATOS_EVOLUCION, Leaflet y Chart.js.
+                                    Contiene toda la lógica: mapa, gráficos y filtros.
+    -->
     <script src="datos_municipios.js"></script>
     <script src="datos_edades.js"></script>
     <script src="datos_evolucion.js"></script>
@@ -236,6 +438,10 @@
     <script src="datos_puntos_establecimientos.js"></script>
     <script src="datos_salud.js"></script>
     <script src="datos_puntos_salud.js"></script>
+    <script src="datos_vital.js"></script>
+    <script src="datos_carreteras.js"></script>
+    <script src="datos_naturaleza.js"></script>
+    <script src="datos_residuos.js"></script>
     <script src="provincias.js"></script>
     <script src="funciones.js"></script>
 </body>
