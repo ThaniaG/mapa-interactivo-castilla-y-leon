@@ -176,6 +176,21 @@ const LABELS_SALUD = {
 // Referencia a la capa de puntos de salud
 let capaPuntosSalud = null;
 
+// Colores y etiquetas para clústeres K-Means (variable coroplética categórica)
+const COLORES_KMEANS = {
+    1: '#d73027',   // C1 Despoblación severa  — rojo
+    2: '#fc8d59',   // C2 Despoblación moderada — naranja
+    3: '#91cf60',   // C3 Crecimiento moderado  — verde claro
+    4: '#1a9850',   // C4 Crecimiento alto      — verde oscuro
+    0: '#cccccc',   // Sin datos
+};
+const NOMBRES_KMEANS = {
+    1: 'C1 · Despoblación severa',
+    2: 'C2 · Despoblación moderada',
+    3: 'C3 · Crecimiento moderado',
+    4: 'C4 · Crecimiento alto',
+};
+
 // Etiquetas legibles del campo de sexo
 const ETIQUETAS_SEXO = {
     total:   'Total',
@@ -318,6 +333,9 @@ const estado = {
     red_viaria:     false,
     naturaleza:     false,
     reciclaje:      false,
+    jenny_algo:     'kmeans',
+    jenny_met:      'mm',
+    jenny_k:        4,
 };
 
 // Capa de bordes de provincia (visible solo en modo "Todas")
@@ -419,6 +437,11 @@ function getValorVariable(props) {
         const salud = (typeof DATOS_SALUD !== 'undefined') && DATOS_SALUD[props.codigo];
         return salud ? salud.nivel_salud : -1;
     }
+    if (estado.variable === 'kmeans') {
+        const clave = `${estado.jenny_algo}_${estado.jenny_met}_${estado.jenny_k}`;
+        const datos = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[clave];
+        return datos ? (datos[props.codigo] ?? -1) : -1;
+    }
     if (estado.variable === 'despoblacion') {
         const ev = (typeof DATOS_EVOLUCION !== 'undefined') && DATOS_EVOLUCION[props.codigo];
         if (!ev) return 0;
@@ -496,6 +519,23 @@ function pintarMapa() {
                 };
             }
 
+            // K-Means / K-Medoids: colores categóricos por clúster (datos de Jenny)
+            if (estado.variable === 'kmeans') {
+                if (!modoTodas && p.prov_key !== estado.provincia) {
+                    return { fillColor: 'transparent', fillOpacity: 0, color: 'transparent', weight: 0 };
+                }
+                const clave = `${estado.jenny_algo}_${estado.jenny_met}_${estado.jenny_k}`;
+                const datos = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[clave];
+                const cl    = datos ? (datos[p.codigo] ?? -1) : -1;
+                const paleta = ['#d73027','#fc8d59','#91cf60','#1a9850','#4575b4','#74add1','#e9a227','#a50026','#762a83','#1b7837'];
+                return {
+                    fillColor:   cl >= 0 ? paleta[cl % paleta.length] : '#cccccc',
+                    fillOpacity: 0.88,
+                    color:       '#ffffff',
+                    weight:      0.4,
+                };
+            }
+
             if (modoTodas) {
                 // Modo todas: Valladolid en guindo, resto en gris — ambos con coropleta de la variable activa
                 const tonos = p.prov_key === 'valladolid' ? tonosValladolid : tonosGris;
@@ -537,6 +577,8 @@ function pintarMapa() {
                         ? 'Índice env.: ' + val.toFixed(1)
                         : estado.variable === 'subvenciones'
                             ? val.toLocaleString('es-ES') + ' € (subv.)'
+                            : estado.variable === 'kmeans'
+                                ? (() => { const clave = `${estado.jenny_algo}_${estado.jenny_met}_${estado.jenny_k}`; const datos = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[clave]; const cl = datos ? datos[p.codigo] : undefined; return cl !== undefined ? `C${cl+1}` : 'Sin datos'; })()
                             : estado.variable === 'cobertura_salud'
                                 ? (() => { const s = (typeof DATOS_SALUD !== 'undefined') && DATOS_SALUD[p.codigo]; return LABELS_SALUD[s ? s.tipo : 'sin_datos']; })()
                                 : estado.variable === 'nacimientos'
@@ -668,6 +710,7 @@ function actualizarLeyenda(breaks) {
         defunciones:      `Defunciones · ${estado.anio_vital}`,
         balance_vital:    `Balance vegetativo · ${estado.anio_vital}`,
         despoblacion:     `Despoblación desde ${estado.anio_base_desp} (%)`,
+        kmeans:           'K-Means · Clústeres demográficos',
     };
     const formatBreak = v => {
         if (estado.variable === 'poblacion') return (v ?? 0).toLocaleString('es-ES');
@@ -678,6 +721,28 @@ function actualizarLeyenda(breaks) {
         if (estado.variable === 'despoblacion') return (v ?? 0).toFixed(1) + '%';
         return (v ?? 0).toFixed(1);
     };
+
+    // Leyenda categórica para clústeres (datos de Jenny)
+    if (estado.variable === 'kmeans') {
+        const algoNombre = estado.jenny_algo === 'kmeans' ? 'K-Means' : 'K-Medoids';
+        const metNombre  = {mm:'Min-Max', z:'Z-score', rel:'Relativa', corr:'Correlación'}[estado.jenny_met] || estado.jenny_met;
+        const k = estado.jenny_k;
+        const ETIQUETAS_K = {
+            2: ['Mayor despoblación', 'Menor despoblación'],
+            3: ['Mayor despoblación', 'Despoblación moderada', 'Menor despoblación'],
+            4: ['Mayor despoblación', 'Despoblación moderada', 'Crecimiento moderado', 'Menor despoblación'],
+            5: ['Mayor despoblación', 'Despoblación alta', 'Despoblación media', 'Crecimiento moderado', 'Menor despoblación'],
+            6: ['Mayor despoblación', 'Despoblación alta', 'Despoblación media', 'Estable', 'Crecimiento moderado', 'Menor despoblación'],
+        };
+        const etiquetas = ETIQUETAS_K[k] || Array.from({length: k}, (_, i) => i === 0 ? 'Mayor despoblación' : i === k-1 ? 'Menor despoblación' : `Grupo ${i+1}`);
+        let html = `<div class="legend-title">${algoNombre} · ${metNombre} · K=${k}</div>`;
+        const paleta = ['#d73027','#fc8d59','#91cf60','#1a9850','#4575b4','#74add1','#e9a227','#a50026','#762a83','#1b7837'];
+        for (let i = 0; i < k; i++) {
+            html += `<div class="legend-item"><div class="legend-color" style="background:${paleta[i]}"></div><span class="legend-label"><strong>C${i+1}</strong> · ${etiquetas[i]}</span></div>`;
+        }
+        legend.innerHTML = html;
+        return;
+    }
 
     // Leyenda categórica para cobertura sanitaria
     if (estado.variable === 'cobertura_salud') {
@@ -1253,12 +1318,14 @@ function actualizarTituloMapa() {
     const selProv    = document.getElementById('sel-provincia');
     const nombreProv = selProv.options[selProv.selectedIndex].text;
     const ETIQUETAS_TIPO_ESTAB2 = { total: 'Todos', bares: 'Bares', restaurantes: 'Restaurantes', cafeterias: 'Cafeterías', alojamiento: 'Alojamiento' };
-    const TITULOS_VAR = { poblacion: 'Población', porc_65: '% Mayores de 65', ind_envej: 'Índice de envejecimiento', renta_media: 'Renta media por persona', subvenciones: 'Subvenciones diputaciones', establecimientos: `Establecimientos · ${ETIQUETAS_TIPO_ESTAB2[estado.tipo_estab]}`, cobertura_salud: 'Cobertura sanitaria' };
+    const _algoLbl = estado.jenny_algo === 'kmeans' ? 'K-Means' : 'K-Medoids';
+    const _metLbl  = {mm:'Min-Max', z:'Z-score', rel:'Relativa', corr:'Correlación'}[estado.jenny_met] || estado.jenny_met;
+    const TITULOS_VAR = { poblacion: 'Población', porc_65: '% Mayores de 65', ind_envej: 'Índice de envejecimiento', renta_media: 'Renta media por persona', subvenciones: 'Subvenciones diputaciones', establecimientos: `Establecimientos · ${ETIQUETAS_TIPO_ESTAB2[estado.tipo_estab]}`, cobertura_salud: 'Cobertura sanitaria', kmeans: `${_algoLbl} · ${_metLbl} · K=${estado.jenny_k}` };
     const varNombre  = TITULOS_VAR[estado.variable] || estado.variable;
-    const sinSexo    = ['renta_media', 'subvenciones', 'establecimientos', 'cobertura_salud', 'nacimientos', 'defunciones', 'balance_vital', 'despoblacion'].includes(estado.variable);
+    const sinSexo    = ['renta_media', 'subvenciones', 'establecimientos', 'cobertura_salud', 'nacimientos', 'defunciones', 'balance_vital', 'despoblacion', 'kmeans'].includes(estado.variable);
     const sufSexo    = (estado.sexo !== 'total' && !sinSexo) ? ` · ${ETIQUETAS_SEXO[estado.sexo]}` : '';
     const esVital    = ['nacimientos', 'defunciones', 'balance_vital'].includes(estado.variable);
-    const anio       = estado.variable === 'renta_media' ? '2023' : estado.variable === 'subvenciones' ? (estado.anio_subv === 'total' ? '2022-2025' : estado.anio_subv) : estado.variable === 'establecimientos' ? '2025' : estado.variable === 'cobertura_salud' ? '2025' : estado.variable === 'despoblacion' ? `${estado.anio_base_desp}–2025` : esVital ? estado.anio_vital : '2025';
+    const anio       = estado.variable === 'kmeans' ? '1996–2025' : estado.variable === 'renta_media' ? '2023' : estado.variable === 'subvenciones' ? (estado.anio_subv === 'total' ? '2022-2025' : estado.anio_subv) : estado.variable === 'establecimientos' ? '2025' : estado.variable === 'cobertura_salud' ? '2025' : estado.variable === 'despoblacion' ? `${estado.anio_base_desp}–2025` : esVital ? estado.anio_vital : '2025';
     document.getElementById('map-title').textContent =
         `${varNombre} · ${nombreProv}${sufSexo} · ${anio}`;
 }
@@ -1887,6 +1954,7 @@ document.getElementById('sel-variable').addEventListener('change', e => {
     const esEstab = estado.variable === 'establecimientos';
     const esVital = ['nacimientos', 'defunciones', 'balance_vital'].includes(estado.variable);
     const esDesp  = estado.variable === 'despoblacion';
+    const esKmeans = estado.variable === 'kmeans';
     document.getElementById('filtro-anio').style.display          = esSubv  ? '' : 'none';
     document.getElementById('div-anio').style.display             = esSubv  ? '' : 'none';
     document.getElementById('filtro-tipo-estab').style.display    = esEstab ? '' : 'none';
@@ -1895,6 +1963,10 @@ document.getElementById('sel-variable').addEventListener('change', e => {
     document.getElementById('div-anio-vital').style.display       = esVital ? '' : 'none';
     document.getElementById('filtro-anio-base').style.display     = esDesp  ? '' : 'none';
     document.getElementById('div-anio-base').style.display        = esDesp  ? '' : 'none';
+    // Barra secundaria de clustering: solo visible cuando variable=clústeres
+    document.getElementById('filter-bar-jenny').style.display     = esKmeans ? '' : 'none';
+    // Ocultar intervalos cuando se usan clusters (no aplica)
+    document.getElementById('filtro-intervalos').style.display    = esKmeans ? 'none' : '';
     if (!esSubv)  { estado.anio_subv      = 'total'; document.getElementById('sel-anio').value       = 'total'; }
     if (!esEstab) { estado.tipo_estab     = 'total'; document.getElementById('sel-tipo-estab').value = 'total'; }
     if (!esVital) { estado.anio_vital     = '2024';  document.getElementById('sel-anio-vital').value = '2024'; }
@@ -1911,7 +1983,7 @@ document.getElementById('sel-variable').addEventListener('change', e => {
     }
 
     // Deshabilitar el selector de sexo para variables sin desglose por sexo
-    const sinSexoVar = ['renta_media', 'subvenciones', 'establecimientos', 'cobertura_salud', 'nacimientos', 'defunciones', 'balance_vital', 'despoblacion'].includes(estado.variable);
+    const sinSexoVar = ['renta_media', 'subvenciones', 'establecimientos', 'cobertura_salud', 'nacimientos', 'defunciones', 'balance_vital', 'despoblacion', 'kmeans'].includes(estado.variable);
     const selSexo = document.getElementById('sel-sexo');
     selSexo.disabled = sinSexoVar;
     selSexo.style.opacity = sinSexoVar ? '0.4' : '1';
@@ -1938,6 +2010,34 @@ document.getElementById('sel-anio-vital').addEventListener('change', e => {
 document.getElementById('sel-anio-base').addEventListener('change', e => {
     estado.anio_base_desp = e.target.value;
     pintarMapa();
+});
+
+// Controles visuales de clustering (pills)
+document.querySelectorAll('.jenny-algo-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        document.querySelectorAll('.jenny-algo-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        estado.jenny_algo = this.dataset.algo;
+        pintarMapa();
+    });
+});
+
+document.querySelectorAll('.jenny-met-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        document.querySelectorAll('.jenny-met-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        estado.jenny_met = this.dataset.met;
+        pintarMapa();
+    });
+});
+
+document.querySelectorAll('.jenny-k-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        document.querySelectorAll('.jenny-k-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        estado.jenny_k = parseInt(this.dataset.k);
+        pintarMapa();
+    });
 });
 
 /* ══════════════════════════════════════════

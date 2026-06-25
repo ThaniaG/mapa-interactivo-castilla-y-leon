@@ -133,6 +133,7 @@
                 <option value="defunciones">Defunciones</option>
                 <option value="balance_vital">Balance vegetativo</option>
                 <option value="despoblacion">Despoblación</option>
+                <option value="kmeans">Clústeres</option>
             </select>
         </div>
 
@@ -208,7 +209,7 @@
         <div class="filter-divider"></div>
 
         <!-- Filtro de número de intervalos de color en el mapa -->
-        <div class="filter-group">
+        <div class="filter-group" id="filtro-intervalos">
             <label>Intervalos</label>
             <select class="filter-select" id="sel-intervalos">
                 <option value="4">4</option>
@@ -250,6 +251,31 @@
       La columna derecha tiene KPIs arriba y el panel abajo.
     ══════════════════════════════════════════
     -->
+    <!-- Barra secundaria de clustering (visible solo cuando variable = Clústeres) -->
+    <div class="filter-bar-jenny" id="filter-bar-jenny" style="display:none">
+        <span class="filter-label">Clústeres</span>
+        <label>Algoritmo</label>
+        <div class="radio-btn jenny-algo-btn active" data-algo="kmeans">K-Means</div>
+        <div class="radio-btn jenny-algo-btn" data-algo="kmedoids">K-Medoids</div>
+        <div class="jenny-sep"></div>
+        <label>Método de normalización</label>
+        <div class="radio-btn jenny-met-btn active" data-met="mm" title="Min-Max">Min-Max</div>
+        <div class="radio-btn jenny-met-btn" data-met="z" title="Z-score">Z-score</div>
+        <div class="radio-btn jenny-met-btn" data-met="rel" title="Crecimiento relativo">Relativa</div>
+        <div class="radio-btn jenny-met-btn" data-met="corr" title="Correlación">Corr.</div>
+        <div class="jenny-sep"></div>
+        <label>Nº clusters (K)</label>
+        <div class="radio-btn jenny-k-btn" data-k="2">2</div>
+        <div class="radio-btn jenny-k-btn" data-k="3">3</div>
+        <div class="radio-btn jenny-k-btn active" data-k="4">4</div>
+        <div class="radio-btn jenny-k-btn" data-k="5">5</div>
+        <div class="radio-btn jenny-k-btn" data-k="6">6</div>
+        <div class="radio-btn jenny-k-btn" data-k="7">7</div>
+        <div class="radio-btn jenny-k-btn" data-k="8">8</div>
+        <div class="radio-btn jenny-k-btn" data-k="9">9</div>
+        <div class="radio-btn jenny-k-btn" data-k="10">10</div>
+    </div>
+
     <div class="main">
 
         <!--
@@ -306,6 +332,7 @@
                 <button class="tab-btn active" data-tab="cyl">Castilla y León</button>
                 <button class="tab-btn" data-tab="municipio">Municipio</button>
                 <button class="tab-btn" data-tab="graficos">Gráficos</button>
+                <button class="tab-btn" data-tab="analisis">Análisis IA</button>
             </div>
 
             <!-- Pestaña 1: Vista general de CyL -->
@@ -395,8 +422,97 @@
 
             </div>
 
+            <!-- Pestaña 4: Análisis de inteligencia artificial -->
+            <div class="tab-content" id="tab-analisis">
+
+                <!-- Métricas resumen -->
+                <div class="panel-section">
+                    <div class="panel-section-title">Resumen del análisis</div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+                        <div style="background:#f0f4ff;border-radius:8px;padding:10px;border-left:3px solid #1a3a5c">
+                            <div style="font-size:1.4rem;font-weight:700;color:#1a3a5c">73,6%</div>
+                            <div style="font-size:0.72rem;color:#555;margin-top:2px">Municipios con despoblación severa (K-Means)</div>
+                        </div>
+                        <div style="background:#f0f4ff;border-radius:8px;padding:10px;border-left:3px solid #1a3a5c">
+                            <div style="font-size:1.4rem;font-weight:700;color:#1a3a5c">57,7%</div>
+                            <div style="font-size:0.72rem;color:#555;margin-top:2px">Precisión Random Forest (CV 5-fold)</div>
+                        </div>
+                        <div style="background:#f0f4ff;border-radius:8px;padding:10px;border-left:3px solid #1a3a5c">
+                            <div style="font-size:1.4rem;font-weight:700;color:#1a3a5c">+8,6 pts</div>
+                            <div style="font-size:0.72rem;color:#555;margin-top:2px">Mejora RF sobre árbol de decisión</div>
+                        </div>
+                        <div style="background:#f0f4ff;border-radius:8px;padding:10px;border-left:3px solid #1a3a5c">
+                            <div style="font-size:1.4rem;font-weight:700;color:#1a3a5c">2.248</div>
+                            <div style="font-size:0.72rem;color:#555;margin-top:2px">Municipios analizados (sin excluir ninguno)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Variable más importante -->
+                <div class="panel-section">
+                    <div class="panel-section-title">Variables más influyentes (Random Forest)</div>
+                    <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+                        <div class="ia-var-row"><span>Balance vital</span><div class="ia-bar" style="--w:89%"></div><span style="font-size:0.75rem;color:#555">17,8%</span></div>
+                        <div class="ia-var-row"><span>Tasa mortalidad</span><div class="ia-bar" style="--w:84%"></div><span style="font-size:0.75rem;color:#555">16,8%</span></div>
+                        <div class="ia-var-row"><span>% Mayores de 65</span><div class="ia-bar" style="--w:56%"></div><span style="font-size:0.75rem;color:#555">11,3%</span></div>
+                        <div class="ia-var-row"><span>Índice envejecimiento</span><div class="ia-bar" style="--w:44%"></div><span style="font-size:0.75rem;color:#555">8,8%</span></div>
+                        <div class="ia-var-row"><span>Densidad de población</span><div class="ia-bar" style="--w:26%"></div><span style="font-size:0.75rem;color:#555">5,2%</span></div>
+                        <div class="ia-var-row"><span>Distancia a capital</span><div class="ia-bar" style="--w:25%"></div><span style="font-size:0.75rem;color:#555">5,0%</span></div>
+                        <div class="ia-var-row"><span>Renta media</span><div class="ia-bar" style="--w:21%"></div><span style="font-size:0.75rem;color:#555">4,3%</span></div>
+                    </div>
+                </div>
+
+                <!-- Gráficos K-Means -->
+                <div class="panel-section">
+                    <div class="panel-section-title">K-Means · Trayectorias 1996–2025</div>
+                    <div style="font-size:0.75rem;color:#666;margin:4px 0 8px">
+                        4 grupos de municipios según su evolución demográfica. El 73,6% están en despoblación severa (índice 2025 = 58, base 100 en 1996).
+                    </div>
+                    <img src="tfm_kmeans_centroides.png" class="ia-img" onclick="abrirImagen(this)" title="Haz clic para ampliar">
+                    <img src="tfm_kmeans_provincias.png" class="ia-img" onclick="abrirImagen(this)" title="Haz clic para ampliar">
+                </div>
+
+                <!-- Gráfico importancia RF -->
+                <div class="panel-section">
+                    <div class="panel-section-title">Random Forest · Importancia de variables</div>
+                    <div style="font-size:0.75rem;color:#666;margin:4px 0 8px">
+                        Importancia media entre 200 árboles. Las barras de error muestran la variación entre árboles.
+                    </div>
+                    <img src="tfm_rf_importancia.png" class="ia-img" onclick="abrirImagen(this)" title="Haz clic para ampliar">
+                    <img src="tfm_rf_comparativa.png" class="ia-img" onclick="abrirImagen(this)" title="Haz clic para ampliar">
+                </div>
+
+                <!-- Gráficos SHAP -->
+                <div class="panel-section">
+                    <div class="panel-section-title">SHAP · Explicabilidad del modelo</div>
+                    <div style="font-size:0.75rem;color:#666;margin:4px 0 8px">
+                        Rojo = empuja hacia despoblación Alta. Azul = aleja de ella. Balance vital negativo es el factor más determinante.
+                    </div>
+                    <img src="tfm_shap_resumen.png" class="ia-img" onclick="abrirImagen(this)" title="Haz clic para ampliar">
+                    <img src="tfm_shap_dependencia.png" class="ia-img" onclick="abrirImagen(this)" title="Haz clic para ampliar">
+                </div>
+
+            </div>
+            <!-- fin pestaña Análisis IA -->
+
         </div>
     </div>
+
+    <!-- Lightbox para ampliar imágenes del análisis -->
+    <div id="ia-modal" onclick="cerrarImagen()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out">
+        <img id="ia-modal-img" style="max-width:92vw;max-height:90vh;border-radius:6px;box-shadow:0 4px 32px rgba(0,0,0,0.5)">
+    </div>
+    <script>
+        function abrirImagen(img) {
+            var m = document.getElementById('ia-modal');
+            document.getElementById('ia-modal-img').src = img.src;
+            m.style.display = 'flex';
+        }
+        function cerrarImagen() {
+            document.getElementById('ia-modal').style.display = 'none';
+        }
+        document.addEventListener('keydown', function(e){ if(e.key==='Escape') cerrarImagen(); });
+    </script>
 
     <!--
         ORDEN DE CARGA DE LOS SCRIPTS — IMPORTANTE
@@ -442,6 +558,8 @@
     <script src="datos_carreteras.js"></script>
     <script src="datos_naturaleza.js"></script>
     <script src="datos_residuos.js"></script>
+    <script src="datos_kmeans.js"></script>
+    <script src="datos_jenny.js"></script>
     <script src="provincias.js"></script>
     <script src="funciones.js"></script>
 </body>
