@@ -516,6 +516,7 @@ function pintarMapa() {
                     fillOpacity: 0.85,
                     color:       '#ffffff',
                     weight:      0.4,
+                    fillRule:    'nonzero',
                 };
             }
 
@@ -533,6 +534,7 @@ function pintarMapa() {
                     fillOpacity: 0.88,
                     color:       '#ffffff',
                     weight:      0.4,
+                    fillRule:    'nonzero',
                 };
             }
 
@@ -544,6 +546,7 @@ function pintarMapa() {
                     fillOpacity: 0.80,
                     color:       '#ffffff',
                     weight:      0.4,
+                    fillRule:    'nonzero',
                 };
             }
 
@@ -559,6 +562,7 @@ function pintarMapa() {
                 fillOpacity: 0.80,
                 color:       colorProv,
                 weight:      0.6,
+                fillRule:    'nonzero',
             };
         },
 
