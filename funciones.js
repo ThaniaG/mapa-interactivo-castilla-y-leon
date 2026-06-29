@@ -591,7 +591,7 @@ function pintarMapa() {
                         : estado.variable === 'subvenciones'
                             ? val.toLocaleString('es-ES') + ' € (subv.)'
                             : estado.variable === 'kmeans'
-                                ? (() => { const clave = `${estado.jenny_algo}_${estado.jenny_met}_${estado.jenny_k}`; const datos = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[clave]; const cl = datos ? datos[p.codigo] : undefined; return cl !== undefined ? `C${cl+1}` : 'Sin datos'; })()
+                                ? (() => { const clave = `${estado.jenny_algo}_${estado.jenny_met}_${estado.jenny_k}`; const datos = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[clave]; const cl = datos ? datos[p.codigo] : undefined; return cl !== undefined ? `C${cl}` : 'Sin datos'; })()
                             : estado.variable === 'cobertura_salud'
                                 ? (() => { const s = (typeof DATOS_SALUD !== 'undefined') && DATOS_SALUD[p.codigo]; return LABELS_SALUD[s ? s.tipo : 'sin_datos']; })()
                                 : estado.variable === 'nacimientos'
@@ -759,7 +759,7 @@ function actualizarLeyenda(breaks) {
             const esOutlierL = tamL[i] === 1;
             const color  = esOutlierL ? '#ffd700' : paleta[i];
             const borde  = esOutlierL ? 'border:1.5px solid #333;' : '';
-            const label  = esOutlierL ? 'Caso atípico (1 mun.)' : `C${i+1}`;
+            const label  = esOutlierL ? 'Caso atípico (1 mun.)' : `C${i}`;
             html += `<div class="legend-item"><div class="legend-color" style="background:${color};${borde}"></div><span class="legend-label">${label}</span></div>`;
         }
         legend.innerHTML = html;
