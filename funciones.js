@@ -738,7 +738,7 @@ function actualizarLeyenda(breaks) {
         let html = `<div class="legend-title">${algoNombre} · ${metNombre} · K=${k}</div>`;
         const paleta = ['#d73027','#fc8d59','#91cf60','#1a9850','#4575b4','#74add1','#e9a227','#a50026','#762a83','#1b7837'];
         for (let i = 0; i < k; i++) {
-            html += `<div class="legend-item"><div class="legend-color" style="background:${paleta[i]}"></div><span class="legend-label">${etiquetas[i]}</span></div>`;
+            html += `<div class="legend-item"><div class="legend-color" style="background:${paleta[i]}"></div><span class="legend-label">C${i+1}</span></div>`;
         }
         legend.innerHTML = html;
         return;
