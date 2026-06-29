@@ -528,7 +528,7 @@ function pintarMapa() {
                 const clave = `${estado.jenny_algo}_${estado.jenny_met}_${estado.jenny_k}`;
                 const datos = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[clave];
                 const cl    = datos ? (datos[p.codigo] ?? -1) : -1;
-                const paleta = ['#d73027','#fc8d59','#91cf60','#1a9850','#4575b4','#74add1','#e9a227','#a50026','#762a83','#1b7837'];
+                const paleta = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#a65628','#f781bf','#666666','#00ced1','#e6ab02'];
                 return {
                     fillColor:   cl >= 0 ? paleta[cl % paleta.length] : '#cccccc',
                     fillOpacity: 0.88,
@@ -740,7 +740,7 @@ function actualizarLeyenda(breaks) {
         };
         const etiquetas = ETIQUETAS_K[k] || Array.from({length: k}, (_, i) => i === 0 ? 'Mayor despoblación' : i === k-1 ? 'Menor despoblación' : `Grupo ${i+1}`);
         let html = `<div class="legend-title">${algoNombre} · ${metNombre} · K=${k}</div>`;
-        const paleta = ['#d73027','#fc8d59','#91cf60','#1a9850','#4575b4','#74add1','#e9a227','#a50026','#762a83','#1b7837'];
+        const paleta = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#a65628','#f781bf','#666666','#00ced1','#e6ab02'];
         for (let i = 0; i < k; i++) {
             html += `<div class="legend-item"><div class="legend-color" style="background:${paleta[i]}"></div><span class="legend-label">C${i+1}</span></div>`;
         }
