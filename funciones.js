@@ -1994,6 +1994,7 @@ document.getElementById('sel-variable').addEventListener('change', e => {
     if (sinSexoVar) { selSexo.value = 'total'; estado.sexo = 'total'; }
 
     pintarMapa();
+    actualizarAvisoCorr();
 });
 
 document.getElementById('sel-tipo-estab').addEventListener('change', e => {
@@ -2016,6 +2017,13 @@ document.getElementById('sel-anio-base').addEventListener('change', e => {
     pintarMapa();
 });
 
+function actualizarAvisoCorr() {
+    const aviso = document.getElementById('aviso-corr');
+    if (!aviso) return;
+    aviso.style.display = (estado.variable === 'kmeans' && estado.jenny_algo === 'kmeans' && estado.jenny_met === 'corr')
+        ? 'block' : 'none';
+}
+
 // Controles visuales de clustering (pills)
 document.querySelectorAll('.jenny-algo-btn').forEach(btn => {
     btn.addEventListener('click', function () {
@@ -2023,6 +2031,7 @@ document.querySelectorAll('.jenny-algo-btn').forEach(btn => {
         this.classList.add('active');
         estado.jenny_algo = this.dataset.algo;
         pintarMapa();
+        actualizarAvisoCorr();
     });
 });
 
@@ -2032,6 +2041,7 @@ document.querySelectorAll('.jenny-met-btn').forEach(btn => {
         this.classList.add('active');
         estado.jenny_met = this.dataset.met;
         pintarMapa();
+        actualizarAvisoCorr();
     });
 });
 

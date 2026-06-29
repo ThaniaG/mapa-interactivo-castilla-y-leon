@@ -239,6 +239,16 @@ select.filter-select:focus {
     margin: 0 4px;
 }
 
+/* Aviso combinación inválida kmeans+corr */
+#aviso-corr {
+    background: #fff8e1;
+    border-bottom: 2px solid #f59e0b;
+    color: #7c4a00;
+    font-size: 13px;
+    padding: 8px 20px;
+    flex-shrink: 0;
+}
+
 /* Barra secundaria de controles de clustering */
 .filter-bar-jenny {
     background: #f0f6ff;
