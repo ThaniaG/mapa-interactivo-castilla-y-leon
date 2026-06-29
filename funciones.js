@@ -499,6 +499,14 @@ function pintarMapa() {
     // Eliminar capa anterior
     if (capaGeo) map.removeLayer(capaGeo);
 
+    // Pre-calcular tamaño de cada clúster para detectar municipios outlier (singleton)
+    let tamanoCluster = {};
+    if (estado.variable === 'kmeans') {
+        const _clave = `${estado.jenny_algo}_${estado.jenny_met}_${estado.jenny_k}`;
+        const _datos = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[_clave];
+        if (_datos) Object.values(_datos).forEach(cl => { tamanoCluster[cl] = (tamanoCluster[cl] || 0) + 1; });
+    }
+
     capaGeo = L.geoJson(DATOS_GEO, {
 
         style: feature => {
@@ -528,12 +536,13 @@ function pintarMapa() {
                 const clave = `${estado.jenny_algo}_${estado.jenny_met}_${estado.jenny_k}`;
                 const datos = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[clave];
                 const cl    = datos ? (datos[p.codigo] ?? -1) : -1;
+                const esOutlier = cl >= 0 && tamanoCluster[cl] === 1;
                 const paleta = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#a65628','#f781bf','#666666','#00ced1','#e6ab02'];
                 return {
-                    fillColor:   cl >= 0 ? paleta[cl % paleta.length] : '#cccccc',
-                    fillOpacity: 0.88,
-                    color:       '#ffffff',
-                    weight:      0.4,
+                    fillColor:   esOutlier ? '#ffd700' : (cl >= 0 ? paleta[cl % paleta.length] : '#cccccc'),
+                    fillOpacity: esOutlier ? 1.0 : 0.88,
+                    color:       esOutlier ? '#333333' : '#ffffff',
+                    weight:      esOutlier ? 1.5 : 0.4,
                     fillRule:    'nonzero',
                 };
             }
@@ -741,8 +750,17 @@ function actualizarLeyenda(breaks) {
         const etiquetas = ETIQUETAS_K[k] || Array.from({length: k}, (_, i) => i === 0 ? 'Mayor despoblación' : i === k-1 ? 'Menor despoblación' : `Grupo ${i+1}`);
         let html = `<div class="legend-title">${algoNombre} · ${metNombre} · K=${k}</div>`;
         const paleta = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#a65628','#f781bf','#666666','#00ced1','#e6ab02'];
+        // Calcular tamaños de clúster para marcar outliers en la leyenda
+        const claveL = `${estado.jenny_algo}_${estado.jenny_met}_${estado.jenny_k}`;
+        const datosL = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[claveL];
+        const tamL   = {};
+        if (datosL) Object.values(datosL).forEach(cl => { tamL[cl] = (tamL[cl] || 0) + 1; });
         for (let i = 0; i < k; i++) {
-            html += `<div class="legend-item"><div class="legend-color" style="background:${paleta[i]}"></div><span class="legend-label">C${i+1}</span></div>`;
+            const esOutlierL = tamL[i] === 1;
+            const color  = esOutlierL ? '#ffd700' : paleta[i];
+            const borde  = esOutlierL ? 'border:1.5px solid #333;' : '';
+            const label  = esOutlierL ? 'Caso atípico (1 mun.)' : `C${i+1}`;
+            html += `<div class="legend-item"><div class="legend-color" style="background:${color};${borde}"></div><span class="legend-label">${label}</span></div>`;
         }
         legend.innerHTML = html;
         return;
