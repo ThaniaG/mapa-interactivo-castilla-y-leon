@@ -537,7 +537,7 @@ function pintarMapa() {
                 const datos = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[clave];
                 const cl    = datos ? (datos[p.codigo] ?? -1) : -1;
                 const esOutlier = cl >= 0 && tamanoCluster[cl] === 1;
-                const paleta = ['#1f78b4','#33a02c','#e31a1c','#ff7f00','#6a3d9a','#a6cee3','#b2df8a','#fb9a99','#fdbf6f','#cab2d6'];
+                const paleta = ['#e31a1c','#33a02c','#1f78b4','#ff7f00','#6a3d9a','#fb9a99','#b2df8a','#a6cee3','#fdbf6f','#cab2d6'];
                 return {
                     fillColor:   esOutlier ? '#ffd700' : (cl >= 0 ? paleta[cl % paleta.length] : '#cccccc'),
                     fillOpacity: esOutlier ? 1.0 : 0.88,
@@ -749,7 +749,7 @@ function actualizarLeyenda(breaks) {
         };
         const etiquetas = ETIQUETAS_K[k] || Array.from({length: k}, (_, i) => i === 0 ? 'Mayor despoblación' : i === k-1 ? 'Menor despoblación' : `Grupo ${i+1}`);
         let html = `<div class="legend-title">${algoNombre} · ${metNombre} · K=${k}</div>`;
-        const paleta = ['#1f78b4','#33a02c','#e31a1c','#ff7f00','#6a3d9a','#a6cee3','#b2df8a','#fb9a99','#fdbf6f','#cab2d6'];
+        const paleta = ['#e31a1c','#33a02c','#1f78b4','#ff7f00','#6a3d9a','#fb9a99','#b2df8a','#a6cee3','#fdbf6f','#cab2d6'];
         // Calcular tamaños de clúster para marcar outliers en la leyenda
         const claveL = `${estado.jenny_algo}_${estado.jenny_met}_${estado.jenny_k}`;
         const datosL = (typeof DATOS_JENNY !== 'undefined') && DATOS_JENNY[claveL];
