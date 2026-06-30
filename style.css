@@ -715,35 +715,3 @@ select.filter-select:focus {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-/* ══════════════════════════════════════════
-   PESTAÑA ANÁLISIS IA
-   ══════════════════════════════════════════ */
-.ia-img {
-    width: 100%;
-    border-radius: 6px;
-    margin-bottom: 8px;
-    display: block;
-    cursor: zoom-in;
-    transition: opacity 0.2s;
-    border: 1px solid var(--border);
-}
-.ia-img:hover { opacity: 0.88; }
-
-.ia-var-row {
-    display: grid;
-    grid-template-columns: 120px 1fr 36px;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.75rem;
-}
-.ia-var-row span:first-child {
-    color: #444;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.ia-bar {
-    height: 8px;
-    border-radius: 4px;
-    background: linear-gradient(90deg, #1a3a5c var(--w, 50%), #e8edf2 var(--w, 50%));
-}
