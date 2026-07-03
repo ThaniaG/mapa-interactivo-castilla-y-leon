@@ -642,6 +642,81 @@ select.filter-select:focus {
 
 
 /* ══════════════════════════════════════════
+   PESTAÑA DATAMINING
+   ══════════════════════════════════════════ */
+
+.dm-modelos {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.dm-modelo-card {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 8px;
+    text-align: center;
+}
+
+.dm-modelo-card.dm-modelo-best {
+    border-color: var(--primary);
+    background: rgba(33, 150, 243, 0.05);
+}
+
+.dm-modelo-acc {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.1;
+}
+
+.dm-modelo-card.dm-modelo-best .dm-modelo-acc {
+    color: #27ae60;
+}
+
+.dm-modelo-lbl {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 2px;
+}
+
+.dm-modelo-sub {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 1px;
+}
+
+.dm-clusters {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.dm-cluster {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text);
+    padding: 5px 8px;
+    border-radius: 4px;
+    line-height: 1.4;
+}
+
+.dm-cluster small {
+    font-weight: 400;
+    color: var(--muted);
+}
+
+.dm-desc {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+/* ══════════════════════════════════════════
    10. LEYENDA DEL MAPA
    Cuadro flotante en la esquina inferior derecha
    del mapa que explica los rangos de colores.

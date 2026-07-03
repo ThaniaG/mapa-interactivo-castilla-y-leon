@@ -335,6 +335,7 @@
                 <button class="tab-btn active" data-tab="cyl">Castilla y León</button>
                 <button class="tab-btn" data-tab="municipio">Municipio</button>
                 <button class="tab-btn" data-tab="graficos">Gráficos</button>
+                <button class="tab-btn" data-tab="datamining">Análisis</button>
             </div>
 
             <!-- Pestaña 1: Vista general de CyL -->
@@ -419,6 +420,48 @@
                             <div class="icon">🏥</div>
                             Haz clic en un municipio para ver el movimiento natural
                         </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Pestaña 4: Datamining — ranking de variables -->
+            <div class="tab-content" id="tab-datamining">
+
+                <div class="panel-section">
+                    <div class="panel-section-title">Modelos · K-Means mm K=4</div>
+                    <div class="dm-modelos">
+                        <div class="dm-modelo-card">
+                            <div class="dm-modelo-acc">52,3%</div>
+                            <div class="dm-modelo-lbl">Árbol de decisión</div>
+                            <div class="dm-modelo-sub">entropía · 5 niveles</div>
+                        </div>
+                        <div class="dm-modelo-card dm-modelo-best">
+                            <div class="dm-modelo-acc">57,4%</div>
+                            <div class="dm-modelo-lbl">Random Forest</div>
+                            <div class="dm-modelo-sub">200 árboles · +5,1 pts</div>
+                        </div>
+                    </div>
+                    <div class="dm-clusters">
+                        <span class="dm-cluster" style="background:#e31a1c20;border-left:3px solid #e31a1c">C0 · Pérdida severa<br><small>1.069 municipios</small></span>
+                        <span class="dm-cluster" style="background:#ff7f0e20;border-left:3px solid #ff7f0e">C3 · Pérdida moderada<br><small>888 municipios</small></span>
+                        <span class="dm-cluster" style="background:#2ca02c20;border-left:3px solid #2ca02c">C2 · Estable<br><small>290 municipios</small></span>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-section-title">Ranking de variables · información mutua</div>
+                    <div class="dm-desc">Qué variables explican mejor la trayectoria de cada municipio</div>
+                    <div style="height:340px; position:relative">
+                        <canvas id="chart-dm-ranking"></canvas>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="panel-section-title">Comparativa de importancias</div>
+                    <div class="dm-desc">Top 6 · Información mutua vs Random Forest</div>
+                    <div style="height:220px; position:relative">
+                        <canvas id="chart-dm-comparativa"></canvas>
                     </div>
                 </div>
 

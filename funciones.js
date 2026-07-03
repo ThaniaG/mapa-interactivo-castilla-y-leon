@@ -2382,7 +2382,139 @@ document.getElementById('btn-redviaria').addEventListener('click', function () {
 
 
 /* ══════════════════════════════════════════
-   15. INICIO DE LA APLICACIÓN
+   15. PESTAÑA DATAMINING — RANKING DE VARIABLES
+   Datos del análisis de entropía e información mutua
+   (kmeans_mm_4: K-Means, Min-Max, K=4)
+   Ejecutar tfm_entropia.py y tfm_random_forest_jenny.py para regenerar
+   ══════════════════════════════════════════ */
+
+(function () {
+    // Resultados del análisis de información mutua (tfm_entropia.py)
+    const VARS_RANKING = [
+        { nombre: 'Balance vital /1.000 hab',   mi: 0.186, rf: 0.132 },
+        { nombre: 'Índice envejecimiento',       mi: 0.172, rf: 0.076 },
+        { nombre: '% Mayores de 65',             mi: 0.168, rf: 0.118 },
+        { nombre: 'Tasa mortalidad',             mi: 0.161, rf: 0.129 },
+        { nombre: 'Densidad (hab/km²)',          mi: 0.130, rf: 0.064 },
+        { nombre: 'Dist. a capital (km)',        mi: 0.105, rf: 0.044 },
+        { nombre: 'Dist. a hospital (km)',       mi: 0.090, rf: 0.048 },
+        { nombre: 'Tasa natalidad',              mi: 0.084, rf: 0.036 },
+        { nombre: 'Bares / 1.000 hab',           mi: 0.075, rf: 0.000 },
+        { nombre: 'Restaurantes / 1.000 hab',    mi: 0.059, rf: 0.021 },
+        { nombre: 'Alojamientos / 1.000 hab',    mi: 0.057, rf: 0.028 },
+        { nombre: 'Subvenciones per cápita',     mi: 0.049, rf: 0.041 },
+        { nombre: 'Dist. residencia (km)',       mi: 0.043, rf: 0.003 },
+        { nombre: 'Plazas residencia /1.000',    mi: 0.041, rf: 0.000 },
+        { nombre: 'Renta media (€/hab)',         mi: 0.039, rf: 0.033 },
+        { nombre: '% Pob. extranjera',           mi: 0.031, rf: 0.007 },
+        { nombre: 'Dist. colegio (km)',          mi: 0.033, rf: 0.019 },
+        { nombre: 'Tiene colegio',               mi: 0.033, rf: 0.000 },
+        { nombre: 'Dist. instituto (km)',        mi: 0.028, rf: 0.000 },
+        { nombre: 'Tiene residencia',            mi: 0.026, rf: 0.000 },
+        { nombre: 'Total estab. / 1.000 hab',   mi: 0.023, rf: 0.010 },
+        { nombre: 'Superficie (km²)',            mi: 0.023, rf: 0.035 },
+        { nombre: 'Tiene instituto',             mi: 0.020, rf: 0.000 },
+        { nombre: 'Tiene C. de Salud',           mi: 0.011, rf: 0.000 },
+        { nombre: 'Dist. C. de Salud (km)',      mi: 0.005, rf: 0.000 },
+        { nombre: 'Tiene hospital',              mi: 0.002, rf: 0.002 },
+    ];
+
+    // Gráfico 1: ranking completo por info mutua (barras horizontales)
+    const ctxRanking = document.getElementById('chart-dm-ranking').getContext('2d');
+    const coloresRanking = VARS_RANKING.map((v, i) =>
+        i < 4 ? '#2980b9' : i < 8 ? '#5dade2' : '#aed6f1'
+    );
+
+    new Chart(ctxRanking, {
+        type: 'bar',
+        data: {
+            labels: VARS_RANKING.map(v => v.nombre),
+            datasets: [{
+                label: 'Información mutua',
+                data: VARS_RANKING.map(v => v.mi),
+                backgroundColor: coloresRanking,
+                borderRadius: 3,
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` ${ctx.raw.toFixed(3)}`
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(0,0,0,0.05)' },
+                    ticks: { font: { size: 9 } },
+                    title: { display: true, text: 'Información mutua (entropía)', font: { size: 9 } }
+                },
+                y: {
+                    ticks: { font: { size: 9 }, padding: 2 },
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+
+    // Gráfico 2: comparativa top 6 — Información mutua vs Random Forest
+    const TOP6 = VARS_RANKING.slice(0, 6);
+    const ctxComp = document.getElementById('chart-dm-comparativa').getContext('2d');
+
+    new Chart(ctxComp, {
+        type: 'bar',
+        data: {
+            labels: TOP6.map(v => v.nombre),
+            datasets: [
+                {
+                    label: 'Info. mutua',
+                    data: TOP6.map(v => v.mi),
+                    backgroundColor: '#2980b9',
+                    borderRadius: 3,
+                },
+                {
+                    label: 'Random Forest',
+                    data: TOP6.map(v => v.rf),
+                    backgroundColor: '#27ae60',
+                    borderRadius: 3,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { font: { size: 9 }, boxWidth: 10 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => ` ${ctx.dataset.label}: ${ctx.raw.toFixed(3)}`
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { font: { size: 8 }, maxRotation: 30 },
+                    grid: { display: false }
+                },
+                y: {
+                    grid: { color: 'rgba(0,0,0,0.05)' },
+                    ticks: { font: { size: 9 } }
+                }
+            }
+        }
+    });
+})();
+
+/* ══════════════════════════════════════════
+   16. INICIO DE LA APLICACIÓN
    ══════════════════════════════════════════ */
 
 pintarMapa();
