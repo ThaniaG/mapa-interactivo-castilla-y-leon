@@ -115,8 +115,41 @@ header {
     margin-top: 1px;
 }
 
-/* Espacio vacío que empuja el badge hacia la derecha */
+/* Espacio vacío que empuja los logos hacia la derecha */
 .header-spacer { flex: 1; }
+
+/* Contenedor de logos institucionales en el header */
+.header-logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-right: 8px;
+}
+
+/* Cada logo individual en el header */
+.header-logo-img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    background: white;
+    border-radius: 6px;
+    padding: 5px 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* Footer de autoría */
+.app-footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.45);
+    font-size: 11px;
+    text-align: center;
+    padding: 8px 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: 0.3px;
+}
+.app-footer strong {
+    color: rgba(255,255,255,0.75);
+}
 
 /* Etiqueta "Año 2025" en la esquina derecha del header */
 .header-badge {
