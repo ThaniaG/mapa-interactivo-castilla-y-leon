@@ -1,0 +1,52 @@
+SHAP VALUES - RANDOM FOREST - DESPOBLACION CASTILLA Y LEON
+==============================================================
+
+Municipios analizados: 500 (muestra representativa)
+Arboles Random Forest: 200
+
+IMPORTANCIA SHAP POR CLASE (media absoluta):
+--------------------------------------------------
+Variable                                Alta   Crecimiento          Leve         Media
+--------------------------------------------------
+Balance vital                         0.0859        0.0501        0.0364        0.0409
+Tasa mortalidad                       0.0835        0.0568        0.0404        0.0378
+% Mayores de 65                       0.0415        0.0424        0.0217        0.0265
+Indice envejecimiento                 0.0279        0.0320        0.0178        0.0209
+Dist. capital (km)                    0.0146        0.0119        0.0155        0.0126
+Densidad (hab/km2)                    0.0140        0.0056        0.0115        0.0082
+Tasa natalidad                        0.0094        0.0068        0.0068        0.0068
+% Extranjeros                         0.0089        0.0083        0.0060        0.0068
+Renta media (EUR/hab)                 0.0076        0.0147        0.0068        0.0115
+Dist. colegio (km)                    0.0060        0.0028        0.0039        0.0077
+Total estab. / 1.000 hab              0.0056        0.0044        0.0050        0.0053
+Dist. C. Salud (km)                   0.0042        0.0031        0.0042        0.0052
+Bares / 1.000 hab                     0.0041        0.0149        0.0067        0.0059
+Subvenciones per capita               0.0035        0.0027        0.0078        0.0051
+Restaurantes / 1.000 hab              0.0030        0.0031        0.0054        0.0022
+Alojamientos / 1.000 hab              0.0020        0.0023        0.0038        0.0034
+Nivel servicio sanitario              0.0002        0.0015        0.0012        0.0003
+
+INTERPRETACION DE LAS 3 VARIABLES MAS IMPORTANTES:
+--------------------------------------------------
+
+  Balance vital:
+    Correlacion con SHAP: -0.850 -> NEGATIVA (mayor valor = menos despoblacion Alta)
+    Rango de valores: -103.17 a 12.73
+    SHAP medio: 0.0296
+
+  Tasa mortalidad:
+    Correlacion con SHAP: 0.851 -> POSITIVA (mayor valor = mas despoblacion Alta)
+    Rango de valores: 1.73 a 103.17
+    SHAP medio: 0.0306
+
+  % Mayores de 65:
+    Correlacion con SHAP: 0.917 -> POSITIVA (mayor valor = mas despoblacion Alta)
+    Rango de valores: 6.10 a 66.70
+    SHAP medio: 0.0153
+
+MUNICIPIOS EJEMPLO ANALIZADOS:
+--------------------------------------------------
+  Alta: Torresandino (Burgos)
+  Crecimiento: Garcibuey (Salamanca)
+  Leve: Laguna de Negrillos (León)
+  Media: Villavicencio de los Caballeros (Valladolid)

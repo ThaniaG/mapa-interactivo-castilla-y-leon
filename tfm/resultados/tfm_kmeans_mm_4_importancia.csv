@@ -1,0 +1,27 @@
+﻿variable,nombre_es,informacion_mutua,ganancia_info_arbol
+balance_vital_1000,Balance vital /1000 hab,0.1857049185831534,0.5905303684116512
+porc_65,% Mayores de 65,0.16822641809417394,0.13089887270477113
+densidad_pob,Densidad (hab/km2),0.1301003760638404,0.06639719701930673
+ind_envej,Indice envejecimiento,0.17185540797512666,0.041743092704579564
+superficie_km2,Superficie (km2),0.02345395259263272,0.03524374435547616
+tasa_natalidad,Tasa natalidad,0.08396315704133639,0.029119119690940477
+alojamiento_1000,Alojamientos / 1.000 hab,0.05714253815094272,0.027944310392837218
+restaurantes_1000,Restaurantes / 1.000 hab,0.05888259324084122,0.020842463086676852
+dist_colegio_km,Distancia a colegio (km),0.033431486077138084,0.018686170675171223
+renta_media,Renta media (EUR/hab),0.039111092827017746,0.013748646077300817
+estab_total_1000,Total estab. / 1.000 hab,0.02289080174287217,0.009582584206571005
+porc_extranjeros,% Poblacion extranjera,0.03130349312337266,0.007225144605117966
+dist_capital_km,Distancia a capital (km),0.10452132462717878,0.005525532981389406
+dist_residencia_km,Distancia a residencia (km),0.04327201575510986,0.0025127530882103465
+bares_1000,Bares / 1.000 hab,0.07515318921279857,0.0
+dist_hospital_km,Distancia a hospital (km),0.08986462754746749,0.0
+tasa_mortalidad,Tasa mortalidad,0.16058705741203294,0.0
+subv_per_capita,Subvenciones per capita (EUR),0.049011721084530224,0.0
+tiene_colegio,Tiene colegio,0.032885450004498926,0.0
+plazas_residencia_1000,Plazas residencia /1000 hab,0.040592460149797116,0.0
+tiene_residencia,Tiene residencia mayores,0.025996768514084154,0.0
+dist_instituto_km,Distancia a instituto (km),0.028378907519589935,0.0
+tiene_instituto,Tiene instituto,0.02035624896924776,0.0
+tiene_cs,Tiene centro de salud,0.011349618562210118,0.0
+dist_cs_km,Distancia a C. Salud (km),0.00479918517767941,0.0
+tiene_hospital,Tiene hospital,0.0019061565863021717,0.0

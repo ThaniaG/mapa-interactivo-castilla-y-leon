@@ -1,0 +1,57 @@
+﻿combinacion,estado,n_clusters,accuracy_cv,algoritmo,normalizacion,k,municipios,top_variable
+kmeans_rel_3,valida,2,0.9684346363227903,K-Means,Relativa,3.0,2186.0,% Mayores de 65
+kmedoids_corr_3,valida,2,0.8568164007397886,K-Medoids,Correlacion,3.0,2186.0,Balance vital /1000
+kmeans_mm_3,valida,2,0.8563712736277859,K-Means,Min-Max,3.0,2186.0,Balance vital /1000
+kmeans_z_3,valida,2,0.8559146526232198,K-Means,Z-score,3.0,2186.0,Balance vital /1000
+kmeans_rel_4,valida,3,0.8160904046895082,K-Means,Relativa,4.0,2186.0,Balance vital /1000
+kmedoids_rel_3,valida,2,0.7863692883190705,K-Medoids,Relativa,3.0,2186.0,Balance vital /1000
+kmeans_z_4,valida,3,0.6894047208551456,K-Means,Z-score,4.0,2186.0,Balance vital /1000
+kmedoids_corr_4,valida,3,0.6766193327272918,K-Medoids,Correlacion,4.0,2186.0,Balance vital /1000
+kmedoids_rel_4,valida,3,0.6541550421616877,K-Medoids,Relativa,4.0,2186.0,Balance vital /1000
+kmeans_rel_5,valida,4,0.6395149577338224,K-Means,Relativa,5.0,2186.0,Indice envejecimiento
+kmedoids_z_3,valida,2,0.6139107446997482,K-Medoids,Z-score,3.0,2186.0,Indice envejecimiento
+kmedoids_mm_3,valida,2,0.5814290043154342,K-Medoids,Min-Max,3.0,2186.0,Densidad (hab/km2)
+kmedoids_z_4,valida,3,0.5576460508030052,K-Medoids,Z-score,4.0,2186.0,Balance vital /1000
+kmeans_mm_4,valida,3,0.5228519482147895,K-Means,Min-Max,4.0,2186.0,Balance vital /1000
+kmedoids_rel_5,valida,4,0.5178646437415755,K-Medoids,Relativa,5.0,2186.0,% Mayores de 65
+kmeans_rel_6,valida,5,0.5160266658307473,K-Means,Relativa,6.0,2186.0,% Mayores de 65
+kmedoids_corr_5,valida,4,0.515548101940378,K-Medoids,Correlacion,5.0,2186.0,Balance vital /1000
+kmedoids_mm_4,valida,3,0.5137278873180569,K-Medoids,Min-Max,4.0,2186.0,Balance vital /1000
+kmeans_z_5,valida,4,0.5059433873546284,K-Means,Z-score,5.0,2186.0,Balance vital /1000
+kmedoids_rel_6,valida,5,0.4647712192930212,K-Medoids,Relativa,6.0,2186.0,Balance vital /1000
+kmeans_mm_5,valida,4,0.45242155418325447,K-Means,Min-Max,5.0,2186.0,Balance vital /1000
+kmedoids_z_5,valida,4,0.4483307733299896,K-Medoids,Z-score,5.0,2186.0,Balance vital /1000
+kmedoids_mm_5,valida,4,0.42590723383801976,K-Medoids,Min-Max,5.0,2186.0,Balance vital /1000
+kmeans_z_6,valida,5,0.4190150778972447,K-Means,Z-score,6.0,2186.0,% Mayores de 65
+kmeans_rel_7,valida,6,0.4172084469661348,K-Means,Relativa,7.0,2186.0,Indice envejecimiento
+kmeans_z_7,valida,6,0.4126443267191207,K-Means,Z-score,7.0,2186.0,Balance vital /1000
+kmedoids_corr_6,valida,5,0.3947859523734888,K-Medoids,Correlacion,6.0,2186.0,% Mayores de 65
+kmeans_mm_6,valida,5,0.3915937849388212,K-Means,Min-Max,6.0,2186.0,Balance vital /1000
+kmeans_z_8,valida,7,0.38519586637827447,K-Means,Z-score,8.0,2186.0,Balance vital /1000
+kmeans_z_9,valida,8,0.37879481311975594,K-Means,Z-score,9.0,2186.0,Tasa mortalidad
+kmedoids_z_6,valida,5,0.37146693416089366,K-Medoids,Z-score,6.0,2186.0,Balance vital /1000
+kmedoids_corr_7,valida,6,0.3701033405431387,K-Medoids,Correlacion,7.0,2186.0,Balance vital /1000
+kmedoids_rel_7,valida,6,0.3691723352454991,K-Medoids,Relativa,7.0,2186.0,Indice envejecimiento
+kmeans_mm_8,valida,7,0.3632132744010115,K-Means,Min-Max,8.0,2186.0,Balance vital /1000
+kmedoids_rel_8,valida,7,0.3563650042318422,K-Medoids,Relativa,8.0,2186.0,Balance vital /1000
+kmeans_rel_8,valida,7,0.35042057197788995,K-Means,Relativa,8.0,2186.0,Indice envejecimiento
+kmedoids_corr_8,valida,7,0.3444750948246137,K-Medoids,Correlacion,8.0,2186.0,Tasa mortalidad
+kmeans_mm_7,valida,6,0.33988798679247256,K-Means,Min-Max,7.0,2186.0,% Mayores de 65
+kmeans_rel_9,valida,8,0.337154530161019,K-Means,Relativa,9.0,2186.0,Indice envejecimiento
+kmedoids_mm_6,valida,5,0.333947734135816,K-Medoids,Min-Max,6.0,2186.0,Tasa mortalidad
+kmeans_z_10,valida,9,0.3234559000240327,K-Means,Z-score,10.0,2186.0,Balance vital /1000
+kmeans_mm_9,valida,8,0.3142848186577223,K-Means,Min-Max,9.0,2186.0,Balance vital /1000
+kmedoids_z_7,valida,6,0.3074041566095107,K-Medoids,Z-score,7.0,2186.0,Indice envejecimiento
+kmedoids_mm_7,valida,6,0.3055870766851614,K-Medoids,Min-Max,7.0,2186.0,% Mayores de 65
+kmeans_rel_10,valida,9,0.30101564214287957,K-Means,Relativa,10.0,2186.0,Balance vital /1000
+kmedoids_rel_9,valida,8,0.2987199983281611,K-Medoids,Relativa,9.0,2186.0,Balance vital /1000
+kmedoids_rel_10,valida,9,0.2877548248226284,K-Medoids,Relativa,10.0,2186.0,Balance vital /1000
+kmedoids_z_8,valida,7,0.2790591726487153,K-Medoids,Z-score,8.0,2186.0,Balance vital /1000
+kmedoids_mm_8,valida,7,0.2644243127174697,K-Medoids,Min-Max,8.0,2186.0,% Mayores de 65
+kmedoids_mm_9,valida,8,0.2639645570149316,K-Medoids,Min-Max,9.0,2186.0,Balance vital /1000
+kmeans_mm_10,valida,9,0.2607692548822921,K-Means,Min-Max,10.0,2186.0,Balance vital /1000
+kmedoids_z_9,valida,8,0.2598382495846525,K-Medoids,Z-score,9.0,2186.0,Balance vital /1000
+kmedoids_corr_9,valida,8,0.25758649154153995,K-Medoids,Correlacion,9.0,2186.0,Balance vital /1000
+kmedoids_z_10,valida,9,0.23465826567610212,K-Medoids,Z-score,10.0,2186.0,Indice envejecimiento
+kmedoids_corr_10,valida,9,0.2177392558227015,K-Medoids,Correlacion,10.0,2186.0,Balance vital /1000
+kmedoids_mm_10,valida,9,0.19167319728744137,K-Medoids,Min-Max,10.0,2186.0,Indice envejecimiento

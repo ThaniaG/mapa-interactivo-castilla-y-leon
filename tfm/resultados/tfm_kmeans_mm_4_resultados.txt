@@ -1,0 +1,124 @@
+ANALISIS DE ENTROPIA — KMEANS_MM_4
+============================================================
+
+Municipios analizados: 2186
+Accuracy (5-fold CV): 0.523
+
+RANKING POR INFORMACION MUTUA:
+----------------------------------------
+  0.1857  Balance vital /1000 hab
+  0.1719  Indice envejecimiento
+  0.1682  % Mayores de 65
+  0.1606  Tasa mortalidad
+  0.1301  Densidad (hab/km2)
+  0.1045  Distancia a capital (km)
+  0.0899  Distancia a hospital (km)
+  0.0840  Tasa natalidad
+  0.0752  Bares / 1.000 hab
+  0.0589  Restaurantes / 1.000 hab
+  0.0571  Alojamientos / 1.000 hab
+  0.0490  Subvenciones per capita (EUR)
+  0.0433  Distancia a residencia (km)
+  0.0406  Plazas residencia /1000 hab
+  0.0391  Renta media (EUR/hab)
+  0.0334  Distancia a colegio (km)
+  0.0329  Tiene colegio
+  0.0313  % Poblacion extranjera
+  0.0284  Distancia a instituto (km)
+  0.0260  Tiene residencia mayores
+  0.0235  Superficie (km2)
+  0.0229  Total estab. / 1.000 hab
+  0.0204  Tiene instituto
+  0.0113  Tiene centro de salud
+  0.0048  Distancia a C. Salud (km)
+  0.0019  Tiene hospital
+
+RANKING POR GANANCIA DE INFORMACION (arbol):
+----------------------------------------
+  0.5905  Balance vital /1000 hab
+  0.1309  % Mayores de 65
+  0.0664  Densidad (hab/km2)
+  0.0417  Indice envejecimiento
+  0.0352  Superficie (km2)
+  0.0291  Tasa natalidad
+  0.0279  Alojamientos / 1.000 hab
+  0.0208  Restaurantes / 1.000 hab
+  0.0187  Distancia a colegio (km)
+  0.0137  Renta media (EUR/hab)
+  0.0096  Total estab. / 1.000 hab
+  0.0072  % Poblacion extranjera
+  0.0055  Distancia a capital (km)
+  0.0025  Distancia a residencia (km)
+  0.0000  Bares / 1.000 hab
+  0.0000  Distancia a hospital (km)
+  0.0000  Tasa mortalidad
+  0.0000  Subvenciones per capita (EUR)
+  0.0000  Tiene colegio
+  0.0000  Plazas residencia /1000 hab
+  0.0000  Tiene residencia mayores
+  0.0000  Distancia a instituto (km)
+  0.0000  Tiene instituto
+  0.0000  Tiene centro de salud
+  0.0000  Distancia a C. Salud (km)
+  0.0000  Tiene hospital
+
+INFORME DE CLASIFICACION:
+----------------------------------------
+              precision    recall  f1-score   support
+
+          C0       0.63      0.66      0.65       208
+          C2       0.52      0.79      0.63        56
+          C3       0.56      0.44      0.49       174
+
+    accuracy                           0.59       438
+   macro avg       0.57      0.63      0.59       438
+weighted avg       0.59      0.59      0.58       438
+
+REGLAS DEL ARBOL (primeros 3 niveles):
+----------------------------------------
+|--- balance_vital_1000 <= -9.36
+|   |--- ind_envej <= 262.00
+|   |   |--- balance_vital_1000 <= -17.61
+|   |   |   |--- balance_vital_1000 <= -43.90
+|   |   |   |   |--- class: C0
+|   |   |   |--- balance_vital_1000 >  -43.90
+|   |   |   |   |--- truncated branch of depth 2
+|   |   |--- balance_vital_1000 >  -17.61
+|   |   |   |--- superficie_km2 <= 45.59
+|   |   |   |   |--- truncated branch of depth 2
+|   |   |   |--- superficie_km2 >  45.59
+|   |   |   |   |--- truncated branch of depth 2
+|   |--- ind_envej >  262.00
+|   |   |--- dist_colegio_km <= 5.62
+|   |   |   |--- densidad_pob <= 5.16
+|   |   |   |   |--- truncated branch of depth 2
+|   |   |   |--- densidad_pob >  5.16
+|   |   |   |   |--- truncated branch of depth 2
+|   |   |--- dist_colegio_km >  5.62
+|   |   |   |--- restaurantes_1000 <= 8.35
+|   |   |   |   |--- truncated branch of depth 2
+|   |   |   |--- restaurantes_1000 >  8.35
+|   |   |   |   |--- truncated branch of depth 2
+|--- balance_vital_1000 >  -9.36
+|   |--- porc_65 <= 24.85
+|   |   |--- densidad_pob <= 9.78
+|   |   |   |--- alojamiento_1000 <= 8.30
+|   |   |   |   |--- class: C0
+|   |   |   |--- alojamiento_1000 >  8.30
+|   |   |   |   |--- class: C2
+|   |   |--- densidad_pob >  9.78
+|   |   |   |--- porc_65 <= 22.15
+|   |   |   |   |--- class: C2
+|   |   |   |--- porc_65 >  22.15
+|   |   |   |   |--- truncated branch of depth 2
+|   |--- porc_65 >  24.85
+|   |   |--- densidad_pob <= 8.43
+|   |   |   |--- tasa_natalidad <= 4.79
+|   |   |   |   |--- truncated branch of depth 2
+|   |   |   |--- tasa_natalidad >  4.79
+|   |   |   |   |--- truncated branch of depth 2
+|   |   |--- densidad_pob >  8.43
+|   |   |   |--- renta_media <= 14344.50
+|   |   |   |   |--- truncated branch of depth 2
+|   |   |   |--- renta_media >  14344.50
+|   |   |   |   |--- truncated branch of depth 2

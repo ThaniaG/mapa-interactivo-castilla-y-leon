@@ -1,0 +1,55 @@
+RANDOM FOREST — kmeans_mm_4
+============================================================
+
+Configuracion:
+  Arboles:          200
+  Profundidad max:  10
+  Variables entrada: 26
+  Municipios usados: 2186
+  Categorias Jenny:  ['C0', 'C2', 'C3']
+
+Resultados:
+  Accuracy RF (5-fold CV):     0.5737 (57.4%)
+  Accuracy Arbol (5-fold CV):  0.5229 (52.3%)
+  Accuracy RF (test 20%):      0.6119 (61.2%)
+
+Ranking de variables (por importancia Random Forest):
+  #    Variable                              Import. RF   Info. mutua
+  -------------------------------------------------------------------
+  1    Balance vital /1000 hab                   0.1321        0.1857
+  2    Tasa mortalidad                           0.1293        0.1606
+  3    % Mayores de 65                           0.1177        0.1682
+  4    Indice envejecimiento                     0.0755        0.1719
+  5    Densidad (hab/km2)                        0.0639        0.1301
+  6    Distancia a hospital (km)                 0.0483        0.0899
+  7    Distancia a capital (km)                  0.0435        0.1045
+  8    Subvenciones per capita (EUR)             0.0406        0.0490
+  9    Tasa natalidad                            0.0363        0.0840
+  10   Renta media (EUR/hab)                     0.0327        0.0391
+  11   Total estab. / 1.000 hab                  0.0318        0.0229
+  12   % Pob. extranjera                         0.0296        0.0313
+  13   Distancia a instituto (km)                0.0293        0.0284
+  14   Distancia a colegio (km)                  0.0276        0.0334
+  15   Distancia a C. Salud (km)                 0.0267        0.0048
+  16   Superficie (km2)                          0.0253        0.0235
+  17   Restaurantes / 1.000 hab                  0.0236        0.0589
+  18   Distancia a residencia (km)               0.0232        0.0433
+  19   Bares / 1.000 hab                         0.0232        0.0752
+  20   Alojamientos / 1.000 hab                  0.0218        0.0571
+  21   Plazas residencia /1000 hab               0.0076        0.0406
+  22   Tiene colegio                             0.0038        0.0329
+  23   Tiene centro de salud                     0.0025        0.0113
+  24   Tiene residencia mayores                  0.0022        0.0260
+  25   Tiene instituto                           0.0015        0.0204
+  26   Tiene hospital                            0.0001        0.0019
+
+Informe por categoria:
+              precision    recall  f1-score   support
+
+          C0       0.60      0.73      0.66       208
+          C2       0.80      0.64      0.71        56
+          C3       0.57      0.46      0.51       174
+
+    accuracy                           0.61       438
+   macro avg       0.66      0.61      0.63       438
+weighted avg       0.61      0.61      0.61       438
