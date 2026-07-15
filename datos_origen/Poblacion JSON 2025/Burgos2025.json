@@ -1,0 +1,2611 @@
+{
+  "provincia": "Burgos",
+  "codigo": "09",
+  "anio": 2025,
+  "municipios": [
+    {
+      "codigo": "09001",
+      "nombre": "Abajas",
+      "total": 28,
+      "hombres": 18,
+      "mujeres": 10
+    },
+    {
+      "codigo": "09003",
+      "nombre": "Adrada de Haza",
+      "total": 200,
+      "hombres": 99,
+      "mujeres": 101
+    },
+    {
+      "codigo": "09006",
+      "nombre": "Aguas Cándidas",
+      "total": 61,
+      "hombres": 40,
+      "mujeres": 21
+    },
+    {
+      "codigo": "09007",
+      "nombre": "Aguilar de Bureba",
+      "total": 46,
+      "hombres": 30,
+      "mujeres": 16
+    },
+    {
+      "codigo": "09009",
+      "nombre": "Albillos",
+      "total": 220,
+      "hombres": 119,
+      "mujeres": 101
+    },
+    {
+      "codigo": "09010",
+      "nombre": "Alcocero de Mola",
+      "total": 40,
+      "hombres": 28,
+      "mujeres": 12
+    },
+    {
+      "codigo": "09011",
+      "nombre": "Alfoz de Bricia",
+      "total": 68,
+      "hombres": 44,
+      "mujeres": 24
+    },
+    {
+      "codigo": "09907",
+      "nombre": "Alfoz de Quintanadueñas",
+      "total": 2158,
+      "hombres": 1121,
+      "mujeres": 1037
+    },
+    {
+      "codigo": "09012",
+      "nombre": "Alfoz de Santa Gadea",
+      "total": 102,
+      "hombres": 52,
+      "mujeres": 50
+    },
+    {
+      "codigo": "09013",
+      "nombre": "Altable",
+      "total": 44,
+      "hombres": 26,
+      "mujeres": 18
+    },
+    {
+      "codigo": "09014",
+      "nombre": "Altos, Los",
+      "total": 177,
+      "hombres": 106,
+      "mujeres": 71
+    },
+    {
+      "codigo": "09016",
+      "nombre": "Ameyugo",
+      "total": 107,
+      "hombres": 57,
+      "mujeres": 50
+    },
+    {
+      "codigo": "09017",
+      "nombre": "Anguix",
+      "total": 166,
+      "hombres": 109,
+      "mujeres": 57
+    },
+    {
+      "codigo": "09018",
+      "nombre": "Aranda de Duero",
+      "total": 33956,
+      "hombres": 16445,
+      "mujeres": 17511
+    },
+    {
+      "codigo": "09019",
+      "nombre": "Arandilla",
+      "total": 157,
+      "hombres": 100,
+      "mujeres": 57
+    },
+    {
+      "codigo": "09020",
+      "nombre": "Arauzo de Miel",
+      "total": 260,
+      "hombres": 145,
+      "mujeres": 115
+    },
+    {
+      "codigo": "09021",
+      "nombre": "Arauzo de Salce",
+      "total": 44,
+      "hombres": 22,
+      "mujeres": 22
+    },
+    {
+      "codigo": "09022",
+      "nombre": "Arauzo de Torre",
+      "total": 55,
+      "hombres": 32,
+      "mujeres": 23
+    },
+    {
+      "codigo": "09023",
+      "nombre": "Arcos",
+      "total": 1823,
+      "hombres": 953,
+      "mujeres": 870
+    },
+    {
+      "codigo": "09024",
+      "nombre": "Arenillas de Riopisuerga",
+      "total": 156,
+      "hombres": 97,
+      "mujeres": 59
+    },
+    {
+      "codigo": "09025",
+      "nombre": "Arija",
+      "total": 115,
+      "hombres": 65,
+      "mujeres": 50
+    },
+    {
+      "codigo": "09026",
+      "nombre": "Arlanzón",
+      "total": 425,
+      "hombres": 251,
+      "mujeres": 174
+    },
+    {
+      "codigo": "09027",
+      "nombre": "Arraya de Oca",
+      "total": 49,
+      "hombres": 29,
+      "mujeres": 20
+    },
+    {
+      "codigo": "09029",
+      "nombre": "Atapuerca",
+      "total": 178,
+      "hombres": 105,
+      "mujeres": 73
+    },
+    {
+      "codigo": "09030",
+      "nombre": "Ausines, Los",
+      "total": 143,
+      "hombres": 89,
+      "mujeres": 54
+    },
+    {
+      "codigo": "09032",
+      "nombre": "Avellanosa de Muñó",
+      "total": 95,
+      "hombres": 53,
+      "mujeres": 42
+    },
+    {
+      "codigo": "09033",
+      "nombre": "Bahabón de Esgueva",
+      "total": 80,
+      "hombres": 44,
+      "mujeres": 36
+    },
+    {
+      "codigo": "09034",
+      "nombre": "Balbases, Los",
+      "total": 298,
+      "hombres": 168,
+      "mujeres": 130
+    },
+    {
+      "codigo": "09035",
+      "nombre": "Baños de Valdearados",
+      "total": 322,
+      "hombres": 186,
+      "mujeres": 136
+    },
+    {
+      "codigo": "09036",
+      "nombre": "Bañuelos de Bureba",
+      "total": 32,
+      "hombres": 21,
+      "mujeres": 11
+    },
+    {
+      "codigo": "09037",
+      "nombre": "Barbadillo de Herreros",
+      "total": 103,
+      "hombres": 61,
+      "mujeres": 42
+    },
+    {
+      "codigo": "09038",
+      "nombre": "Barbadillo del Mercado",
+      "total": 134,
+      "hombres": 71,
+      "mujeres": 63
+    },
+    {
+      "codigo": "09039",
+      "nombre": "Barbadillo del Pez",
+      "total": 64,
+      "hombres": 39,
+      "mujeres": 25
+    },
+    {
+      "codigo": "09041",
+      "nombre": "Barrio de Muñó",
+      "total": 32,
+      "hombres": 19,
+      "mujeres": 13
+    },
+    {
+      "codigo": "09043",
+      "nombre": "Barrios de Bureba, Los",
+      "total": 179,
+      "hombres": 95,
+      "mujeres": 84
+    },
+    {
+      "codigo": "09044",
+      "nombre": "Barrios de Colina",
+      "total": 55,
+      "hombres": 32,
+      "mujeres": 23
+    },
+    {
+      "codigo": "09045",
+      "nombre": "Basconcillos del Tozo",
+      "total": 276,
+      "hombres": 164,
+      "mujeres": 112
+    },
+    {
+      "codigo": "09046",
+      "nombre": "Bascuñana",
+      "total": 20,
+      "hombres": 12,
+      "mujeres": 8
+    },
+    {
+      "codigo": "09047",
+      "nombre": "Belbimbre",
+      "total": 53,
+      "hombres": 28,
+      "mujeres": 25
+    },
+    {
+      "codigo": "09048",
+      "nombre": "Belorado",
+      "total": 1823,
+      "hombres": 922,
+      "mujeres": 901
+    },
+    {
+      "codigo": "09050",
+      "nombre": "Berberana",
+      "total": 52,
+      "hombres": 29,
+      "mujeres": 23
+    },
+    {
+      "codigo": "09051",
+      "nombre": "Berlangas de Roa",
+      "total": 204,
+      "hombres": 116,
+      "mujeres": 88
+    },
+    {
+      "codigo": "09052",
+      "nombre": "Berzosa de Bureba",
+      "total": 26,
+      "hombres": 18,
+      "mujeres": 8
+    },
+    {
+      "codigo": "09054",
+      "nombre": "Bozoó",
+      "total": 101,
+      "hombres": 62,
+      "mujeres": 39
+    },
+    {
+      "codigo": "09055",
+      "nombre": "Brazacorta",
+      "total": 43,
+      "hombres": 27,
+      "mujeres": 16
+    },
+    {
+      "codigo": "09056",
+      "nombre": "Briviesca",
+      "total": 6728,
+      "hombres": 3392,
+      "mujeres": 3336
+    },
+    {
+      "codigo": "09057",
+      "nombre": "Bugedo",
+      "total": 193,
+      "hombres": 118,
+      "mujeres": 75
+    },
+    {
+      "codigo": "09058",
+      "nombre": "Buniel",
+      "total": 632,
+      "hombres": 341,
+      "mujeres": 291
+    },
+    {
+      "codigo": "09059",
+      "nombre": "Burgos",
+      "total": 177402,
+      "hombres": 84614,
+      "mujeres": 92788
+    },
+    {
+      "codigo": "09",
+      "nombre": "Burgos",
+      "total": 361556,
+      "hombres": 180878,
+      "mujeres": 180678
+    },
+    {
+      "codigo": "09060",
+      "nombre": "Busto de Bureba",
+      "total": 140,
+      "hombres": 74,
+      "mujeres": 66
+    },
+    {
+      "codigo": "09061",
+      "nombre": "Cabañes de Esgueva",
+      "total": 145,
+      "hombres": 84,
+      "mujeres": 61
+    },
+    {
+      "codigo": "09062",
+      "nombre": "Cabezón de la Sierra",
+      "total": 33,
+      "hombres": 15,
+      "mujeres": 18
+    },
+    {
+      "codigo": "09064",
+      "nombre": "Caleruega",
+      "total": 385,
+      "hombres": 207,
+      "mujeres": 178
+    },
+    {
+      "codigo": "09065",
+      "nombre": "Campillo de Aranda",
+      "total": 175,
+      "hombres": 106,
+      "mujeres": 69
+    },
+    {
+      "codigo": "09066",
+      "nombre": "Campolara",
+      "total": 46,
+      "hombres": 32,
+      "mujeres": 14
+    },
+    {
+      "codigo": "09067",
+      "nombre": "Canicosa de la Sierra",
+      "total": 410,
+      "hombres": 222,
+      "mujeres": 188
+    },
+    {
+      "codigo": "09068",
+      "nombre": "Cantabrana",
+      "total": 22,
+      "hombres": 15,
+      "mujeres": 7
+    },
+    {
+      "codigo": "09070",
+      "nombre": "Carazo",
+      "total": 42,
+      "hombres": 27,
+      "mujeres": 15
+    },
+    {
+      "codigo": "09071",
+      "nombre": "Carcedo de Bureba",
+      "total": 36,
+      "hombres": 18,
+      "mujeres": 18
+    },
+    {
+      "codigo": "09072",
+      "nombre": "Carcedo de Burgos",
+      "total": 513,
+      "hombres": 276,
+      "mujeres": 237
+    },
+    {
+      "codigo": "09073",
+      "nombre": "Cardeñadijo",
+      "total": 1445,
+      "hombres": 779,
+      "mujeres": 666
+    },
+    {
+      "codigo": "09074",
+      "nombre": "Cardeñajimeno",
+      "total": 1185,
+      "hombres": 618,
+      "mujeres": 567
+    },
+    {
+      "codigo": "09075",
+      "nombre": "Cardeñuela Riopico",
+      "total": 106,
+      "hombres": 62,
+      "mujeres": 44
+    },
+    {
+      "codigo": "09076",
+      "nombre": "Carrias",
+      "total": 26,
+      "hombres": 19,
+      "mujeres": 7
+    },
+    {
+      "codigo": "09077",
+      "nombre": "Cascajares de Bureba",
+      "total": 25,
+      "hombres": 14,
+      "mujeres": 11
+    },
+    {
+      "codigo": "09078",
+      "nombre": "Cascajares de la Sierra",
+      "total": 25,
+      "hombres": 14,
+      "mujeres": 11
+    },
+    {
+      "codigo": "09079",
+      "nombre": "Castellanos de Castro",
+      "total": 48,
+      "hombres": 28,
+      "mujeres": 20
+    },
+    {
+      "codigo": "09083",
+      "nombre": "Castil de Peones",
+      "total": 26,
+      "hombres": 14,
+      "mujeres": 12
+    },
+    {
+      "codigo": "09082",
+      "nombre": "Castildelgado",
+      "total": 34,
+      "hombres": 19,
+      "mujeres": 15
+    },
+    {
+      "codigo": "09084",
+      "nombre": "Castrillo de la Reina",
+      "total": 159,
+      "hombres": 106,
+      "mujeres": 53
+    },
+    {
+      "codigo": "09085",
+      "nombre": "Castrillo de la Vega",
+      "total": 626,
+      "hombres": 335,
+      "mujeres": 291
+    },
+    {
+      "codigo": "09088",
+      "nombre": "Castrillo de Riopisuerga",
+      "total": 56,
+      "hombres": 34,
+      "mujeres": 22
+    },
+    {
+      "codigo": "09086",
+      "nombre": "Castrillo del Val",
+      "total": 858,
+      "hombres": 482,
+      "mujeres": 376
+    },
+    {
+      "codigo": "09090",
+      "nombre": "Castrillo Mota de Judíos",
+      "total": 48,
+      "hombres": 26,
+      "mujeres": 22
+    },
+    {
+      "codigo": "09091",
+      "nombre": "Castrojeriz",
+      "total": 794,
+      "hombres": 421,
+      "mujeres": 373
+    },
+    {
+      "codigo": "09063",
+      "nombre": "Cavia",
+      "total": 246,
+      "hombres": 144,
+      "mujeres": 102
+    },
+    {
+      "codigo": "09093",
+      "nombre": "Cayuela",
+      "total": 186,
+      "hombres": 107,
+      "mujeres": 79
+    },
+    {
+      "codigo": "09094",
+      "nombre": "Cebrecos",
+      "total": 60,
+      "hombres": 35,
+      "mujeres": 25
+    },
+    {
+      "codigo": "09095",
+      "nombre": "Celada del Camino",
+      "total": 91,
+      "hombres": 48,
+      "mujeres": 43
+    },
+    {
+      "codigo": "09098",
+      "nombre": "Cerezo de Río Tirón",
+      "total": 467,
+      "hombres": 259,
+      "mujeres": 208
+    },
+    {
+      "codigo": "09100",
+      "nombre": "Cerratón de Juarros",
+      "total": 42,
+      "hombres": 32,
+      "mujeres": 10
+    },
+    {
+      "codigo": "09101",
+      "nombre": "Ciadoncha",
+      "total": 77,
+      "hombres": 50,
+      "mujeres": 27
+    },
+    {
+      "codigo": "09102",
+      "nombre": "Cillaperlata",
+      "total": 31,
+      "hombres": 21,
+      "mujeres": 10
+    },
+    {
+      "codigo": "09103",
+      "nombre": "Cilleruelo de Abajo",
+      "total": 209,
+      "hombres": 119,
+      "mujeres": 90
+    },
+    {
+      "codigo": "09104",
+      "nombre": "Cilleruelo de Arriba",
+      "total": 52,
+      "hombres": 29,
+      "mujeres": 23
+    },
+    {
+      "codigo": "09105",
+      "nombre": "Ciruelos de Cervera",
+      "total": 90,
+      "hombres": 53,
+      "mujeres": 37
+    },
+    {
+      "codigo": "09108",
+      "nombre": "Cogollos",
+      "total": 687,
+      "hombres": 382,
+      "mujeres": 305
+    },
+    {
+      "codigo": "09109",
+      "nombre": "Condado de Treviño",
+      "total": 1468,
+      "hombres": 808,
+      "mujeres": 660
+    },
+    {
+      "codigo": "09110",
+      "nombre": "Contreras",
+      "total": 81,
+      "hombres": 52,
+      "mujeres": 29
+    },
+    {
+      "codigo": "09112",
+      "nombre": "Coruña del Conde",
+      "total": 95,
+      "hombres": 61,
+      "mujeres": 34
+    },
+    {
+      "codigo": "09113",
+      "nombre": "Covarrubias",
+      "total": 501,
+      "hombres": 278,
+      "mujeres": 223
+    },
+    {
+      "codigo": "09114",
+      "nombre": "Cubillo del Campo",
+      "total": 103,
+      "hombres": 54,
+      "mujeres": 49
+    },
+    {
+      "codigo": "09115",
+      "nombre": "Cubo de Bureba",
+      "total": 102,
+      "hombres": 56,
+      "mujeres": 46
+    },
+    {
+      "codigo": "09117",
+      "nombre": "Cueva de Roa, La",
+      "total": 89,
+      "hombres": 48,
+      "mujeres": 41
+    },
+    {
+      "codigo": "09119",
+      "nombre": "Cuevas de San Clemente",
+      "total": 52,
+      "hombres": 26,
+      "mujeres": 26
+    },
+    {
+      "codigo": "09120",
+      "nombre": "Encío",
+      "total": 37,
+      "hombres": 20,
+      "mujeres": 17
+    },
+    {
+      "codigo": "09122",
+      "nombre": "Espinosa de Cervera",
+      "total": 81,
+      "hombres": 53,
+      "mujeres": 28
+    },
+    {
+      "codigo": "09124",
+      "nombre": "Espinosa de los Monteros",
+      "total": 1627,
+      "hombres": 844,
+      "mujeres": 783
+    },
+    {
+      "codigo": "09123",
+      "nombre": "Espinosa del Camino",
+      "total": 43,
+      "hombres": 26,
+      "mujeres": 17
+    },
+    {
+      "codigo": "09125",
+      "nombre": "Estépar",
+      "total": 646,
+      "hombres": 371,
+      "mujeres": 275
+    },
+    {
+      "codigo": "09127",
+      "nombre": "Fontioso",
+      "total": 52,
+      "hombres": 31,
+      "mujeres": 21
+    },
+    {
+      "codigo": "09128",
+      "nombre": "Frandovínez",
+      "total": 95,
+      "hombres": 53,
+      "mujeres": 42
+    },
+    {
+      "codigo": "09129",
+      "nombre": "Fresneda de la Sierra Tirón",
+      "total": 98,
+      "hombres": 59,
+      "mujeres": 39
+    },
+    {
+      "codigo": "09130",
+      "nombre": "Fresneña",
+      "total": 68,
+      "hombres": 43,
+      "mujeres": 25
+    },
+    {
+      "codigo": "09131",
+      "nombre": "Fresnillo de las Dueñas",
+      "total": 703,
+      "hombres": 378,
+      "mujeres": 325
+    },
+    {
+      "codigo": "09132",
+      "nombre": "Fresno de Río Tirón",
+      "total": 156,
+      "hombres": 93,
+      "mujeres": 63
+    },
+    {
+      "codigo": "09133",
+      "nombre": "Fresno de Rodilla",
+      "total": 49,
+      "hombres": 28,
+      "mujeres": 21
+    },
+    {
+      "codigo": "09134",
+      "nombre": "Frías",
+      "total": 258,
+      "hombres": 131,
+      "mujeres": 127
+    },
+    {
+      "codigo": "09135",
+      "nombre": "Fuentebureba",
+      "total": 58,
+      "hombres": 34,
+      "mujeres": 24
+    },
+    {
+      "codigo": "09136",
+      "nombre": "Fuentecén",
+      "total": 246,
+      "hombres": 135,
+      "mujeres": 111
+    },
+    {
+      "codigo": "09137",
+      "nombre": "Fuentelcésped",
+      "total": 290,
+      "hombres": 157,
+      "mujeres": 133
+    },
+    {
+      "codigo": "09138",
+      "nombre": "Fuentelisendo",
+      "total": 96,
+      "hombres": 52,
+      "mujeres": 44
+    },
+    {
+      "codigo": "09139",
+      "nombre": "Fuentemolinos",
+      "total": 89,
+      "hombres": 62,
+      "mujeres": 27
+    },
+    {
+      "codigo": "09140",
+      "nombre": "Fuentenebro",
+      "total": 137,
+      "hombres": 81,
+      "mujeres": 56
+    },
+    {
+      "codigo": "09141",
+      "nombre": "Fuentespina",
+      "total": 833,
+      "hombres": 430,
+      "mujeres": 403
+    },
+    {
+      "codigo": "09143",
+      "nombre": "Galbarros",
+      "total": 28,
+      "hombres": 18,
+      "mujeres": 10
+    },
+    {
+      "codigo": "09144",
+      "nombre": "Gallega, La",
+      "total": 34,
+      "hombres": 25,
+      "mujeres": 9
+    },
+    {
+      "codigo": "09148",
+      "nombre": "Grijalba",
+      "total": 114,
+      "hombres": 57,
+      "mujeres": 57
+    },
+    {
+      "codigo": "09149",
+      "nombre": "Grisaleña",
+      "total": 58,
+      "hombres": 43,
+      "mujeres": 15
+    },
+    {
+      "codigo": "09151",
+      "nombre": "Gumiel de Izán",
+      "total": 587,
+      "hombres": 323,
+      "mujeres": 264
+    },
+    {
+      "codigo": "09152",
+      "nombre": "Gumiel de Mercado",
+      "total": 376,
+      "hombres": 211,
+      "mujeres": 165
+    },
+    {
+      "codigo": "09154",
+      "nombre": "Hacinas",
+      "total": 145,
+      "hombres": 90,
+      "mujeres": 55
+    },
+    {
+      "codigo": "09155",
+      "nombre": "Haza",
+      "total": 33,
+      "hombres": 23,
+      "mujeres": 10
+    },
+    {
+      "codigo": "09159",
+      "nombre": "Hontanas",
+      "total": 69,
+      "hombres": 40,
+      "mujeres": 29
+    },
+    {
+      "codigo": "09160",
+      "nombre": "Hontangas",
+      "total": 92,
+      "hombres": 61,
+      "mujeres": 31
+    },
+    {
+      "codigo": "09162",
+      "nombre": "Hontoria de la Cantera",
+      "total": 172,
+      "hombres": 98,
+      "mujeres": 74
+    },
+    {
+      "codigo": "09164",
+      "nombre": "Hontoria de Valdearados",
+      "total": 152,
+      "hombres": 92,
+      "mujeres": 60
+    },
+    {
+      "codigo": "09163",
+      "nombre": "Hontoria del Pinar",
+      "total": 613,
+      "hombres": 338,
+      "mujeres": 275
+    },
+    {
+      "codigo": "09166",
+      "nombre": "Hormazas, Las",
+      "total": 93,
+      "hombres": 48,
+      "mujeres": 45
+    },
+    {
+      "codigo": "09167",
+      "nombre": "Hornillos del Camino",
+      "total": 44,
+      "hombres": 27,
+      "mujeres": 17
+    },
+    {
+      "codigo": "09168",
+      "nombre": "Horra, La",
+      "total": 295,
+      "hombres": 168,
+      "mujeres": 127
+    },
+    {
+      "codigo": "09169",
+      "nombre": "Hortigüela",
+      "total": 103,
+      "hombres": 70,
+      "mujeres": 33
+    },
+    {
+      "codigo": "09170",
+      "nombre": "Hoyales de Roa",
+      "total": 208,
+      "hombres": 111,
+      "mujeres": 97
+    },
+    {
+      "codigo": "09172",
+      "nombre": "Huérmeces",
+      "total": 159,
+      "hombres": 89,
+      "mujeres": 70
+    },
+    {
+      "codigo": "09173",
+      "nombre": "Huerta de Arriba",
+      "total": 121,
+      "hombres": 66,
+      "mujeres": 55
+    },
+    {
+      "codigo": "09174",
+      "nombre": "Huerta de Rey",
+      "total": 889,
+      "hombres": 484,
+      "mujeres": 405
+    },
+    {
+      "codigo": "09175",
+      "nombre": "Humada",
+      "total": 114,
+      "hombres": 81,
+      "mujeres": 33
+    },
+    {
+      "codigo": "09176",
+      "nombre": "Hurones",
+      "total": 59,
+      "hombres": 37,
+      "mujeres": 22
+    },
+    {
+      "codigo": "09177",
+      "nombre": "Ibeas de Juarros",
+      "total": 1492,
+      "hombres": 792,
+      "mujeres": 700
+    },
+    {
+      "codigo": "09178",
+      "nombre": "Ibrillos",
+      "total": 30,
+      "hombres": 23,
+      "mujeres": 7
+    },
+    {
+      "codigo": "09179",
+      "nombre": "Iglesiarrubia",
+      "total": 45,
+      "hombres": 23,
+      "mujeres": 22
+    },
+    {
+      "codigo": "09180",
+      "nombre": "Iglesias",
+      "total": 136,
+      "hombres": 70,
+      "mujeres": 66
+    },
+    {
+      "codigo": "09181",
+      "nombre": "Isar",
+      "total": 279,
+      "hombres": 150,
+      "mujeres": 129
+    },
+    {
+      "codigo": "09182",
+      "nombre": "Itero del Castillo",
+      "total": 74,
+      "hombres": 46,
+      "mujeres": 28
+    },
+    {
+      "codigo": "09183",
+      "nombre": "Jaramillo de la Fuente",
+      "total": 45,
+      "hombres": 30,
+      "mujeres": 15
+    },
+    {
+      "codigo": "09184",
+      "nombre": "Jaramillo Quemado",
+      "total": 12,
+      "hombres": 9,
+      "mujeres": 3
+    },
+    {
+      "codigo": "09189",
+      "nombre": "Junta de Traslaloma",
+      "total": 118,
+      "hombres": 67,
+      "mujeres": 51
+    },
+    {
+      "codigo": "09190",
+      "nombre": "Junta de Villalba de Losa",
+      "total": 79,
+      "hombres": 42,
+      "mujeres": 37
+    },
+    {
+      "codigo": "09191",
+      "nombre": "Jurisdicción de Lara",
+      "total": 39,
+      "hombres": 24,
+      "mujeres": 15
+    },
+    {
+      "codigo": "09192",
+      "nombre": "Jurisdicción de San Zadornil",
+      "total": 62,
+      "hombres": 36,
+      "mujeres": 26
+    },
+    {
+      "codigo": "09194",
+      "nombre": "Lerma",
+      "total": 2629,
+      "hombres": 1317,
+      "mujeres": 1312
+    },
+    {
+      "codigo": "09195",
+      "nombre": "Llano de Bureba",
+      "total": 45,
+      "hombres": 33,
+      "mujeres": 12
+    },
+    {
+      "codigo": "09196",
+      "nombre": "Madrigal del Monte",
+      "total": 141,
+      "hombres": 86,
+      "mujeres": 55
+    },
+    {
+      "codigo": "09197",
+      "nombre": "Madrigalejo del Monte",
+      "total": 160,
+      "hombres": 97,
+      "mujeres": 63
+    },
+    {
+      "codigo": "09198",
+      "nombre": "Mahamud",
+      "total": 107,
+      "hombres": 60,
+      "mujeres": 47
+    },
+    {
+      "codigo": "09199",
+      "nombre": "Mambrilla de Castrejón",
+      "total": 105,
+      "hombres": 65,
+      "mujeres": 40
+    },
+    {
+      "codigo": "09200",
+      "nombre": "Mambrillas de Lara",
+      "total": 54,
+      "hombres": 34,
+      "mujeres": 20
+    },
+    {
+      "codigo": "09201",
+      "nombre": "Mamolar",
+      "total": 27,
+      "hombres": 14,
+      "mujeres": 13
+    },
+    {
+      "codigo": "09202",
+      "nombre": "Manciles",
+      "total": 21,
+      "hombres": 12,
+      "mujeres": 9
+    },
+    {
+      "codigo": "09206",
+      "nombre": "Mazuela",
+      "total": 55,
+      "hombres": 35,
+      "mujeres": 20
+    },
+    {
+      "codigo": "09208",
+      "nombre": "Mecerreyes",
+      "total": 176,
+      "hombres": 99,
+      "mujeres": 77
+    },
+    {
+      "codigo": "09209",
+      "nombre": "Medina de Pomar",
+      "total": 6190,
+      "hombres": 3134,
+      "mujeres": 3056
+    },
+    {
+      "codigo": "09211",
+      "nombre": "Melgar de Fernamental",
+      "total": 1496,
+      "hombres": 842,
+      "mujeres": 654
+    },
+    {
+      "codigo": "09213",
+      "nombre": "Merindad de Cuesta-Urria",
+      "total": 263,
+      "hombres": 156,
+      "mujeres": 107
+    },
+    {
+      "codigo": "09214",
+      "nombre": "Merindad de Montija",
+      "total": 723,
+      "hombres": 422,
+      "mujeres": 301
+    },
+    {
+      "codigo": "09906",
+      "nombre": "Merindad de Río Ubierna",
+      "total": 1400,
+      "hombres": 793,
+      "mujeres": 607
+    },
+    {
+      "codigo": "09215",
+      "nombre": "Merindad de Sotoscueva",
+      "total": 399,
+      "hombres": 228,
+      "mujeres": 171
+    },
+    {
+      "codigo": "09216",
+      "nombre": "Merindad de Valdeporres",
+      "total": 412,
+      "hombres": 208,
+      "mujeres": 204
+    },
+    {
+      "codigo": "09217",
+      "nombre": "Merindad de Valdivielso",
+      "total": 384,
+      "hombres": 213,
+      "mujeres": 171
+    },
+    {
+      "codigo": "09218",
+      "nombre": "Milagros",
+      "total": 409,
+      "hombres": 209,
+      "mujeres": 200
+    },
+    {
+      "codigo": "09219",
+      "nombre": "Miranda de Ebro",
+      "total": 36622,
+      "hombres": 18142,
+      "mujeres": 18480
+    },
+    {
+      "codigo": "09220",
+      "nombre": "Miraveche",
+      "total": 92,
+      "hombres": 61,
+      "mujeres": 31
+    },
+    {
+      "codigo": "09221",
+      "nombre": "Modúbar de la Emparedada",
+      "total": 773,
+      "hombres": 426,
+      "mujeres": 347
+    },
+    {
+      "codigo": "09223",
+      "nombre": "Monasterio de la Sierra",
+      "total": 38,
+      "hombres": 26,
+      "mujeres": 12
+    },
+    {
+      "codigo": "09224",
+      "nombre": "Monasterio de Rodilla",
+      "total": 171,
+      "hombres": 92,
+      "mujeres": 79
+    },
+    {
+      "codigo": "09225",
+      "nombre": "Moncalvillo",
+      "total": 77,
+      "hombres": 46,
+      "mujeres": 31
+    },
+    {
+      "codigo": "09226",
+      "nombre": "Monterrubio de la Demanda",
+      "total": 55,
+      "hombres": 34,
+      "mujeres": 21
+    },
+    {
+      "codigo": "09227",
+      "nombre": "Montorio",
+      "total": 138,
+      "hombres": 82,
+      "mujeres": 56
+    },
+    {
+      "codigo": "09228",
+      "nombre": "Moradillo de Roa",
+      "total": 167,
+      "hombres": 91,
+      "mujeres": 76
+    },
+    {
+      "codigo": "09229",
+      "nombre": "Nava de Roa",
+      "total": 202,
+      "hombres": 114,
+      "mujeres": 88
+    },
+    {
+      "codigo": "09230",
+      "nombre": "Navas de Bureba",
+      "total": 24,
+      "hombres": 12,
+      "mujeres": 12
+    },
+    {
+      "codigo": "09231",
+      "nombre": "Nebreda",
+      "total": 50,
+      "hombres": 33,
+      "mujeres": 17
+    },
+    {
+      "codigo": "09232",
+      "nombre": "Neila",
+      "total": 113,
+      "hombres": 66,
+      "mujeres": 47
+    },
+    {
+      "codigo": "09235",
+      "nombre": "Olmedillo de Roa",
+      "total": 188,
+      "hombres": 107,
+      "mujeres": 81
+    },
+    {
+      "codigo": "09236",
+      "nombre": "Olmillos de Muñó",
+      "total": 38,
+      "hombres": 22,
+      "mujeres": 16
+    },
+    {
+      "codigo": "09238",
+      "nombre": "Oña",
+      "total": 938,
+      "hombres": 496,
+      "mujeres": 442
+    },
+    {
+      "codigo": "09239",
+      "nombre": "Oquillas",
+      "total": 52,
+      "hombres": 30,
+      "mujeres": 22
+    },
+    {
+      "codigo": "09241",
+      "nombre": "Orbaneja Riopico",
+      "total": 341,
+      "hombres": 189,
+      "mujeres": 152
+    },
+    {
+      "codigo": "09242",
+      "nombre": "Padilla de Abajo",
+      "total": 71,
+      "hombres": 43,
+      "mujeres": 28
+    },
+    {
+      "codigo": "09243",
+      "nombre": "Padilla de Arriba",
+      "total": 86,
+      "hombres": 54,
+      "mujeres": 32
+    },
+    {
+      "codigo": "09244",
+      "nombre": "Padrones de Bureba",
+      "total": 49,
+      "hombres": 22,
+      "mujeres": 27
+    },
+    {
+      "codigo": "09246",
+      "nombre": "Palacios de la Sierra",
+      "total": 662,
+      "hombres": 349,
+      "mujeres": 313
+    },
+    {
+      "codigo": "09247",
+      "nombre": "Palacios de Riopisuerga",
+      "total": 19,
+      "hombres": 10,
+      "mujeres": 9
+    },
+    {
+      "codigo": "09248",
+      "nombre": "Palazuelos de la Sierra",
+      "total": 95,
+      "hombres": 54,
+      "mujeres": 41
+    },
+    {
+      "codigo": "09249",
+      "nombre": "Palazuelos de Muñó",
+      "total": 52,
+      "hombres": 31,
+      "mujeres": 21
+    },
+    {
+      "codigo": "09250",
+      "nombre": "Pampliega",
+      "total": 281,
+      "hombres": 158,
+      "mujeres": 123
+    },
+    {
+      "codigo": "09251",
+      "nombre": "Pancorbo",
+      "total": 431,
+      "hombres": 233,
+      "mujeres": 198
+    },
+    {
+      "codigo": "09253",
+      "nombre": "Pardilla",
+      "total": 109,
+      "hombres": 66,
+      "mujeres": 43
+    },
+    {
+      "codigo": "09255",
+      "nombre": "Partido de la Sierra en Tobalina",
+      "total": 75,
+      "hombres": 46,
+      "mujeres": 29
+    },
+    {
+      "codigo": "09256",
+      "nombre": "Pedrosa de Duero",
+      "total": 458,
+      "hombres": 254,
+      "mujeres": 204
+    },
+    {
+      "codigo": "09259",
+      "nombre": "Pedrosa de Río Úrbel",
+      "total": 262,
+      "hombres": 154,
+      "mujeres": 108
+    },
+    {
+      "codigo": "09257",
+      "nombre": "Pedrosa del Páramo",
+      "total": 88,
+      "hombres": 55,
+      "mujeres": 33
+    },
+    {
+      "codigo": "09258",
+      "nombre": "Pedrosa del Príncipe",
+      "total": 155,
+      "hombres": 85,
+      "mujeres": 70
+    },
+    {
+      "codigo": "09261",
+      "nombre": "Peñaranda de Duero",
+      "total": 470,
+      "hombres": 244,
+      "mujeres": 226
+    },
+    {
+      "codigo": "09262",
+      "nombre": "Peral de Arlanza",
+      "total": 169,
+      "hombres": 96,
+      "mujeres": 73
+    },
+    {
+      "codigo": "09265",
+      "nombre": "Piérnigas",
+      "total": 43,
+      "hombres": 26,
+      "mujeres": 17
+    },
+    {
+      "codigo": "09266",
+      "nombre": "Pineda de la Sierra",
+      "total": 92,
+      "hombres": 63,
+      "mujeres": 29
+    },
+    {
+      "codigo": "09267",
+      "nombre": "Pineda Trasmonte",
+      "total": 95,
+      "hombres": 60,
+      "mujeres": 35
+    },
+    {
+      "codigo": "09268",
+      "nombre": "Pinilla de los Barruecos",
+      "total": 100,
+      "hombres": 62,
+      "mujeres": 38
+    },
+    {
+      "codigo": "09269",
+      "nombre": "Pinilla de los Moros",
+      "total": 30,
+      "hombres": 18,
+      "mujeres": 12
+    },
+    {
+      "codigo": "09270",
+      "nombre": "Pinilla Trasmonte",
+      "total": 152,
+      "hombres": 88,
+      "mujeres": 64
+    },
+    {
+      "codigo": "09272",
+      "nombre": "Poza de la Sal",
+      "total": 278,
+      "hombres": 152,
+      "mujeres": 126
+    },
+    {
+      "codigo": "09273",
+      "nombre": "Prádanos de Bureba",
+      "total": 54,
+      "hombres": 36,
+      "mujeres": 18
+    },
+    {
+      "codigo": "09274",
+      "nombre": "Pradoluengo",
+      "total": 1090,
+      "hombres": 553,
+      "mujeres": 537
+    },
+    {
+      "codigo": "09275",
+      "nombre": "Presencio",
+      "total": 212,
+      "hombres": 118,
+      "mujeres": 94
+    },
+    {
+      "codigo": "09276",
+      "nombre": "Puebla de Arganzón, La",
+      "total": 565,
+      "hombres": 304,
+      "mujeres": 261
+    },
+    {
+      "codigo": "09277",
+      "nombre": "Puentedura",
+      "total": 117,
+      "hombres": 77,
+      "mujeres": 40
+    },
+    {
+      "codigo": "09279",
+      "nombre": "Quemada",
+      "total": 242,
+      "hombres": 144,
+      "mujeres": 98
+    },
+    {
+      "codigo": "09281",
+      "nombre": "Quintana del Pidio",
+      "total": 150,
+      "hombres": 81,
+      "mujeres": 69
+    },
+    {
+      "codigo": "09280",
+      "nombre": "Quintanabureba",
+      "total": 29,
+      "hombres": 17,
+      "mujeres": 12
+    },
+    {
+      "codigo": "09283",
+      "nombre": "Quintanaélez",
+      "total": 44,
+      "hombres": 27,
+      "mujeres": 17
+    },
+    {
+      "codigo": "09287",
+      "nombre": "Quintanaortuño",
+      "total": 297,
+      "hombres": 159,
+      "mujeres": 138
+    },
+    {
+      "codigo": "09288",
+      "nombre": "Quintanapalla",
+      "total": 123,
+      "hombres": 59,
+      "mujeres": 64
+    },
+    {
+      "codigo": "09289",
+      "nombre": "Quintanar de la Sierra",
+      "total": 1474,
+      "hombres": 780,
+      "mujeres": 694
+    },
+    {
+      "codigo": "09292",
+      "nombre": "Quintanavides",
+      "total": 65,
+      "hombres": 38,
+      "mujeres": 27
+    },
+    {
+      "codigo": "09294",
+      "nombre": "Quintanilla de la Mata",
+      "total": 109,
+      "hombres": 67,
+      "mujeres": 42
+    },
+    {
+      "codigo": "09901",
+      "nombre": "Quintanilla del Agua y Tordueles",
+      "total": 336,
+      "hombres": 181,
+      "mujeres": 155
+    },
+    {
+      "codigo": "09295",
+      "nombre": "Quintanilla del Coco",
+      "total": 50,
+      "hombres": 26,
+      "mujeres": 24
+    },
+    {
+      "codigo": "09298",
+      "nombre": "Quintanilla San García",
+      "total": 66,
+      "hombres": 38,
+      "mujeres": 28
+    },
+    {
+      "codigo": "09301",
+      "nombre": "Quintanilla Vivar",
+      "total": 890,
+      "hombres": 461,
+      "mujeres": 429
+    },
+    {
+      "codigo": "09297",
+      "nombre": "Quintanillas, Las",
+      "total": 386,
+      "hombres": 224,
+      "mujeres": 162
+    },
+    {
+      "codigo": "09302",
+      "nombre": "Rabanera del Pinar",
+      "total": 94,
+      "hombres": 57,
+      "mujeres": 37
+    },
+    {
+      "codigo": "09303",
+      "nombre": "Rábanos",
+      "total": 73,
+      "hombres": 45,
+      "mujeres": 28
+    },
+    {
+      "codigo": "09304",
+      "nombre": "Rabé de las Calzadas",
+      "total": 259,
+      "hombres": 128,
+      "mujeres": 131
+    },
+    {
+      "codigo": "09306",
+      "nombre": "Rebolledo de la Torre",
+      "total": 100,
+      "hombres": 57,
+      "mujeres": 43
+    },
+    {
+      "codigo": "09307",
+      "nombre": "Redecilla del Camino",
+      "total": 98,
+      "hombres": 59,
+      "mujeres": 39
+    },
+    {
+      "codigo": "09308",
+      "nombre": "Redecilla del Campo",
+      "total": 65,
+      "hombres": 39,
+      "mujeres": 26
+    },
+    {
+      "codigo": "09309",
+      "nombre": "Regumiel de la Sierra",
+      "total": 304,
+      "hombres": 173,
+      "mujeres": 131
+    },
+    {
+      "codigo": "09310",
+      "nombre": "Reinoso",
+      "total": 21,
+      "hombres": 14,
+      "mujeres": 7
+    },
+    {
+      "codigo": "09311",
+      "nombre": "Retuerta",
+      "total": 56,
+      "hombres": 33,
+      "mujeres": 23
+    },
+    {
+      "codigo": "09314",
+      "nombre": "Revilla del Campo",
+      "total": 96,
+      "hombres": 55,
+      "mujeres": 41
+    },
+    {
+      "codigo": "09316",
+      "nombre": "Revilla Vallejera",
+      "total": 112,
+      "hombres": 66,
+      "mujeres": 46
+    },
+    {
+      "codigo": "09312",
+      "nombre": "Revilla y Ahedo, La",
+      "total": 97,
+      "hombres": 57,
+      "mujeres": 40
+    },
+    {
+      "codigo": "09315",
+      "nombre": "Revillarruz",
+      "total": 621,
+      "hombres": 327,
+      "mujeres": 294
+    },
+    {
+      "codigo": "09317",
+      "nombre": "Rezmondo",
+      "total": 18,
+      "hombres": 7,
+      "mujeres": 11
+    },
+    {
+      "codigo": "09318",
+      "nombre": "Riocavado de la Sierra",
+      "total": 54,
+      "hombres": 34,
+      "mujeres": 20
+    },
+    {
+      "codigo": "09321",
+      "nombre": "Roa",
+      "total": 2276,
+      "hombres": 1171,
+      "mujeres": 1105
+    },
+    {
+      "codigo": "09323",
+      "nombre": "Rojas",
+      "total": 62,
+      "hombres": 43,
+      "mujeres": 19
+    },
+    {
+      "codigo": "09325",
+      "nombre": "Royuela de Río Franco",
+      "total": 169,
+      "hombres": 100,
+      "mujeres": 69
+    },
+    {
+      "codigo": "09326",
+      "nombre": "Rubena",
+      "total": 207,
+      "hombres": 122,
+      "mujeres": 85
+    },
+    {
+      "codigo": "09327",
+      "nombre": "Rublacedo de Abajo",
+      "total": 37,
+      "hombres": 17,
+      "mujeres": 20
+    },
+    {
+      "codigo": "09328",
+      "nombre": "Rucandio",
+      "total": 72,
+      "hombres": 37,
+      "mujeres": 35
+    },
+    {
+      "codigo": "09329",
+      "nombre": "Salas de Bureba",
+      "total": 129,
+      "hombres": 77,
+      "mujeres": 52
+    },
+    {
+      "codigo": "09330",
+      "nombre": "Salas de los Infantes",
+      "total": 1959,
+      "hombres": 1028,
+      "mujeres": 931
+    },
+    {
+      "codigo": "09332",
+      "nombre": "Saldaña de Burgos",
+      "total": 203,
+      "hombres": 113,
+      "mujeres": 90
+    },
+    {
+      "codigo": "09334",
+      "nombre": "Salinillas de Bureba",
+      "total": 55,
+      "hombres": 37,
+      "mujeres": 18
+    },
+    {
+      "codigo": "09335",
+      "nombre": "San Adrián de Juarros",
+      "total": 84,
+      "hombres": 55,
+      "mujeres": 29
+    },
+    {
+      "codigo": "09337",
+      "nombre": "San Juan del Monte",
+      "total": 163,
+      "hombres": 92,
+      "mujeres": 71
+    },
+    {
+      "codigo": "09338",
+      "nombre": "San Mamés de Burgos",
+      "total": 323,
+      "hombres": 191,
+      "mujeres": 132
+    },
+    {
+      "codigo": "09339",
+      "nombre": "San Martín de Rubiales",
+      "total": 137,
+      "hombres": 84,
+      "mujeres": 53
+    },
+    {
+      "codigo": "09340",
+      "nombre": "San Millán de Lara",
+      "total": 61,
+      "hombres": 45,
+      "mujeres": 16
+    },
+    {
+      "codigo": "09360",
+      "nombre": "San Vicente del Valle",
+      "total": 26,
+      "hombres": 17,
+      "mujeres": 9
+    },
+    {
+      "codigo": "09343",
+      "nombre": "Santa Cecilia",
+      "total": 107,
+      "hombres": 65,
+      "mujeres": 42
+    },
+    {
+      "codigo": "09345",
+      "nombre": "Santa Cruz de la Salceda",
+      "total": 148,
+      "hombres": 89,
+      "mujeres": 59
+    },
+    {
+      "codigo": "09346",
+      "nombre": "Santa Cruz del Valle Urbión",
+      "total": 94,
+      "hombres": 63,
+      "mujeres": 31
+    },
+    {
+      "codigo": "09347",
+      "nombre": "Santa Gadea del Cid",
+      "total": 180,
+      "hombres": 96,
+      "mujeres": 84
+    },
+    {
+      "codigo": "09348",
+      "nombre": "Santa Inés",
+      "total": 153,
+      "hombres": 88,
+      "mujeres": 65
+    },
+    {
+      "codigo": "09350",
+      "nombre": "Santa María del Campo",
+      "total": 508,
+      "hombres": 276,
+      "mujeres": 232
+    },
+    {
+      "codigo": "09351",
+      "nombre": "Santa María del Invierno",
+      "total": 70,
+      "hombres": 49,
+      "mujeres": 21
+    },
+    {
+      "codigo": "09352",
+      "nombre": "Santa María del Mercadillo",
+      "total": 119,
+      "hombres": 76,
+      "mujeres": 43
+    },
+    {
+      "codigo": "09353",
+      "nombre": "Santa María Ribarredonda",
+      "total": 97,
+      "hombres": 59,
+      "mujeres": 38
+    },
+    {
+      "codigo": "09354",
+      "nombre": "Santa Olalla de Bureba",
+      "total": 38,
+      "hombres": 26,
+      "mujeres": 12
+    },
+    {
+      "codigo": "09355",
+      "nombre": "Santibáñez de Esgueva",
+      "total": 72,
+      "hombres": 40,
+      "mujeres": 32
+    },
+    {
+      "codigo": "09356",
+      "nombre": "Santibáñez del Val",
+      "total": 64,
+      "hombres": 38,
+      "mujeres": 26
+    },
+    {
+      "codigo": "09358",
+      "nombre": "Santo Domingo de Silos",
+      "total": 251,
+      "hombres": 159,
+      "mujeres": 92
+    },
+    {
+      "codigo": "09361",
+      "nombre": "Sargentes de la Lora",
+      "total": 130,
+      "hombres": 74,
+      "mujeres": 56
+    },
+    {
+      "codigo": "09362",
+      "nombre": "Sarracín",
+      "total": 261,
+      "hombres": 140,
+      "mujeres": 121
+    },
+    {
+      "codigo": "09363",
+      "nombre": "Sasamón",
+      "total": 898,
+      "hombres": 521,
+      "mujeres": 377
+    },
+    {
+      "codigo": "09365",
+      "nombre": "Sequera de Haza, La",
+      "total": 28,
+      "hombres": 19,
+      "mujeres": 9
+    },
+    {
+      "codigo": "09366",
+      "nombre": "Solarana",
+      "total": 73,
+      "hombres": 47,
+      "mujeres": 26
+    },
+    {
+      "codigo": "09368",
+      "nombre": "Sordillos",
+      "total": 23,
+      "hombres": 13,
+      "mujeres": 10
+    },
+    {
+      "codigo": "09369",
+      "nombre": "Sotillo de la Ribera",
+      "total": 468,
+      "hombres": 256,
+      "mujeres": 212
+    },
+    {
+      "codigo": "09372",
+      "nombre": "Sotragero",
+      "total": 300,
+      "hombres": 173,
+      "mujeres": 127
+    },
+    {
+      "codigo": "09373",
+      "nombre": "Sotresgudo",
+      "total": 413,
+      "hombres": 245,
+      "mujeres": 168
+    },
+    {
+      "codigo": "09374",
+      "nombre": "Susinos del Páramo",
+      "total": 115,
+      "hombres": 74,
+      "mujeres": 41
+    },
+    {
+      "codigo": "09375",
+      "nombre": "Tamarón",
+      "total": 52,
+      "hombres": 29,
+      "mujeres": 23
+    },
+    {
+      "codigo": "09377",
+      "nombre": "Tardajos",
+      "total": 862,
+      "hombres": 456,
+      "mujeres": 406
+    },
+    {
+      "codigo": "09378",
+      "nombre": "Tejada",
+      "total": 35,
+      "hombres": 20,
+      "mujeres": 15
+    },
+    {
+      "codigo": "09380",
+      "nombre": "Terradillos de Esgueva",
+      "total": 58,
+      "hombres": 26,
+      "mujeres": 32
+    },
+    {
+      "codigo": "09381",
+      "nombre": "Tinieblas de la Sierra",
+      "total": 20,
+      "hombres": 12,
+      "mujeres": 8
+    },
+    {
+      "codigo": "09382",
+      "nombre": "Tobar",
+      "total": 27,
+      "hombres": 20,
+      "mujeres": 7
+    },
+    {
+      "codigo": "09384",
+      "nombre": "Tordómar",
+      "total": 290,
+      "hombres": 159,
+      "mujeres": 131
+    },
+    {
+      "codigo": "09386",
+      "nombre": "Torrecilla del Monte",
+      "total": 79,
+      "hombres": 43,
+      "mujeres": 36
+    },
+    {
+      "codigo": "09387",
+      "nombre": "Torregalindo",
+      "total": 130,
+      "hombres": 69,
+      "mujeres": 61
+    },
+    {
+      "codigo": "09388",
+      "nombre": "Torrelara",
+      "total": 34,
+      "hombres": 22,
+      "mujeres": 12
+    },
+    {
+      "codigo": "09389",
+      "nombre": "Torrepadre",
+      "total": 68,
+      "hombres": 39,
+      "mujeres": 29
+    },
+    {
+      "codigo": "09390",
+      "nombre": "Torresandino",
+      "total": 565,
+      "hombres": 289,
+      "mujeres": 276
+    },
+    {
+      "codigo": "09391",
+      "nombre": "Tórtoles de Esgueva",
+      "total": 362,
+      "hombres": 208,
+      "mujeres": 154
+    },
+    {
+      "codigo": "09392",
+      "nombre": "Tosantos",
+      "total": 48,
+      "hombres": 23,
+      "mujeres": 25
+    },
+    {
+      "codigo": "09394",
+      "nombre": "Trespaderne",
+      "total": 721,
+      "hombres": 365,
+      "mujeres": 356
+    },
+    {
+      "codigo": "09395",
+      "nombre": "Tubilla del Agua",
+      "total": 126,
+      "hombres": 81,
+      "mujeres": 45
+    },
+    {
+      "codigo": "09396",
+      "nombre": "Tubilla del Lago",
+      "total": 164,
+      "hombres": 86,
+      "mujeres": 78
+    },
+    {
+      "codigo": "09398",
+      "nombre": "Úrbel del Castillo",
+      "total": 53,
+      "hombres": 39,
+      "mujeres": 14
+    },
+    {
+      "codigo": "09400",
+      "nombre": "Vadocondes",
+      "total": 368,
+      "hombres": 202,
+      "mujeres": 166
+    },
+    {
+      "codigo": "09403",
+      "nombre": "Valdeande",
+      "total": 103,
+      "hombres": 56,
+      "mujeres": 47
+    },
+    {
+      "codigo": "09405",
+      "nombre": "Valdezate",
+      "total": 115,
+      "hombres": 64,
+      "mujeres": 51
+    },
+    {
+      "codigo": "09406",
+      "nombre": "Valdorros",
+      "total": 377,
+      "hombres": 213,
+      "mujeres": 164
+    },
+    {
+      "codigo": "09408",
+      "nombre": "Vallarta de Bureba",
+      "total": 41,
+      "hombres": 27,
+      "mujeres": 14
+    },
+    {
+      "codigo": "09904",
+      "nombre": "Valle de las Navas",
+      "total": 549,
+      "hombres": 325,
+      "mujeres": 224
+    },
+    {
+      "codigo": "09908",
+      "nombre": "Valle de Losa",
+      "total": 486,
+      "hombres": 275,
+      "mujeres": 211
+    },
+    {
+      "codigo": "09409",
+      "nombre": "Valle de Manzanedo",
+      "total": 115,
+      "hombres": 59,
+      "mujeres": 56
+    },
+    {
+      "codigo": "09410",
+      "nombre": "Valle de Mena",
+      "total": 4155,
+      "hombres": 2081,
+      "mujeres": 2074
+    },
+    {
+      "codigo": "09411",
+      "nombre": "Valle de Oca",
+      "total": 160,
+      "hombres": 93,
+      "mujeres": 67
+    },
+    {
+      "codigo": "09902",
+      "nombre": "Valle de Santibáñez",
+      "total": 482,
+      "hombres": 287,
+      "mujeres": 195
+    },
+    {
+      "codigo": "09905",
+      "nombre": "Valle de Sedano",
+      "total": 402,
+      "hombres": 225,
+      "mujeres": 177
+    },
+    {
+      "codigo": "09412",
+      "nombre": "Valle de Tobalina",
+      "total": 877,
+      "hombres": 471,
+      "mujeres": 406
+    },
+    {
+      "codigo": "09413",
+      "nombre": "Valle de Valdebezana",
+      "total": 479,
+      "hombres": 264,
+      "mujeres": 215
+    },
+    {
+      "codigo": "09414",
+      "nombre": "Valle de Valdelaguna",
+      "total": 187,
+      "hombres": 111,
+      "mujeres": 76
+    },
+    {
+      "codigo": "09415",
+      "nombre": "Valle de Valdelucio",
+      "total": 342,
+      "hombres": 199,
+      "mujeres": 143
+    },
+    {
+      "codigo": "09416",
+      "nombre": "Valle de Zamanzas",
+      "total": 46,
+      "hombres": 31,
+      "mujeres": 15
+    },
+    {
+      "codigo": "09417",
+      "nombre": "Vallejera",
+      "total": 38,
+      "hombres": 20,
+      "mujeres": 18
+    },
+    {
+      "codigo": "09418",
+      "nombre": "Valles de Palenzuela",
+      "total": 74,
+      "hombres": 42,
+      "mujeres": 32
+    },
+    {
+      "codigo": "09419",
+      "nombre": "Valluércanes",
+      "total": 70,
+      "hombres": 47,
+      "mujeres": 23
+    },
+    {
+      "codigo": "09407",
+      "nombre": "Valmala",
+      "total": 24,
+      "hombres": 13,
+      "mujeres": 11
+    },
+    {
+      "codigo": "09422",
+      "nombre": "Vid de Bureba, La",
+      "total": 26,
+      "hombres": 15,
+      "mujeres": 11
+    },
+    {
+      "codigo": "09421",
+      "nombre": "Vid y Barrios, La",
+      "total": 237,
+      "hombres": 138,
+      "mujeres": 99
+    },
+    {
+      "codigo": "09423",
+      "nombre": "Vileña",
+      "total": 23,
+      "hombres": 15,
+      "mujeres": 8
+    },
+    {
+      "codigo": "09427",
+      "nombre": "Villadiego",
+      "total": 1453,
+      "hombres": 799,
+      "mujeres": 654
+    },
+    {
+      "codigo": "09428",
+      "nombre": "Villaescusa de Roa",
+      "total": 95,
+      "hombres": 53,
+      "mujeres": 42
+    },
+    {
+      "codigo": "09429",
+      "nombre": "Villaescusa la Sombría",
+      "total": 61,
+      "hombres": 41,
+      "mujeres": 20
+    },
+    {
+      "codigo": "09430",
+      "nombre": "Villaespasa",
+      "total": 21,
+      "hombres": 14,
+      "mujeres": 7
+    },
+    {
+      "codigo": "09431",
+      "nombre": "Villafranca Montes de Oca",
+      "total": 117,
+      "hombres": 74,
+      "mujeres": 43
+    },
+    {
+      "codigo": "09432",
+      "nombre": "Villafruela",
+      "total": 140,
+      "hombres": 82,
+      "mujeres": 58
+    },
+    {
+      "codigo": "09433",
+      "nombre": "Villagalijo",
+      "total": 52,
+      "hombres": 30,
+      "mujeres": 22
+    },
+    {
+      "codigo": "09434",
+      "nombre": "Villagonzalo Pedernales",
+      "total": 1903,
+      "hombres": 999,
+      "mujeres": 904
+    },
+    {
+      "codigo": "09437",
+      "nombre": "Villahoz",
+      "total": 262,
+      "hombres": 141,
+      "mujeres": 121
+    },
+    {
+      "codigo": "09438",
+      "nombre": "Villalba de Duero",
+      "total": 720,
+      "hombres": 383,
+      "mujeres": 337
+    },
+    {
+      "codigo": "09439",
+      "nombre": "Villalbilla de Burgos",
+      "total": 1554,
+      "hombres": 827,
+      "mujeres": 727
+    },
+    {
+      "codigo": "09440",
+      "nombre": "Villalbilla de Gumiel",
+      "total": 73,
+      "hombres": 47,
+      "mujeres": 26
+    },
+    {
+      "codigo": "09441",
+      "nombre": "Villaldemiro",
+      "total": 92,
+      "hombres": 52,
+      "mujeres": 40
+    },
+    {
+      "codigo": "09442",
+      "nombre": "Villalmanzo",
+      "total": 409,
+      "hombres": 225,
+      "mujeres": 184
+    },
+    {
+      "codigo": "09443",
+      "nombre": "Villamayor de los Montes",
+      "total": 157,
+      "hombres": 79,
+      "mujeres": 78
+    },
+    {
+      "codigo": "09444",
+      "nombre": "Villamayor de Treviño",
+      "total": 59,
+      "hombres": 32,
+      "mujeres": 27
+    },
+    {
+      "codigo": "09445",
+      "nombre": "Villambistia",
+      "total": 44,
+      "hombres": 33,
+      "mujeres": 11
+    },
+    {
+      "codigo": "09446",
+      "nombre": "Villamedianilla",
+      "total": 9,
+      "hombres": 6,
+      "mujeres": 3
+    },
+    {
+      "codigo": "09447",
+      "nombre": "Villamiel de la Sierra",
+      "total": 43,
+      "hombres": 26,
+      "mujeres": 17
+    },
+    {
+      "codigo": "09448",
+      "nombre": "Villangómez",
+      "total": 229,
+      "hombres": 138,
+      "mujeres": 91
+    },
+    {
+      "codigo": "09449",
+      "nombre": "Villanueva de Argaño",
+      "total": 117,
+      "hombres": 67,
+      "mujeres": 50
+    },
+    {
+      "codigo": "09450",
+      "nombre": "Villanueva de Carazo",
+      "total": 24,
+      "hombres": 16,
+      "mujeres": 8
+    },
+    {
+      "codigo": "09451",
+      "nombre": "Villanueva de Gumiel",
+      "total": 281,
+      "hombres": 140,
+      "mujeres": 141
+    },
+    {
+      "codigo": "09454",
+      "nombre": "Villanueva de Teba",
+      "total": 43,
+      "hombres": 27,
+      "mujeres": 16
+    },
+    {
+      "codigo": "09455",
+      "nombre": "Villaquirán de la Puebla",
+      "total": 45,
+      "hombres": 28,
+      "mujeres": 17
+    },
+    {
+      "codigo": "09456",
+      "nombre": "Villaquirán de los Infantes",
+      "total": 154,
+      "hombres": 82,
+      "mujeres": 72
+    },
+    {
+      "codigo": "09903",
+      "nombre": "Villarcayo de Merindad de Castilla la Vieja",
+      "total": 4103,
+      "hombres": 2097,
+      "mujeres": 2006
+    },
+    {
+      "codigo": "09458",
+      "nombre": "Villariezo",
+      "total": 731,
+      "hombres": 395,
+      "mujeres": 336
+    },
+    {
+      "codigo": "09460",
+      "nombre": "Villasandino",
+      "total": 179,
+      "hombres": 102,
+      "mujeres": 77
+    },
+    {
+      "codigo": "09463",
+      "nombre": "Villasur de Herreros",
+      "total": 269,
+      "hombres": 156,
+      "mujeres": 113
+    },
+    {
+      "codigo": "09464",
+      "nombre": "Villatuelda",
+      "total": 41,
+      "hombres": 21,
+      "mujeres": 20
+    },
+    {
+      "codigo": "09466",
+      "nombre": "Villaverde del Monte",
+      "total": 112,
+      "hombres": 66,
+      "mujeres": 46
+    },
+    {
+      "codigo": "09467",
+      "nombre": "Villaverde-Mogina",
+      "total": 68,
+      "hombres": 48,
+      "mujeres": 20
+    },
+    {
+      "codigo": "09471",
+      "nombre": "Villayerno Morquillas",
+      "total": 208,
+      "hombres": 110,
+      "mujeres": 98
+    },
+    {
+      "codigo": "09472",
+      "nombre": "Villazopeque",
+      "total": 51,
+      "hombres": 30,
+      "mujeres": 21
+    },
+    {
+      "codigo": "09473",
+      "nombre": "Villegas",
+      "total": 83,
+      "hombres": 44,
+      "mujeres": 39
+    },
+    {
+      "codigo": "09476",
+      "nombre": "Villoruebo",
+      "total": 62,
+      "hombres": 42,
+      "mujeres": 20
+    },
+    {
+      "codigo": "09424",
+      "nombre": "Viloria de Rioja",
+      "total": 38,
+      "hombres": 24,
+      "mujeres": 14
+    },
+    {
+      "codigo": "09425",
+      "nombre": "Vilviestre del Pinar",
+      "total": 511,
+      "hombres": 278,
+      "mujeres": 233
+    },
+    {
+      "codigo": "09478",
+      "nombre": "Vizcaínos",
+      "total": 41,
+      "hombres": 34,
+      "mujeres": 7
+    },
+    {
+      "codigo": "09480",
+      "nombre": "Zael",
+      "total": 117,
+      "hombres": 58,
+      "mujeres": 59
+    },
+    {
+      "codigo": "09482",
+      "nombre": "Zarzosa de Río Pisuerga",
+      "total": 29,
+      "hombres": 19,
+      "mujeres": 10
+    },
+    {
+      "codigo": "09483",
+      "nombre": "Zazuar",
+      "total": 198,
+      "hombres": 102,
+      "mujeres": 96
+    },
+    {
+      "codigo": "09485",
+      "nombre": "Zuñeda",
+      "total": 58,
+      "hombres": 31,
+      "mujeres": 27
+    }
+  ]
+}
