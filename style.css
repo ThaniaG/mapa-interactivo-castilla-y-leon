@@ -823,3 +823,110 @@ select.filter-select:focus {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
+
+/* ══════════════════════════════════════════
+   13. ADAPTACIÓN A MÓVIL Y TABLET
+   El layout de escritorio usa un grid de 2 columnas fijas
+   (mapa a la izquierda, panel de 460px a la derecha) y barras
+   de filtros en una sola fila. En pantallas estrechas eso no
+   cabe, así que aquí se reorganiza todo:
+     - El mapa y el panel derecho se apilan en vertical
+       (mapa arriba, panel abajo) en vez de ir uno al lado del otro.
+     - Las barras de filtros pasan de "una fila fija" a
+       "varias filas que se ajustan" (flex-wrap).
+     - El header se reduce (se oculta el subtítulo y se encogen
+       los logos) para que quepa en pantallas de móvil.
+   ══════════════════════════════════════════ */
+@media (max-width: 900px) {
+
+    /* Header más compacto: quita el subtítulo y encoge los logos */
+    header {
+        height: auto;
+        min-height: 52px;
+        padding: 8px 12px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .header-title { font-size: 14px; }
+    .header-subtitle { display: none; }
+    .header-logos { gap: 8px; padding-right: 0; }
+    .header-logo-img { height: 26px; padding: 3px 6px; }
+
+    /* Barra de filtros: se permite que los filtros pasen a varias filas */
+    .filter-bar {
+        height: auto;
+        flex-wrap: wrap;
+        overflow: visible;
+        padding: 8px 10px;
+        gap: 8px 10px;
+    }
+    .filter-bar-jenny {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 8px 10px;
+        gap: 6px 8px;
+    }
+    /* El grupo "Capas" tiene 6 botones seguidos: también deben poder
+       pasar a una segunda línea si no caben (p. ej. en un móvil
+       en vertical), si no se cortarían fuera de la pantalla */
+    .filter-group {
+        flex-wrap: wrap;
+        row-gap: 6px;
+    }
+    /* Los separadores verticales no tienen sentido cuando los
+       filtros ya no están en una sola fila */
+    .filter-divider { display: none; }
+
+    /*
+      Layout principal: en vez de 2 columnas (mapa | panel),
+      pasa a 1 columna con 2 filas apiladas:
+        fila 1 → mapa (42% de la altura disponible)
+        fila 2 → panel derecho (el resto, con scroll propio)
+    */
+    .main {
+        grid-template-columns: 1fr;
+        grid-template-rows: 42vh 1fr;
+    }
+    .map-wrap {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .right-panel {
+        grid-column: 1;
+        grid-row: 2;
+        border-left: none;
+        border-top: 1px solid var(--border);
+    }
+
+    /* Botones y pestañas un poco más grandes para el dedo (touch) */
+    .radio-btn { padding: 7px 12px; font-size: 13px; }
+    .tab-btn { padding: 12px 6px; font-size: 12px; }
+}
+
+/* Pantallas muy pequeñas (móviles en vertical) */
+@media (max-width: 480px) {
+    .header-logos { display: none; }   /* prioridad al título en pantallas muy pequeñas */
+    .map-title { font-size: 11px; padding: 5px 10px; white-space: normal; text-align: center; }
+
+    /*
+      En pantallas muy pequeñas la barra de filtros ocupa demasiado
+      alto al tener 4 filas (Provincia/Variable, Sexo/Intervalos,
+      Capas...). Se reduce el tamaño de fuente y el padding para que
+      quede más compacta y el panel de la derecha (abajo) tenga
+      espacio real para mostrarse sin quedar aplastado.
+    */
+    .filter-bar { padding: 6px 8px; gap: 5px 8px; }
+    .filter-group label { font-size: 11px; }
+    select.filter-select { padding: 4px 22px 4px 8px; font-size: 12px; }
+    .radio-btn { padding: 5px 9px; font-size: 11.5px; }
+    .filter-bar-jenny { padding: 6px 8px; gap: 5px 6px; }
+
+    /* El pie de autoría se reduce al mínimo para no robar espacio vertical */
+    .app-footer { padding: 3px 10px; font-size: 9px; }
+
+    /* El mapa cede más altura al panel derecho: en un móvil pequeño
+       es más importante poder leer la ficha del municipio que ver
+       un mapa grande (el usuario puede hacer zoom/pan igualmente) */
+    .main { grid-template-rows: 30vh 1fr; }
+}
+

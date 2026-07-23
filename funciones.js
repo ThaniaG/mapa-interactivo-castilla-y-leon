@@ -222,6 +222,13 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     className: 'osm-tiles'       // Aplica el filtro de color definido en style.css
 }).addTo(map);
 
+// En móvil, el contenedor del mapa cambia de tamaño al girar la pantalla
+// (horizontal/vertical) o al mostrarse la barra de filtros de clústeres.
+// Leaflet necesita que se lo avisemos con invalidateSize(), si no el mapa
+// se queda con el tamaño antiguo y aparece cortado o en gris.
+window.addEventListener('resize', () => map.invalidateSize());
+window.addEventListener('orientationchange', () => setTimeout(() => map.invalidateSize(), 300));
+
 
 /* ══════════════════════════════════════════
    3. INICIALIZACIÓN DEL GRÁFICO (Chart.js)
