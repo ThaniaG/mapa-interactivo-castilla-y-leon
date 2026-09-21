@@ -1,0 +1,932 @@
+/*
+══════════════════════════════════════════════════════════
+  style.css — Estilos visuales del dashboard
+  Castilla y León · Datos de Población
+
+  Este archivo fue escrito completamente a mano en CSS puro,
+  sin usar ningún framework externo (ni Bootstrap ni Tailwind).
+  Toda la maquetación se basa en dos técnicas modernas de CSS:
+    - Flexbox : para alinear elementos en una sola fila o columna
+    - CSS Grid: para crear el layout de 2 columnas del contenido principal
+
+  Contenido:
+  1. Variables de color y tamaño
+  2. Reset general y body
+  3. Header (barra superior)
+  4. Barra de filtros
+  5. Layout principal (grid)
+  6. Tarjetas KPI
+  7. Área del mapa
+  8. Panel derecho (municipio, gráfico, tabla)
+  9. Leyenda del mapa
+  10. Tooltip del mapa
+  11. Barra de scroll personalizada
+══════════════════════════════════════════════════════════
+*/
+
+
+/* ══════════════════════════════════════════
+   1. VARIABLES DE COLOR Y TAMAÑO
+   Se definen aquí para poder cambiar el color
+   o tamaño de toda la web desde un solo lugar.
+   ══════════════════════════════════════════ */
+:root {
+    --primary:   #1b6ca8;   /* Azul principal (botones activos, números) */
+    --accent:    #2196f3;   /* Azul claro (detalles, barras del gráfico) */
+    --dark:      #0d1b2a;   /* Color oscuro del header */
+    --surface:   #ffffff;   /* Fondo blanco de paneles */
+    --bg:        #f0f4f8;   /* Fondo gris claro general */
+    --border:    #d0dce8;   /* Color de los bordes y líneas divisorias */
+    --text:      #1a2a3a;   /* Color del texto principal */
+    --muted:     #6b7f93;   /* Color del texto secundario (etiquetas, títulos pequeños) */
+    --header-h:  64px;      /* Altura del header superior */
+    --filter-h:  56px;      /* Altura de la barra de filtros */
+}
+
+
+/* ══════════════════════════════════════════
+   2. RESET GENERAL Y BODY
+   Elimina márgenes por defecto del navegador
+   y define la estructura base de la página.
+   ══════════════════════════════════════════ */
+
+/* Elimina márgenes y rellenos en todos los elementos */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/*
+  Body: apila verticalmente header → filtros → contenido.
+  "overflow: hidden" evita barra de scroll en la página entera.
+*/
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;          /* Ocupa toda la altura de la pantalla */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+
+/* ══════════════════════════════════════════
+   3. HEADER (barra superior oscura)
+   Contiene el logo "CL", el título y el
+   badge que muestra el año.
+   ══════════════════════════════════════════ */
+header {
+    height: var(--header-h);
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 16px;
+    flex-shrink: 0;         /* No se encoge aunque la pantalla sea pequeña */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Cuadrado azul con las letras "CL" (logo) */
+.header-logo {
+    width: 36px;
+    height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+/* Título principal del header */
+.header-title {
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+/* Subtítulo debajo del título */
+.header-subtitle {
+    color: #8ca0b8;
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: 1px;
+}
+
+/* Espacio vacío que empuja los logos hacia la derecha */
+.header-spacer { flex: 1; }
+
+/* Contenedor de logos institucionales en el header */
+.header-logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-right: 8px;
+}
+
+/* Cada logo individual en el header */
+.header-logo-img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    background: white;
+    border-radius: 6px;
+    padding: 5px 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* Footer de autoría */
+.app-footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.45);
+    font-size: 11px;
+    text-align: center;
+    padding: 8px 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    letter-spacing: 0.3px;
+}
+.app-footer strong {
+    color: rgba(255,255,255,0.75);
+}
+
+/* Etiqueta "Año 2025" en la esquina derecha del header */
+.header-badge {
+    background: rgba(33,150,243,0.2);
+    color: #90caf9;
+    border: 1px solid rgba(33,150,243,0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+/* ══════════════════════════════════════════
+   4. BARRA DE FILTROS
+   Franja blanca debajo del header con los
+   controles: Provincia, Variable, Sexo e Intervalos.
+   ══════════════════════════════════════════ */
+.filter-bar {
+    height: var(--filter-h);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 14px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+/* Texto "FILTROS" en mayúsculas a la izquierda */
+.filter-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+/* Contenedor de cada filtro: etiqueta + control */
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-group label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Estilo de los selectores desplegables (Provincia, Variable, Intervalos) */
+select.filter-select {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 28px 6px 10px;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    /* Flecha personalizada como imagen SVG inline */
+    background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%236b7f93' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 8px center;
+    -webkit-appearance: none; /* Elimina el estilo por defecto del navegador */
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+/* Resaltar el selector cuando está enfocado */
+select.filter-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(33,150,243,0.15);
+}
+
+/*
+  Botones de Sexo (Total / Hombres / Mujeres)
+  Funcionan como radio buttons visuales: al hacer clic
+  el seleccionado se pone azul y los otros quedan en blanco.
+*/
+.radio-group {
+    display: flex;
+    gap: 4px;
+}
+
+.radio-btn {
+    padding: 4px 9px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    background: white;
+    color: var(--muted);
+    transition: all 0.2s;
+    user-select: none;
+    white-space: nowrap;
+}
+
+/* Estado activo (botón seleccionado): se pone azul */
+.radio-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* Línea vertical separadora entre grupos de filtros */
+.filter-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--border);
+}
+
+/* Separador mini dentro del panel de clustering */
+.jenny-sep {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+    margin: 0 4px;
+}
+
+/* Aviso combinación inválida kmeans+corr */
+#aviso-corr {
+    background: #fff8e1;
+    border-bottom: 2px solid #f59e0b;
+    color: #7c4a00;
+    font-size: 13px;
+    padding: 8px 20px;
+    flex-shrink: 0;
+}
+
+/* Barra secundaria de controles de clustering */
+.filter-bar-jenny {
+    background: #f0f6ff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 8px;
+    flex-shrink: 0;
+    height: 46px;
+}
+
+.filter-bar-jenny label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+
+/* ══════════════════════════════════════════
+   5. LAYOUT PRINCIPAL
+   CSS Grid con 2 columnas y 2 filas:
+   - Columna izquierda (1fr) : mapa — ocupa todo el ancho disponible
+   - Columna derecha (340px) : panel fijo de 340px de ancho
+
+   "1fr" significa "1 fracción del espacio disponible", es decir,
+   el mapa crece o se encoge según el tamaño de la pantalla,
+   mientras que el panel derecho siempre mide exactamente 340px.
+
+   El mapa se extiende por las 2 filas usando en su elemento:
+     grid-row: 1 / 3  (desde la fila 1 hasta antes de la 3)
+   ══════════════════════════════════════════ */
+.main {
+    flex: 1;                /* Ocupa todo el espacio restante de la pantalla */
+    display: grid;
+    grid-template-columns: 1fr 460px;
+    grid-template-rows: 1fr;
+    gap: 0;
+    overflow: hidden;
+}
+
+
+/* ══════════════════════════════════════════
+   6. TARJETAS KPI (indicadores clave)
+   Muestran los totales de población de
+   Castilla y León: Total, Hombres, Mujeres.
+   Están en la columna derecha, fila 1.
+   ══════════════════════════════════════════ */
+.kpi-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Título pequeño encima de las tarjetas */
+.kpi-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Las 3 tarjetas en una sola fila */
+.kpi-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+}
+
+/* Cada tarjeta individual */
+.kpi-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 6px;
+    text-align: center;
+}
+
+/* Número dentro de la tarjeta */
+.kpi-card .kpi-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Etiqueta debajo del número */
+.kpi-card .kpi-lbl {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+
+/* ══════════════════════════════════════════
+   7. ÁREA DEL MAPA
+   Ocupa toda la columna izquierda (ambas filas).
+   El mapa de Leaflet se renderiza dentro del div #map.
+   ══════════════════════════════════════════ */
+.map-wrap {
+    grid-column: 1;
+    grid-row: 1;
+    position: relative;
+    background: #dce8f0;
+}
+
+/* El mapa ocupa todo el contenedor */
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+/* Título flotante encima del mapa */
+.map-title {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%); /* Centrado horizontal */
+    z-index: 500;                /* Encima del mapa */
+    background: rgba(255,255,255,0.95);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    white-space: nowrap;
+}
+
+/*
+  Filtro CSS aplicado sobre las imágenes del mapa de OpenStreetMap.
+  Los tiles (imágenes) de OSM tienen colores muy vivos (verde, naranja,
+  amarillo) que compiten visualmente con los colores de los municipios.
+  Este filtro los apaga sin cambiar la fuente de datos ni la cartografía:
+    - saturate(0.4)   : baja los colores al 40% de su intensidad original
+    - brightness(1.05): aclara ligeramente el resultado
+    - contrast(0.95)  : suaviza el contraste para un aspecto más limpio
+  Leaflet aplica la clase "osm-tiles" a las imágenes del mapa base,
+  que se asigna al crear el layer de OpenStreetMap en funciones.js.
+*/
+.osm-tiles {
+    filter: saturate(0.4) brightness(1.05) contrast(0.95);
+}
+
+
+/* ══════════════════════════════════════════
+   8. PANEL DERECHO (columna 2, fila 2)
+   Contiene:
+   1. Información del municipio seleccionado
+   2. Gráfico de barras (Top 10)
+   3. Tabla de ranking
+   ══════════════════════════════════════════ */
+.right-panel {
+    grid-column: 2;
+    grid-row: 1;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Cada sección del panel tiene su propio padding y borde inferior */
+.panel-section {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+/* Título de cada sección con una barra azul a la izquierda */
+.panel-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Barra vertical azul decorativa antes del título */
+.panel-section-title::before {
+    content: '';
+    width: 3px;
+    height: 14px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+
+/* Contenedor del gráfico de Chart.js con altura fija */
+.chart-container {
+    position: relative;
+    height: 190px;
+}
+
+/*
+  Tarjeta de municipio seleccionado.
+  Aparece cuando el usuario hace clic en un municipio del mapa.
+  Muestra nombre, provincia y los datos de población.
+*/
+.muni-info {
+    background: linear-gradient(135deg, var(--primary) 0%, #1565c0 100%);
+    border-radius: 8px;
+    padding: 8px 10px;
+    color: white;
+}
+
+.muni-info .muni-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 1px;
+}
+
+.muni-info .muni-prov {
+    font-size: 10px;
+    opacity: 0.8;
+    margin-bottom: 6px;
+}
+
+/* 3 mini-tarjetas dentro del municipio: Total, Hombres, Mujeres */
+.muni-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+}
+
+.muni-stat {
+    background: rgba(255,255,255,0.15);
+    border-radius: 6px;
+    padding: 4px 6px;
+    text-align: center;
+}
+
+.muni-stat .stat-val {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.muni-stat .stat-lbl {
+    font-size: 10px;
+    opacity: 0.8;
+    margin-top: 1px;
+}
+
+/* Mensaje que se muestra cuando no hay municipio seleccionado */
+.no-selection {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 16px 0;
+}
+
+.no-selection .icon {
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+/*
+  Tabla de ranking de municipios.
+  Lista los municipios ordenados por población.
+  Tiene scroll propio para no desbordar el panel.
+*/
+.table-wrap {
+    flex: 1;                /* Ocupa el espacio restante del panel */
+    overflow-y: auto;       /* Scroll vertical si hay muchas filas */
+    padding: 0 16px 16px;
+}
+
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+/* Encabezados fijos al hacer scroll en la tabla */
+.ranking-table thead th {
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    padding: 8px 6px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--text);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid var(--border);
+    border-top: 1px solid var(--border);
+}
+
+/* Filas de datos con efecto hover (fondo azul claro al pasar el ratón) */
+.ranking-table tbody tr {
+    border-bottom: 1px solid #f0f4f8;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.ranking-table tbody tr:hover {
+    background: #f0f7ff;
+}
+
+.ranking-table td {
+    padding: 7px 6px;
+    color: var(--text);
+}
+
+/* Número de posición en el ranking */
+.rank-num {
+    color: var(--muted);
+    font-weight: 600;
+    width: 24px;
+}
+
+/* Valor de población en azul y negrita */
+.rank-val {
+    font-weight: 600;
+    color: var(--primary);
+    text-align: right;
+}
+
+
+/* ══════════════════════════════════════════
+   9. PESTAÑAS DEL PANEL DERECHO
+   ══════════════════════════════════════════ */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid var(--border);
+    flex-shrink: 0;
+    background: var(--surface);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px 8px;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    background: none;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+    font-weight: 700;
+}
+
+.tab-btn:hover:not(.active) {
+    color: var(--text);
+    background: var(--bg);
+}
+
+/* Punto indicador cuando la pestaña Gráficos tiene datos nuevos */
+.tab-btn[data-ready="1"]:not(.active)::after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin-left: 5px;
+    vertical-align: middle;
+    opacity: 0.75;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+}
+
+
+/* ══════════════════════════════════════════
+   PESTAÑA DATAMINING
+   ══════════════════════════════════════════ */
+
+.dm-modelos {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.dm-modelo-card {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 8px;
+    text-align: center;
+}
+
+.dm-modelo-card.dm-modelo-best {
+    border-color: var(--primary);
+    background: rgba(33, 150, 243, 0.05);
+}
+
+.dm-modelo-acc {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.1;
+}
+
+.dm-modelo-card.dm-modelo-best .dm-modelo-acc {
+    color: #27ae60;
+}
+
+.dm-modelo-lbl {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 2px;
+}
+
+.dm-modelo-sub {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 1px;
+}
+
+.dm-clusters {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.dm-cluster {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text);
+    padding: 5px 8px;
+    border-radius: 4px;
+    line-height: 1.4;
+}
+
+.dm-cluster small {
+    font-weight: 400;
+    color: var(--muted);
+}
+
+.dm-desc {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+/* ══════════════════════════════════════════
+   10. LEYENDA DEL MAPA
+   Cuadro flotante en la esquina inferior derecha
+   del mapa que explica los rangos de colores.
+   ══════════════════════════════════════════ */
+.map-legend {
+    position: absolute;
+    bottom: 24px;
+    right: 12px;
+    z-index: 500;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 11px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-width: 130px;
+}
+
+.legend-title {
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    font-size: 11px;
+}
+
+/* Cada fila de la leyenda: cuadrado de color + etiqueta del rango */
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.legend-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.legend-label { color: var(--text); }
+
+
+/* ══════════════════════════════════════════
+   11. TOOLTIP DEL MAPA
+   Cuadro que aparece al pasar el ratón
+   sobre un municipio en el mapa.
+   ══════════════════════════════════════════ */
+.mapa-tooltip {
+    background: rgba(255,255,255,0.97);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--text);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    line-height: 1.5;
+}
+
+.mapa-tooltip strong {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* ══════════════════════════════════════════
+   12. BARRA DE SCROLL PERSONALIZADA
+   Solo visible en Chrome y Edge.
+   ══════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+
+/* ══════════════════════════════════════════
+   13. ADAPTACIÓN A MÓVIL Y TABLET
+   El layout de escritorio usa un grid de 2 columnas fijas
+   (mapa a la izquierda, panel de 460px a la derecha) y barras
+   de filtros en una sola fila. En pantallas estrechas eso no
+   cabe, así que aquí se reorganiza todo:
+     - El mapa y el panel derecho se apilan en vertical
+       (mapa arriba, panel abajo) en vez de ir uno al lado del otro.
+     - Las barras de filtros pasan de "una fila fija" a
+       "varias filas que se ajustan" (flex-wrap).
+     - El header se reduce (se oculta el subtítulo y se encogen
+       los logos) para que quepa en pantallas de móvil.
+   ══════════════════════════════════════════ */
+@media (max-width: 900px) {
+
+    /* Header más compacto: quita el subtítulo y encoge los logos */
+    header {
+        height: auto;
+        min-height: 52px;
+        padding: 8px 12px;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .header-title { font-size: 14px; }
+    .header-subtitle { display: none; }
+    .header-logos { gap: 8px; padding-right: 0; }
+    .header-logo-img { height: 26px; padding: 3px 6px; }
+
+    /* Barra de filtros: se permite que los filtros pasen a varias filas */
+    .filter-bar {
+        height: auto;
+        flex-wrap: wrap;
+        overflow: visible;
+        padding: 8px 10px;
+        gap: 8px 10px;
+    }
+    .filter-bar-jenny {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 8px 10px;
+        gap: 6px 8px;
+    }
+    /* El grupo "Capas" tiene 6 botones seguidos: también deben poder
+       pasar a una segunda línea si no caben (p. ej. en un móvil
+       en vertical), si no se cortarían fuera de la pantalla */
+    .filter-group {
+        flex-wrap: wrap;
+        row-gap: 6px;
+    }
+    /* Los separadores verticales no tienen sentido cuando los
+       filtros ya no están en una sola fila */
+    .filter-divider { display: none; }
+
+    /*
+      Layout principal: en vez de 2 columnas (mapa | panel),
+      pasa a 1 columna con 2 filas apiladas:
+        fila 1 → mapa (42% de la altura disponible)
+        fila 2 → panel derecho (el resto, con scroll propio)
+    */
+    .main {
+        grid-template-columns: 1fr;
+        grid-template-rows: 42vh 1fr;
+    }
+    .map-wrap {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .right-panel {
+        grid-column: 1;
+        grid-row: 2;
+        border-left: none;
+        border-top: 1px solid var(--border);
+    }
+
+    /* Botones y pestañas un poco más grandes para el dedo (touch) */
+    .radio-btn { padding: 7px 12px; font-size: 13px; }
+    .tab-btn { padding: 12px 6px; font-size: 12px; }
+}
+
+/* Pantallas muy pequeñas (móviles en vertical) */
+@media (max-width: 480px) {
+    .header-logos { display: none; }   /* prioridad al título en pantallas muy pequeñas */
+    .map-title { font-size: 11px; padding: 5px 10px; white-space: normal; text-align: center; }
+
+    /*
+      En pantallas muy pequeñas la barra de filtros ocupa demasiado
+      alto al tener 4 filas (Provincia/Variable, Sexo/Intervalos,
+      Capas...). Se reduce el tamaño de fuente y el padding para que
+      quede más compacta y el panel de la derecha (abajo) tenga
+      espacio real para mostrarse sin quedar aplastado.
+    */
+    .filter-bar { padding: 6px 8px; gap: 5px 8px; }
+    .filter-group label { font-size: 11px; }
+    select.filter-select { padding: 4px 22px 4px 8px; font-size: 12px; }
+    .radio-btn { padding: 5px 9px; font-size: 11.5px; }
+    .filter-bar-jenny { padding: 6px 8px; gap: 5px 6px; }
+
+    /* El pie de autoría se reduce al mínimo para no robar espacio vertical */
+    .app-footer { padding: 3px 10px; font-size: 9px; }
+
+    /* El mapa cede más altura al panel derecho: en un móvil pequeño
+       es más importante poder leer la ficha del municipio que ver
+       un mapa grande (el usuario puede hacer zoom/pan igualmente) */
+    .main { grid-template-rows: 30vh 1fr; }
+}
+
